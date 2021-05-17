@@ -3,9 +3,13 @@ ScriptsOnlyBuild:
     Assembly-CSharp.dll:
     - MainMenu
     - MouseLook
+    - Outline
     - PickUp
     - PlayerMovement
     - UnityTemplateProjects.SimpleCameraController
+    Unity.CollabProxy.Editor.dll:
+    - Unity.Cloud.Collaborate.UserInterface.CollaborateWindow
+    - Unity.Cloud.Collaborate.UserInterface.WindowCache
     Unity.RenderPipelines.Core.Runtime.dll:
     - UnityEngine.Rendering.UI.DebugUIHandlerBitField
     - UnityEngine.Rendering.UI.DebugUIHandlerButton
@@ -274,6 +278,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 5694}
     - Class: 114
       Script: {instanceID: 5790}
+    - Class: 114
+      Script: {instanceID: 22496}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 143
@@ -1159,6 +1165,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
     className: TouchInputModule
+  - hash:
+      serializedVersion: 2
+      Hash: ff7f58b226cfe4de0dc241bd88d5a904
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Outline
   platform: 5
   scenePathNames:
   - Assets/Scenes/MainMenuScene.unity

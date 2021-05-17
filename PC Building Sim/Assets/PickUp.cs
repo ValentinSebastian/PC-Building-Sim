@@ -24,11 +24,11 @@ public class PickUp : MonoBehaviour
 
     void OnMouseEnter()
     {
-        startcolor = GetComponent<Renderer>().material.color;
-        GetComponent<Renderer>().material.color = Color.yellow;
+        startcolor = GetComponent<Outline>().OutlineColor;
+        GetComponent<Outline>().OutlineColor = Color.red;
     }
     void OnMouseExit()
     {
-        GetComponent<Renderer>().material.color = startcolor;
+        GetComponent<Outline>().OutlineColor = startcolor;
     }
 }
