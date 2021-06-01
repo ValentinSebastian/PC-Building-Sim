@@ -38,6 +38,8 @@ public class HoldToPickUp : MonoBehaviour
         if (HasItemTargeted() && !isHoldingItem)
         {
             pickupImageRoot.gameObject.SetActive(true);
+            if(pickupImageRoot.gameObject.transform.localScale.x < 1f)
+                pickupImageRoot.gameObject.transform.localScale += new Vector3(0.01f, 0.01f, 0.01f);
             if (Input.GetButton("Fire1"))
             {
                 IncrementPickupAndTryComplete();
@@ -51,6 +53,7 @@ public class HoldToPickUp : MonoBehaviour
         else
         {
             pickupImageRoot.gameObject.SetActive(false);
+            pickupImageRoot.gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
             pickupProgressImage.fillAmount = 0;
             currentPickupTimerElapsed = 0f;
             if (isHoldingItem)
