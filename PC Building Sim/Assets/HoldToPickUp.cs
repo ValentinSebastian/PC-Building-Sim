@@ -14,30 +14,43 @@ public class HoldToPickUp : MonoBehaviour
     [SerializeField]
     private Image pickupProgressImage;
     [SerializeField]
-    private LayerMask layerMask;
+    private LayerMask layerMaskComponent;
+    [SerializeField]
+    private LayerMask layerMaskLocation;
     [SerializeField]
     public Transform theDestination;
     [SerializeField]
     private float pickupCooldown;
     [SerializeField]
+    private GameObject thePlayer;
+    [SerializeField]
     private TMPro.TextMeshProUGUI itemNameText;
 
     private PC_Component itemBeingPickedUp;
+    private PC_Component lastItemBeingPickedUp;
+    private PC_Component heldItem;
+    private ComponentLocation compLocation;
     private float currentPickupTimerElapsed;
     private float currentPickupCooldown;
     private bool isHoldingItem = false;
-
+    private Transform originalTransform;
+    private bool mouseHoveringItem;
+    PlayerStatus ps;
     // Update is called once per frame
     private void Start()
     {
         pickupProgressImage.fillAmount = 0;
+        ps = thePlayer.GetComponent<PlayerStatus>();
+        originalTransform = this.transform;
     }
     void Update()
-    {
+    {   
+
         SelectComponentFromRay();
         if (HasItemTargeted() && !isHoldingItem)
         {
             pickupImageRoot.gameObject.SetActive(true);
+            Debug.Log("Item targeted : " + itemBeingPickedUp.gameObject.name);
             if(pickupImageRoot.gameObject.transform.localScale.x < 1f)
                 pickupImageRoot.gameObject.transform.localScale += new Vector3(0.01f, 0.01f, 0.01f);
             if (Input.GetButton("Fire1"))
@@ -50,34 +63,53 @@ public class HoldToPickUp : MonoBehaviour
             }
             UpdatePickupProgressImage();
         }
-        else
+        else 
         {
+            Debug.Log("entered on else");       
             pickupImageRoot.gameObject.SetActive(false);
             pickupImageRoot.gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
             pickupProgressImage.fillAmount = 0;
             currentPickupTimerElapsed = 0f;
-            if (isHoldingItem)
+           if(isHoldingItem)
             {
-                if (Input.GetButton("Fire2"))
+                SelectLocationFromRay();
+                if (HasCompLocationTargeted())
                 {
-                    DropComponent();
+                    if (Input.GetButton("Fire2"))
+                    {
+                        PlaceComponent();
+                    }
+                }
+                else 
+                {
+                    if (Input.GetButton("Fire2"))
+                    {
+                        DropComponent();
+                    }
                 }
             }
         }
     }
-
+    private void OnMouseEnter()
+    {
+        mouseHoveringItem = true;
+    }
+    private void OnMouseExit()
+    {
+        mouseHoveringItem = false;
+    }
     private void SelectComponentFromRay()
     {
         Ray ray = camera.ViewportPointToRay(Vector3.one / 2f);
         RaycastHit hitinfo;
-        if(Physics.Raycast(ray , out hitinfo , 2f , layerMask))
+        if(Physics.Raycast(ray , out hitinfo , 2f , layerMaskComponent))
         {
             var hititem = hitinfo.collider.GetComponent<PC_Component>();
             if(hititem == null)
             {
                 itemBeingPickedUp = null;
             }
-            else if(hititem != null && hititem != itemBeingPickedUp)
+            else if(hititem != null && hititem != itemBeingPickedUp && hitinfo.collider.gameObject == this.gameObject)
             {
                 itemBeingPickedUp = hititem;
                 itemNameText.text = "Pickup " + itemBeingPickedUp.gameObject.name;
@@ -88,8 +120,29 @@ public class HoldToPickUp : MonoBehaviour
             itemBeingPickedUp = null;
         }
     }
-
-    private void StartPickupCooldown()
+    private void SelectLocationFromRay()
+    {
+        Ray ray = camera.ViewportPointToRay(Vector3.one / 2f);
+        RaycastHit hitinfo;
+        if (Physics.Raycast(ray, out hitinfo, 2f, layerMaskLocation))
+        {
+            var hititem = hitinfo.collider.GetComponent<ComponentLocation>();
+            if (hititem == null)
+            {
+                compLocation = null;
+            }
+            else if (hititem != null && hititem != compLocation)
+            {
+                Debug.Log("FoundLocation");
+                compLocation = hititem;
+            }
+        }
+        else
+        {
+            compLocation = null;
+        }
+    }
+private void StartPickupCooldown()
     {
         currentPickupTimerElapsed += Time.deltaTime;
     }
@@ -104,6 +157,10 @@ public class HoldToPickUp : MonoBehaviour
     {
         return itemBeingPickedUp != null;
     }
+    private bool HasCompLocationTargeted()
+    {
+        return compLocation != null;
+    }
 
     private void IncrementPickupAndTryComplete()
     {
@@ -116,18 +173,37 @@ public class HoldToPickUp : MonoBehaviour
 
     private void PickupComponent()
     {
+        heldItem = itemBeingPickedUp;
         GetComponent<BoxCollider>().enabled = false;
         GetComponent<Rigidbody>().useGravity = false;
         this.transform.position = theDestination.position;
-        this.transform.parent = GameObject.Find("PickUpLocation").transform;
+        //heldItem.transform.localScale = originalTransform.localScale / 2;
+        this.transform.parent = theDestination.transform;
         isHoldingItem = true;
+        ps.isHolding = true;
     }
 
     private void DropComponent()
-    {
-        this.transform.parent = null;
+    {    
+        heldItem.transform.parent = null;        
         GetComponent<Rigidbody>().useGravity = true;
         GetComponent<BoxCollider>().enabled = true;
+        //heldItem.transform.localScale = originalTransform.localScale;
+        heldItem = null;
         isHoldingItem = false;
+        ps.isHolding = false;
+    }
+    private void PlaceComponent()
+    {
+        Debug.Log("Placed object");
+        GetComponent<BoxCollider>().enabled = false;
+        GetComponent<Rigidbody>().useGravity = false;
+        this.transform.position = compLocation.transform.position;
+        this.transform.rotation = compLocation.transform.rotation;
+        //heldItem.transform.localScale = originalTransform.localScale;
+        this.transform.parent = compLocation.transform;
+        heldItem = null;
+        isHoldingItem = false;
+        ps.isHolding = false;
     }
 }
