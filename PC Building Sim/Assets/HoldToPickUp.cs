@@ -27,14 +27,13 @@ public class HoldToPickUp : MonoBehaviour
     private TMPro.TextMeshProUGUI itemNameText;
 
     private PC_Component itemBeingPickedUp;
-    private PC_Component lastItemBeingPickedUp;
+    private static PC_Component lastItemBeingPickedUp;
     private PC_Component heldItem;
     private ComponentLocation compLocation;
     private float currentPickupTimerElapsed;
     private float currentPickupCooldown;
     private bool isHoldingItem = false;
     private Transform originalTransform;
-    private bool mouseHoveringItem;
     PlayerStatus ps;
     // Update is called once per frame
     private void Start()
@@ -42,61 +41,63 @@ public class HoldToPickUp : MonoBehaviour
         pickupProgressImage.fillAmount = 0;
         ps = thePlayer.GetComponent<PlayerStatus>();
         originalTransform = this.transform;
+        lastItemBeingPickedUp = new PC_Component();
     }
     void Update()
     {   
 
         SelectComponentFromRay();
-        if (HasItemTargeted() && !isHoldingItem)
+        if (lastItemBeingPickedUp == this.GetComponent<PC_Component>())
         {
-            pickupImageRoot.gameObject.SetActive(true);
-            Debug.Log("Item targeted : " + itemBeingPickedUp.gameObject.name);
-            if(pickupImageRoot.gameObject.transform.localScale.x < 1f)
-                pickupImageRoot.gameObject.transform.localScale += new Vector3(0.01f, 0.01f, 0.01f);
-            if (Input.GetButton("Fire1"))
+            if (HasItemTargeted() && !isHoldingItem)
             {
-                IncrementPickupAndTryComplete();
+                pickupImageRoot.gameObject.SetActive(true);
+                Debug.Log("Item targeted : " + itemBeingPickedUp.gameObject.name);
+                if (pickupImageRoot.gameObject.transform.localScale.x < 1f)
+                    pickupImageRoot.gameObject.transform.localScale += new Vector3(0.01f, 0.01f, 0.01f);
+                if (Input.GetButton("Fire1"))
+                {
+                    IncrementPickupAndTryComplete();
+                }
+                else
+                {
+                    currentPickupTimerElapsed = 0f;
+                }
+                UpdatePickupProgressImage();
             }
             else
             {
+                Debug.Log("entered on else");
+                pickupImageRoot.gameObject.SetActive(false);
+                pickupImageRoot.gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                pickupProgressImage.fillAmount = 0;
                 currentPickupTimerElapsed = 0f;
+                if (isHoldingItem)
+                {
+                    SelectLocationFromRay();
+                    if (HasCompLocationTargeted())
+                    {
+                        if (Input.GetButton("Fire2"))
+                        {
+                            PlaceComponent();
+                        }
+                    }
+                    else
+                    {
+                        if (Input.GetButton("Fire2"))
+                        {
+                            DropComponent();
+                        }
+                    }
+                }
             }
-            UpdatePickupProgressImage();
+
         }
-        else 
+        if(Input.GetKeyDown(KeyCode.E))
         {
-            Debug.Log("entered on else");       
-            pickupImageRoot.gameObject.SetActive(false);
-            pickupImageRoot.gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-            pickupProgressImage.fillAmount = 0;
-            currentPickupTimerElapsed = 0f;
-           if(isHoldingItem)
-            {
-                SelectLocationFromRay();
-                if (HasCompLocationTargeted())
-                {
-                    if (Input.GetButton("Fire2"))
-                    {
-                        PlaceComponent();
-                    }
-                }
-                else 
-                {
-                    if (Input.GetButton("Fire2"))
-                    {
-                        DropComponent();
-                    }
-                }
-            }
+            Debug.Log("lastItem  " + lastItemBeingPickedUp);
+            Debug.Log("this  " + this);
         }
-    }
-    private void OnMouseEnter()
-    {
-        mouseHoveringItem = true;
-    }
-    private void OnMouseExit()
-    {
-        mouseHoveringItem = false;
     }
     private void SelectComponentFromRay()
     {
@@ -112,6 +113,7 @@ public class HoldToPickUp : MonoBehaviour
             else if(hititem != null && hititem != itemBeingPickedUp && hitinfo.collider.gameObject == this.gameObject)
             {
                 itemBeingPickedUp = hititem;
+                lastItemBeingPickedUp = hititem;
                 itemNameText.text = "Pickup " + itemBeingPickedUp.gameObject.name;
             }
         }
@@ -142,7 +144,7 @@ public class HoldToPickUp : MonoBehaviour
             compLocation = null;
         }
     }
-private void StartPickupCooldown()
+    private void StartPickupCooldown()
     {
         currentPickupTimerElapsed += Time.deltaTime;
     }
