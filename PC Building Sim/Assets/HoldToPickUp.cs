@@ -39,14 +39,16 @@ public class HoldToPickUp : MonoBehaviour
     private void Start()
     {
         pickupProgressImage.fillAmount = 0;
+        pickupImageRoot.gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        pickupImageRoot.gameObject.SetActive(false);
         ps = thePlayer.GetComponent<PlayerStatus>();
         originalTransform = this.transform;
         lastItemBeingPickedUp = new PC_Component();
     }
     void Update()
     {   
-
-        SelectComponentFromRay();
+        if(!ps.isHolding)
+            SelectComponentFromRay();
         if (lastItemBeingPickedUp == this.GetComponent<PC_Component>())
         {
             if (HasItemTargeted() && !isHoldingItem)
@@ -179,7 +181,7 @@ public class HoldToPickUp : MonoBehaviour
         GetComponent<BoxCollider>().enabled = false;
         GetComponent<Rigidbody>().useGravity = false;
         this.transform.position = theDestination.position;
-        //heldItem.transform.localScale = originalTransform.localScale / 2;
+        this.transform.localScale = originalTransform.localScale / 2;
         this.transform.parent = theDestination.transform;
         isHoldingItem = true;
         ps.isHolding = true;
@@ -190,7 +192,7 @@ public class HoldToPickUp : MonoBehaviour
         heldItem.transform.parent = null;        
         GetComponent<Rigidbody>().useGravity = true;
         GetComponent<BoxCollider>().enabled = true;
-        //heldItem.transform.localScale = originalTransform.localScale;
+        this.transform.localScale = originalTransform.localScale;
         heldItem = null;
         isHoldingItem = false;
         ps.isHolding = false;
@@ -202,7 +204,8 @@ public class HoldToPickUp : MonoBehaviour
         GetComponent<Rigidbody>().useGravity = false;
         this.transform.position = compLocation.transform.position;
         this.transform.rotation = compLocation.transform.rotation;
-        //heldItem.transform.localScale = originalTransform.localScale;
+        this.transform.Rotate(-90f, 0f,-90f);
+        this.transform.localScale = originalTransform.localScale * 2;
         this.transform.parent = compLocation.transform;
         heldItem = null;
         isHoldingItem = false;

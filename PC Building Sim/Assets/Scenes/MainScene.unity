@@ -3470,7 +3470,7 @@ GameObject:
   - component: {fileID: 2103341162}
   m_Layer: 7
   m_Name: MotherboardLocationPlane
-  m_TagString: Untagged
+  m_TagString: MotherboardLocation
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3483,8 +3483,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2103341154}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.24}
+  m_LocalPosition: {x: 0.1, y: 0.06, z: -0.1}
+  m_LocalScale: {x: 0.28, y: 0.28, z: 0.24}
   m_Children: []
   m_Father: {fileID: 1496908579}
   m_RootOrder: 0
@@ -3523,7 +3523,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2103341154}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -3535,7 +3535,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: ec624a8e71e31e94e87de3f25ee55312, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10014,13 +10014,59 @@ GameObject:
   - component: {fileID: 6081165779729292095}
   - component: {fileID: 5644255715081454751}
   - component: {fileID: 5799396707935395412}
-  m_Layer: 6
+  - component: {fileID: 2447085285361245653}
+  - component: {fileID: 2447085285361245652}
+  - component: {fileID: 2447085285361245651}
+  m_Layer: 7
   m_Name: Box069
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &2447085285361245651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2447085285361245650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0374395be453c6e4c88d9e9bbef389e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2447085285361245652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2447085285361245650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
+--- !u!65 &2447085285361245653
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2447085285361245650}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 0.12224593, y: 1.1256816, z: 0.12903757}
+  m_Center: {x: -9.614042e-10, y: -0.00000095222583, z: 0.06451826}
 --- !u!4 &2459157237939292159
 Transform:
   m_ObjectHideFlags: 0
@@ -15401,6 +15447,10 @@ PrefabInstance:
       propertyPath: layerMaskComponent.m_Bits
       value: 64
       objectReference: {fileID: 0}
+    - target: {fileID: 4709681248877994445, guid: 4ba57db0b8531b44c8ebf468483fc82c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4709681249486230244, guid: 4ba57db0b8531b44c8ebf468483fc82c, type: 3}
       propertyPath: m_Name
       value: Default_Gpu
@@ -19502,12 +19552,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6362752925272173172}
-  - component: {fileID: 5982709671480045780}
   - component: {fileID: 5982709671480045779}
   - component: {fileID: 5982709671480045778}
   - component: {fileID: 5982709671480045777}
   - component: {fileID: 5982709671480045776}
   - component: {fileID: 5982709671480045775}
+  - component: {fileID: 5982709671480045781}
   m_Layer: 6
   m_Name: motherboard_default_model
   m_TagString: Untagged
@@ -19600,7 +19650,7 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
---- !u!114 &5982709671480045780
+--- !u!114 &5982709671480045781
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -19609,7 +19659,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5982709671480045774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7504c34bc2c8b5342877adf4ef884e2e, type: 3}
+  m_Script: {fileID: 11500000, guid: 4957ddb4fc02fde4cbb2b383854edbcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &6019383239496367118
