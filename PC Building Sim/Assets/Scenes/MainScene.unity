@@ -914,6 +914,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0374395be453c6e4c88d9e9bbef389e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &939171736 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 264e3d2a47d2e3f4cb2b7644070fdb11, type: 3}
+  m_PrefabInstance: {fileID: 1945643910}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &939171737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 939171736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c850eb6a2cafdc7459d30b7d65e1265a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1098186557
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3523,7 +3540,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2103341154}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -10019,7 +10036,7 @@ GameObject:
   - component: {fileID: 2447085285361245651}
   m_Layer: 7
   m_Name: Box069
-  m_TagString: Untagged
+  m_TagString: GPULocation
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10062,11 +10079,11 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2447085285361245650}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
+  m_IsTrigger: 1
+  m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.12224593, y: 1.1256816, z: 0.12903757}
-  m_Center: {x: -9.614042e-10, y: -0.00000095222583, z: 0.06451826}
+  m_Size: {x: 0.61444277, y: 1.1256816, z: 0.6946579}
+  m_Center: {x: -0.010758533, y: -0.0000009635472, z: 0.3473293}
 --- !u!4 &2459157237939292159
 Transform:
   m_ObjectHideFlags: 0
@@ -15455,6 +15472,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Default_Gpu
       objectReference: {fileID: 0}
+    - target: {fileID: 4709681249486230244, guid: 4ba57db0b8531b44c8ebf468483fc82c, type: 3}
+      propertyPath: m_TagString
+      value: GPU
+      objectReference: {fileID: 0}
     - target: {fileID: 4709681249486230247, guid: 4ba57db0b8531b44c8ebf468483fc82c, type: 3}
       propertyPath: m_RootOrder
       value: 13
@@ -15503,8 +15524,13 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5592714226984730276, guid: 4ba57db0b8531b44c8ebf468483fc82c, type: 3}
+      propertyPath: m_TagString
+      value: GPU
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4709681248877994445, guid: 4ba57db0b8531b44c8ebf468483fc82c, type: 3}
+    - {fileID: 4709681248877994442, guid: 4ba57db0b8531b44c8ebf468483fc82c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 4ba57db0b8531b44c8ebf468483fc82c, type: 3}
 --- !u!1 &4709681249244809738 stripped
 GameObject:
@@ -19571,7 +19597,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6362752925272173172}
   - component: {fileID: 5982709671480045779}
-  - component: {fileID: 5982709671480045778}
   - component: {fileID: 5982709671480045777}
   - component: {fileID: 5982709671480045776}
   - component: {fileID: 5982709671480045775}
@@ -19638,18 +19663,6 @@ MonoBehaviour:
   pickupCooldown: 0
   thePlayer: {fileID: 1544633799}
   itemNameText: {fileID: 1804779100}
---- !u!114 &5982709671480045778
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5982709671480045774}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0374395be453c6e4c88d9e9bbef389e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5982709671480045779
 MonoBehaviour:
   m_ObjectHideFlags: 0

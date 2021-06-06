@@ -6,6 +6,12 @@ TagManager:
   tags:
   - MotherboardLocation
   - Motherboard
+  - GPU
+  - CPU
+  - RAM
+  - GPULocation
+  - CPULocation
+  - RAMLocation
   layers:
   - Default
   - TransparentFX

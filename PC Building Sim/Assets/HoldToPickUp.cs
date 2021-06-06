@@ -29,23 +29,19 @@ public class HoldToPickUp : MonoBehaviour
     private PC_Component itemBeingPickedUp;
     private static PC_Component lastItemBeingPickedUp;
     private static ComponentLocation lastComponentLocation;
+    private ComputerStatus computerStatus;
     private PC_Component heldItem;
     private ComponentLocation compLocation;
     private float currentPickupTimerElapsed;
     private float currentPickupCooldown;
     private bool isHoldingItem = false;
     private Transform originalTransform;
+    private Color startcolor;
     PlayerStatus ps;
     // Update is called once per frame
     private void Start()
     {
-        pickupProgressImage.fillAmount = 0;
-        pickupImageRoot.gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-        pickupImageRoot.gameObject.SetActive(false);
-        ps = thePlayer.GetComponent<PlayerStatus>();
-        originalTransform = this.transform;
-        lastItemBeingPickedUp = new PC_Component();
-        lastComponentLocation = new ComponentLocation();
+        Init();
     }
     void Update()
     {   
@@ -74,7 +70,7 @@ public class HoldToPickUp : MonoBehaviour
                 pickupImageRoot.gameObject.SetActive(false);
                 pickupImageRoot.gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                 pickupProgressImage.fillAmount = 0;
-                currentPickupTimerElapsed = 0f;
+                currentPickupTimerElapsed = 0f;                
                 if (isHoldingItem)
                 {
                     SelectLocationFromRay();
@@ -107,20 +103,18 @@ public class HoldToPickUp : MonoBehaviour
         if(Physics.Raycast(ray , out hitinfo , 2f , layerMaskComponent))
         {
             var hititem = hitinfo.collider.GetComponent<PC_Component>();
-            if(hititem == null)
+            if(hititem != null && hititem != itemBeingPickedUp && hitinfo.collider.gameObject == this.gameObject)
             {
-                itemBeingPickedUp = null;
-            }
-            else if(hititem != null && hititem != itemBeingPickedUp && hitinfo.collider.gameObject == this.gameObject)
-            {
+                GetComponent<Outline>().OutlineColor = Color.red;
                 itemBeingPickedUp = hititem;
                 lastItemBeingPickedUp = hititem;
-                itemNameText.text = "Pickup " + itemBeingPickedUp.gameObject.name;
+                itemNameText.text = "Pickup " + itemBeingPickedUp.tag;
             }
         }
         else
         {
             itemBeingPickedUp = null;
+            GetComponent<Outline>().OutlineColor = startcolor;
         }
     }
     private void SelectLocationFromRay()
@@ -177,6 +171,8 @@ public class HoldToPickUp : MonoBehaviour
 
     private void PickupComponent()
     {
+        if (GetComponent<Collider>().isTrigger == true)
+            ModifyPCStatus(false);
         heldItem = itemBeingPickedUp;
         GetComponent<Rigidbody>().useGravity = false;
         GetComponent<Collider>().isTrigger = true;
@@ -206,8 +202,41 @@ public class HoldToPickUp : MonoBehaviour
         this.transform.Rotate(-90f, 0f,-90f);
         this.transform.localScale = originalTransform.localScale * 2;
         this.transform.parent = compLocation.transform;
+        ModifyPCStatus(true);
         heldItem = null;
         isHoldingItem = false;
         ps.isHolding = false;
+    }
+
+    public void ModifyPCStatus(bool status)
+    {
+        switch(lastItemBeingPickedUp.tag)
+        {
+            case "GPU":
+                computerStatus.HasGpu = status;
+                break;
+            case "CPU":
+                computerStatus.HasCpu = status;
+                break;
+            case "Motherboard":
+                computerStatus.HasMotherboard = status;
+                break;
+            case "RAM":
+                computerStatus.HasRam = status;
+                break;
+        }
+        Debug.Log("Modified status of " + lastItemBeingPickedUp.tag + " to " + status);
+    }
+    public void Init()
+    {
+        pickupProgressImage.fillAmount = 0;
+        pickupImageRoot.gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        pickupImageRoot.gameObject.SetActive(false);
+        ps = thePlayer.GetComponent<PlayerStatus>();
+        originalTransform = this.transform;
+        lastItemBeingPickedUp = new PC_Component();
+        lastComponentLocation = new ComponentLocation();
+        startcolor = GetComponent<Outline>().OutlineColor;
+        computerStatus = GameObject.Find("MotherboardLocation").transform.parent.gameObject.GetComponent<ComputerStatus>();
     }
 }
