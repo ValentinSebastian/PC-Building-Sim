@@ -28,6 +28,7 @@ public class HoldToPickUp : MonoBehaviour
 
     private PC_Component itemBeingPickedUp;
     private static PC_Component lastItemBeingPickedUp;
+    private static ComponentLocation lastComponentLocation;
     private PC_Component heldItem;
     private ComponentLocation compLocation;
     private float currentPickupTimerElapsed;
@@ -44,6 +45,7 @@ public class HoldToPickUp : MonoBehaviour
         ps = thePlayer.GetComponent<PlayerStatus>();
         originalTransform = this.transform;
         lastItemBeingPickedUp = new PC_Component();
+        lastComponentLocation = new ComponentLocation();
     }
     void Update()
     {   
@@ -69,7 +71,6 @@ public class HoldToPickUp : MonoBehaviour
             }
             else
             {
-                Debug.Log("entered on else");
                 pickupImageRoot.gameObject.SetActive(false);
                 pickupImageRoot.gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                 pickupProgressImage.fillAmount = 0;
@@ -81,7 +82,10 @@ public class HoldToPickUp : MonoBehaviour
                     {
                         if (Input.GetButton("Fire2"))
                         {
-                            PlaceComponent();
+                            if (lastComponentLocation.tag == lastItemBeingPickedUp.tag + "Location")
+                                PlaceComponent();
+                            else
+                                Debug.Log(lastComponentLocation.tag + " / " + lastItemBeingPickedUp.tag + "Location");
                         }
                     }
                     else
@@ -94,11 +98,6 @@ public class HoldToPickUp : MonoBehaviour
                 }
             }
 
-        }
-        if(Input.GetKeyDown(KeyCode.E))
-        {
-            Debug.Log("lastItem  " + lastItemBeingPickedUp);
-            Debug.Log("this  " + this);
         }
     }
     private void SelectComponentFromRay()
@@ -138,6 +137,7 @@ public class HoldToPickUp : MonoBehaviour
             else if (hititem != null && hititem != compLocation)
             {
                 Debug.Log("FoundLocation");
+                lastComponentLocation = hititem;
                 compLocation = hititem;
             }
         }
@@ -178,8 +178,8 @@ public class HoldToPickUp : MonoBehaviour
     private void PickupComponent()
     {
         heldItem = itemBeingPickedUp;
-        GetComponent<BoxCollider>().enabled = false;
         GetComponent<Rigidbody>().useGravity = false;
+        GetComponent<Collider>().isTrigger = true;
         this.transform.position = theDestination.position;
         this.transform.localScale = originalTransform.localScale / 2;
         this.transform.parent = theDestination.transform;
@@ -191,8 +191,8 @@ public class HoldToPickUp : MonoBehaviour
     {    
         heldItem.transform.parent = null;        
         GetComponent<Rigidbody>().useGravity = true;
-        GetComponent<BoxCollider>().enabled = true;
-        this.transform.localScale = originalTransform.localScale;
+        GetComponent<Collider>().isTrigger = false;
+        this.transform.localScale = originalTransform.localScale*2;
         heldItem = null;
         isHoldingItem = false;
         ps.isHolding = false;
@@ -200,7 +200,6 @@ public class HoldToPickUp : MonoBehaviour
     private void PlaceComponent()
     {
         Debug.Log("Placed object");
-        GetComponent<BoxCollider>().enabled = false;
         GetComponent<Rigidbody>().useGravity = false;
         this.transform.position = compLocation.transform.position;
         this.transform.rotation = compLocation.transform.rotation;

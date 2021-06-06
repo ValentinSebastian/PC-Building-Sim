@@ -1392,7 +1392,7 @@ GameObject:
   - component: {fileID: 1496908580}
   m_Layer: 7
   m_Name: MotherboardLocation
-  m_TagString: Untagged
+  m_TagString: MotherboardLocation
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2046,7 +2046,7 @@ GameObject:
   - component: {fileID: 1774027552}
   m_Layer: 0
   m_Name: Default_Motherboard
-  m_TagString: Untagged
+  m_TagString: Motherboard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15503,8 +15503,26 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4709681248877994445, guid: 4ba57db0b8531b44c8ebf468483fc82c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 4ba57db0b8531b44c8ebf468483fc82c, type: 3}
+--- !u!1 &4709681249244809738 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5592714226984730276, guid: 4ba57db0b8531b44c8ebf468483fc82c, type: 3}
+  m_PrefabInstance: {fileID: 4709681249244809737}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4709681249244809739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4709681249244809738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e1687a1fae13d346bdd621c2c8eef85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &4709927708575354531
 Transform:
   m_ObjectHideFlags: 0
@@ -19560,7 +19578,7 @@ GameObject:
   - component: {fileID: 5982709671480045781}
   m_Layer: 6
   m_Name: motherboard_default_model
-  m_TagString: Untagged
+  m_TagString: Motherboard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
