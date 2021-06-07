@@ -8,6 +8,8 @@ public class ComputerStatus : MonoBehaviour
     private bool hasMotherboard;
     private bool hasRam;
     private bool hasCpu;
+    public Motherboard_Component mountedMotherboard;
+    public GPU_Component mountedGpu;
 
     public bool HasGpu { get => hasGpu; set => hasGpu = value; }
     public bool HasMotherboard { get => hasMotherboard; set => hasMotherboard = value; }
@@ -18,6 +20,14 @@ public class ComputerStatus : MonoBehaviour
     {
         //temporary , need to add component compatibility check
         if (hasCpu && hasGpu && hasMotherboard && hasRam)
+            return true;
+        else
+            return false;
+    }
+
+    public bool MotherboardHasComponents()
+    {
+        if (hasCpu || hasGpu || hasRam)
             return true;
         else
             return false;
