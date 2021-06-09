@@ -2,17 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class GPU_Component : PC_Component
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public float vRam;
 
-    // Update is called once per frame
-    void Update()
+    public GPU_Component(string _cName, float _cPrice,  float _vRam)
     {
-        
+        vRam = _vRam;
+        cName = _cName;
+        cPrice = _cPrice;     
     }
 }

@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class PC_Component : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public string cName;
+    public float cPrice;
+    
+    public enum ComponentType
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        GPU,
+        CPU,
+        Motherboard,
+        RAM
     }
 }
