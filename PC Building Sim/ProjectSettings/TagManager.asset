@@ -12,6 +12,7 @@ TagManager:
   - GPULocation
   - CPULocation
   - RAMLocation
+  - ShopItemTemplate
   layers:
   - Default
   - TransparentFX

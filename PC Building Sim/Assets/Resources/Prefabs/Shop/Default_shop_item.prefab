@@ -280,7 +280,7 @@ GameObject:
   - component: {fileID: 8228808157095772936}
   m_Layer: 5
   m_Name: Default_shop_item
-  m_TagString: Untagged
+  m_TagString: ShopItemTemplate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
