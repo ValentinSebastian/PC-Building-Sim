@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShopComponentPage : ShopUI
 {
-    public int nrOfComponents;
+    public int nrOfComponents = 0;
     public GameObject itemTemplate;
 
     private void Start()
@@ -22,6 +23,7 @@ public class ShopComponentPage : ShopUI
         }
     }
 
+    #region Fill functions
     public void FillShop()
     {
         switch(cType)
@@ -52,10 +54,15 @@ public class ShopComponentPage : ShopUI
                 temp.transform.parent = transform;
                 temp.GetComponentInChildren<ShopItem>().itemName.text = gpu.GetComponentInChildren<GPU_Component>().cName;
                 temp.GetComponentInChildren<ShopItem>().itemPrice.text = gpu.GetComponentInChildren<GPU_Component>().cPrice.ToString();
+                temp.GetComponentInChildren<ShopItem>().itemId.text = nrOfComponents.ToString();
+                temp.GetComponentInChildren<Button>().onClick.AddListener(delegate { BuyButton(temp);}) ;
+                nrOfComponents++;
                 Debug.Log("instantiated object");
             }
         }
     }
+
+
     public void FillRamShop()
     {
         fillRamList();
@@ -102,7 +109,11 @@ public class ShopComponentPage : ShopUI
             }
         }
     }
-
+    #endregion
+    public void BuyButton(GameObject temp)
+    {
+        Debug.Log(temp.GetComponent<ShopItem>().itemId.text);
+    }
     public void ClearCurrentTab()
     {
         var gameObjects = GameObject.FindGameObjectsWithTag("ShopItemTemplate");
@@ -111,5 +122,6 @@ public class ShopComponentPage : ShopUI
         {
             Destroy(gameObjects[i]);
         }
+        nrOfComponents = 0;
     }
 }

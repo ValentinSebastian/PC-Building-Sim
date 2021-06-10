@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,6 +11,7 @@ public class ShopUI : MonoBehaviour
     public List<GameObject> allMotherboardComponents = new List<GameObject>();
     public static bool tabChanged;
 
+    #region Fill functions
     public void fillGpuList()
     {
         allGpuComponents = new List<GameObject>();
@@ -50,32 +49,31 @@ public class ShopUI : MonoBehaviour
             allMotherboardComponents.Add(temp);
         }
     }
-
-
-
+    #endregion 
     #region Button Functions
-    public void closeButton()
+    public void CloseButton()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    public void changeTabToGpu()
+
+    public void ChangeTabToGpu()
     {
         cType = PC_Component.ComponentType.GPU;
         tabChanged = true;
     }
-    public void changeTabToCpu()
+    public void ChangeTabToCpu()
     {
         cType = PC_Component.ComponentType.CPU;
         tabChanged = true;
     }
-    public void changeTabToMotherboard()
+    public void ChangeTabToMotherboard()
     {
         cType = PC_Component.ComponentType.Motherboard;
         tabChanged = true;
     }
-    public void changeTabToRam()
+    public void ChangeTabToRam()
     {
         cType = PC_Component.ComponentType.RAM;
         tabChanged = true;
