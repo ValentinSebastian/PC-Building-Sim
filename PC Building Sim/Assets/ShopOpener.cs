@@ -14,7 +14,9 @@ public class ShopOpener : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                GameObject.Find("Shop_Canvas").GetComponentInChildren<Canvas>().enabled = true;
+                GameObject.Find("UI_Canvas").GetComponentInChildren<Canvas>().enabled = false;
+
                 Cursor.lockState = CursorLockMode.None;
             }          
         }

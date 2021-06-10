@@ -40,6 +40,9 @@ public class ShopComponentPage : ShopUI
             case PC_Component.ComponentType.Motherboard:
                 FillMotherboardShop();
                 break;
+            default:
+                fillGpuList();
+                break;
         }
     }
 

@@ -53,7 +53,8 @@ public class ShopUI : MonoBehaviour
     #region Button Functions
     public void CloseButton()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        GameObject.Find("Shop_Canvas").GetComponentInChildren<Canvas>().enabled = false;
+        GameObject.Find("UI_Canvas").GetComponentInChildren<Canvas>().enabled = true;
         Cursor.lockState = CursorLockMode.Locked;
     }
 

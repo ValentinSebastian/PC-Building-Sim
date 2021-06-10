@@ -753,7 +753,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1405050119}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_RenderMode: 0
   m_Camera: {fileID: 0}
@@ -900,8 +900,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18872046aab06444bb38c3bd963dbbd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cType: 0
   allGpuComponents: []
+  allCpuComponents: []
+  allRamComponents: []
+  allMotherboardComponents: []
   nrOfComponents: 0
   itemTemplate: {fileID: 4595455203100506272, guid: e5f65853ac89b9e4f8c6b4232ad43faf, type: 3}
 --- !u!1001 &1585727385
@@ -1397,8 +1399,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5a5e3a089481d24184c706d9db303c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cType: 0
   allGpuComponents: []
+  allCpuComponents: []
+  allRamComponents: []
+  allMotherboardComponents: []
 --- !u!1001 &4530092193313359787
 PrefabInstance:
   m_ObjectHideFlags: 0
