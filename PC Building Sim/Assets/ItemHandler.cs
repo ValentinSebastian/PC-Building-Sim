@@ -202,9 +202,7 @@ public class ItemHandler : MonoBehaviour
         GetComponent<Rigidbody>().useGravity = false;
         this.transform.position = compLocation.transform.position;
         this.transform.rotation = compLocation.transform.rotation;
-        this.transform.Rotate(-90f, 0f,-90f);
-        this.transform.localScale = originalTransform.localScale * 2;
-        this.transform.parent = compLocation.transform.parent;
+        SetComponentLocation();
         ModifyPCStatus(true);
         heldItem = null;
         isHoldingItem = false;
@@ -243,6 +241,35 @@ public class ItemHandler : MonoBehaviour
         else if (computerStatus.mountedMotherboard != null)
             computerStatus.mountedMotherboard.gameObject.GetComponent<BoxCollider>().enabled = true;
         Debug.Log("Modified status of " + lastItemBeingPickedUp.tag + " to " + status);      
+    }
+
+    public void SetComponentLocation()
+    {
+        switch (lastItemBeingPickedUp.tag)
+        {
+            case "GPU":
+                this.transform.Rotate(90f, 0f, -90f);
+                this.transform.localScale = originalTransform.localScale * 2;
+                this.transform.parent = compLocation.transform.parent;
+                this.transform.localPosition += new Vector3(0f , -0.2f , 0.7f);
+                break;
+            case "CPU":
+                this.transform.Rotate(-90f, 0f, -90f);
+                this.transform.localScale = originalTransform.localScale * 2;
+                this.transform.parent = compLocation.transform.parent;
+                this.transform.localPosition += new Vector3(-0.32f, -0.01f, -0.5f); ;
+                break;
+            case "Motherboard":
+                this.transform.Rotate(-90f, 0f, -90f);
+                this.transform.localScale = originalTransform.localScale * 2;
+                this.transform.parent = compLocation.transform.parent;
+                break;
+            case "RAM":
+                this.transform.Rotate(-90f, 0f, -90f);
+                this.transform.localScale = originalTransform.localScale * 2;
+                this.transform.parent = compLocation.transform.parent;
+                break;
+        }
     }
 
     public void fillLocations()
