@@ -112,7 +112,7 @@ public class ItemHandler : MonoBehaviour
                 GetComponent<Outline>().OutlineColor = Color.red;
                 itemBeingPickedUp = hititem;
                 lastItemBeingPickedUp = hititem;
-                itemNameText.text = "Pickup " + itemBeingPickedUp.tag;
+                itemNameText.text = "Pickup " + itemBeingPickedUp.GetComponentInChildren<PC_Component>().cName;
             }
         }
         else

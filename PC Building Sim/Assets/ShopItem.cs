@@ -8,6 +8,11 @@ public class ShopItem : MonoBehaviour
     public TMPro.TextMeshProUGUI itemPrice;
     public TMPro.TextMeshProUGUI itemId;
 
+    public TMPro.TextMeshProUGUI itemSpec1;
+    public TMPro.TextMeshProUGUI itemSpec2;
+    public TMPro.TextMeshProUGUI itemSpec3;
+
+
     public ShopItem(string _iName , string _iPrice , string _itemId)
     {
         itemName.text = _iName;

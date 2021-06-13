@@ -284,8 +284,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81ecb837391eba54fa7dacc2d2a10986, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cName: 
-  cPrice: 0
+  cName: Ryzen 5 3600
+  cPrice: 200
+  cores: 6
+  threads: 12
+  botClock: 3.6
+  topClock: 4.2
+  socket: AM4
+  manProcess: 7
+  l3Cache: 32
+  tdp: 65
 --- !u!1 &6076665247940934171
 GameObject:
   m_ObjectHideFlags: 0

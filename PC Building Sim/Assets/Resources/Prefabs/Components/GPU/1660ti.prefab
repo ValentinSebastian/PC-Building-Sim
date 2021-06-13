@@ -15,6 +15,22 @@ PrefabInstance:
       propertyPath: cPrice
       value: 400
       objectReference: {fileID: 0}
+    - target: {fileID: 926675296950253868, guid: 4ba57db0b8531b44c8ebf468483fc82c, type: 3}
+      propertyPath: memory.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 926675296950253868, guid: 4ba57db0b8531b44c8ebf468483fc82c, type: 3}
+      propertyPath: memory.type
+      value: GDDR6
+      objectReference: {fileID: 0}
+    - target: {fileID: 926675296950253868, guid: 4ba57db0b8531b44c8ebf468483fc82c, type: 3}
+      propertyPath: memory.clock
+      value: 1500
+      objectReference: {fileID: 0}
+    - target: {fileID: 926675296950253868, guid: 4ba57db0b8531b44c8ebf468483fc82c, type: 3}
+      propertyPath: memory.bandwidth
+      value: 192
+      objectReference: {fileID: 0}
     - target: {fileID: 5584481548834108397, guid: 4ba57db0b8531b44c8ebf468483fc82c, type: 3}
       propertyPath: m_RootOrder
       value: 0

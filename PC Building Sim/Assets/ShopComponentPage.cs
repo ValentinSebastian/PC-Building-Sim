@@ -53,12 +53,17 @@ public class ShopComponentPage : ShopUI
         {
             foreach (var gpu in allGpuComponents)
             {
-                var temp = Instantiate(itemTemplate);
-                temp.transform.parent = transform;
-                temp.GetComponentInChildren<ShopItem>().itemName.text = gpu.GetComponentInChildren<GPU_Component>().cName;
-                temp.GetComponentInChildren<ShopItem>().itemPrice.text = gpu.GetComponentInChildren<GPU_Component>().cPrice.ToString();
-                temp.GetComponentInChildren<ShopItem>().itemId.text = nrOfComponents.ToString();
-                temp.GetComponentInChildren<Button>().onClick.AddListener(delegate { BuyButton(temp);}) ;
+                var obj = Instantiate(itemTemplate);
+                obj.transform.parent = transform;
+                var shopItem = obj.GetComponentInChildren<ShopItem>();
+                var gpuSpecs = gpu.GetComponentInChildren<GPU_Component>();
+                shopItem.itemName.text = gpuSpecs.cName;
+                shopItem.itemPrice.text = gpuSpecs.cPrice.ToString();
+                shopItem.itemSpec1.text = gpuSpecs.memory.size.ToString() + " GB";
+                shopItem.itemSpec2.text = gpuSpecs.memory.type.ToString();
+                shopItem.itemSpec3.text = gpuSpecs.memory.bandwidth.ToString() + " bit";
+                shopItem.itemId.text = nrOfComponents.ToString();
+                obj.GetComponentInChildren<Button>().onClick.AddListener(delegate { BuyButton(obj);}) ;
                 nrOfComponents++;
                 Debug.Log("instantiated object");
             }
