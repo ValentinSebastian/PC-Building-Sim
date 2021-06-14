@@ -30,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 926675296950253869}
   m_LocalRotation: {x: -0, y: 0.69095665, z: -0, w: 0.7228963}
-  m_LocalPosition: {x: 13.635949, y: 21.303638, z: 15.352919}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.08, y: 0.08, z: 0.08}
   m_Children:
   - {fileID: 5584481548288016158}
@@ -177,7 +177,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cName: GTX 1660
   cPrice: 300
-  vRam: 2000
+  memory:
+    size: 0
+    type: 
+    bandwidth: 0
+    clock: 0
 --- !u!1 &5584481546897909044
 GameObject:
   m_ObjectHideFlags: 0
@@ -1198,7 +1202,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5584481548834108397}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Default_Gpu
   m_TagString: GPU
   m_Icon: {fileID: 0}
@@ -1213,7 +1217,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5584481548834108398}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.908949, y: -20.506638, z: -15.704919}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 926675296950253867}

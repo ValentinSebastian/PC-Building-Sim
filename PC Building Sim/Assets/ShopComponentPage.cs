@@ -7,6 +7,11 @@ public class ShopComponentPage : ShopUI
 {
     public int nrOfComponents = 0;
     public GameObject itemTemplate;
+    public GameObject referenceObject;
+    public GameObject gpuSpawn;
+    public GameObject cpuSpawn;
+    public GameObject ramSpawn1;
+    public GameObject mbSpawn;
 
     private void Start()
     {
@@ -78,10 +83,18 @@ public class ShopComponentPage : ShopUI
         {
             foreach (var ram in allRamComponents)
             {
-                var temp = Instantiate(itemTemplate);
-                temp.transform.parent = transform;
-                temp.GetComponentInChildren<ShopItem>().itemName.text = ram.GetComponentInChildren<RAM_Component>().cName;
-                temp.GetComponentInChildren<ShopItem>().itemPrice.text = ram.GetComponentInChildren<RAM_Component>().cPrice.ToString();
+                var obj = Instantiate(itemTemplate);
+                obj.transform.parent = transform;
+                var shopItem = obj.GetComponentInChildren<ShopItem>();
+                var ramSpecs = ram.GetComponentInChildren<RAM_Component>();
+                shopItem.itemName.text = ramSpecs.cName;
+                shopItem.itemPrice.text = ramSpecs.cPrice.ToString();
+                shopItem.itemSpec1.text = "temp";
+                shopItem.itemSpec2.text = "temp";
+                shopItem.itemSpec3.text = "temp";
+                shopItem.itemId.text = nrOfComponents.ToString();
+                obj.GetComponentInChildren<Button>().onClick.AddListener(delegate { BuyButton(obj); });
+                nrOfComponents++;
                 Debug.Log("instantiated object");
             }
         }
@@ -94,10 +107,18 @@ public class ShopComponentPage : ShopUI
         {
             foreach (var cpu in allCpuComponents)
             {
-                var temp = Instantiate(itemTemplate);
-                temp.transform.parent = transform;
-                temp.GetComponentInChildren<ShopItem>().itemName.text = cpu.GetComponentInChildren<CPU_Component>().cName;
-                temp.GetComponentInChildren<ShopItem>().itemPrice.text = cpu.GetComponentInChildren<CPU_Component>().cPrice.ToString();
+                var obj = Instantiate(itemTemplate);
+                obj.transform.parent = transform;
+                var shopItem = obj.GetComponentInChildren<ShopItem>();
+                var cpuSpecs = cpu.GetComponentInChildren<CPU_Component>();
+                shopItem.itemName.text = cpuSpecs.cName;
+                shopItem.itemPrice.text = cpuSpecs.cPrice.ToString();
+                shopItem.itemSpec1.text = "temp";
+                shopItem.itemSpec2.text = "temp";
+                shopItem.itemSpec3.text = "temp";
+                shopItem.itemId.text = nrOfComponents.ToString();
+                obj.GetComponentInChildren<Button>().onClick.AddListener(delegate { BuyButton(obj); });
+                nrOfComponents++;
                 Debug.Log("instantiated object");
             }
         }
@@ -109,10 +130,18 @@ public class ShopComponentPage : ShopUI
         {
             foreach (var motherboard in allMotherboardComponents)
             {
-                var temp = Instantiate(itemTemplate);
-                temp.transform.parent = transform;
-                temp.GetComponentInChildren<ShopItem>().itemName.text = motherboard.GetComponentInChildren<Motherboard_Component>().cName;
-                temp.GetComponentInChildren<ShopItem>().itemPrice.text = motherboard.GetComponentInChildren<Motherboard_Component>().cPrice.ToString();
+                var obj = Instantiate(itemTemplate);
+                obj.transform.parent = transform;
+                var shopItem = obj.GetComponentInChildren<ShopItem>();
+                var mbSpecs = motherboard.GetComponentInChildren<Motherboard_Component>();
+                shopItem.itemName.text = mbSpecs.cName;
+                shopItem.itemPrice.text = mbSpecs.cPrice.ToString();
+                shopItem.itemSpec1.text = "temp";
+                shopItem.itemSpec2.text = "temp";
+                shopItem.itemSpec3.text = "temp";
+                shopItem.itemId.text = nrOfComponents.ToString();
+                obj.GetComponentInChildren<Button>().onClick.AddListener(delegate { BuyButton(obj); });
+                nrOfComponents++;
                 Debug.Log("instantiated object");
             }
         }
@@ -121,6 +150,38 @@ public class ShopComponentPage : ShopUI
     public void BuyButton(GameObject temp)
     {
         Debug.Log(temp.GetComponent<ShopItem>().itemId.text);
+        GameObject objToSpawn = temp, tempObj = temp;
+        int index = int.Parse(temp.GetComponent<ShopItem>().itemId.text);
+        Vector3 position;
+        Quaternion rotation;                  
+        switch(cType)
+        {
+            case PC_Component.ComponentType.GPU:
+                tempObj = gpuSpawn;
+                objToSpawn = allGpuComponents[index];
+                break;
+            case PC_Component.ComponentType.CPU:
+                tempObj = cpuSpawn;
+                objToSpawn = allCpuComponents[index];
+                break;
+            case PC_Component.ComponentType.Motherboard:
+                tempObj = mbSpawn;
+                objToSpawn = allMotherboardComponents[index];
+                break;
+            case PC_Component.ComponentType.RAM:
+                tempObj = ramSpawn1;
+                objToSpawn = allRamComponents[index];
+                break;
+            default:
+                Debug.Log("tag error");
+                    break;
+        }
+        objToSpawn.GetComponentInChildren<ItemHandler>().ChangeResources(referenceObject.GetComponent<ItemHandler>());
+        Debug.Log(tempObj.name);
+        position = tempObj.transform.position;
+        rotation = tempObj.transform.rotation;
+        var spawnedObj = Instantiate(objToSpawn , position , rotation);
+        spawnedObj.transform.parent = tempObj.transform.parent;
     }
     public void ClearCurrentTab()
     {

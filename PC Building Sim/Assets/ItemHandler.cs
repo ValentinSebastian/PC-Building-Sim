@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -41,8 +42,8 @@ public class ItemHandler : MonoBehaviour
 
     private static GPULocation gpuLoc;
     private static MotherboardLocation mbLoc;
- 
-    private void Start()
+
+    private void Awake()
     {
         Init();
     }
@@ -211,6 +212,10 @@ public class ItemHandler : MonoBehaviour
 
     public void ModifyPCStatus(bool status)
     {       
+        if(gpuLoc == null || mbLoc == null)
+        {
+            fillLocations();
+        }
         switch (lastItemBeingPickedUp.tag)
         {
             case "GPU":
@@ -289,6 +294,19 @@ public class ItemHandler : MonoBehaviour
         lastComponentLocation = new ComponentLocation();
         startcolor = GetComponent<Outline>().OutlineColor;     
         computerStatus = GameObject.Find("MotherboardLocation").transform.parent.gameObject.GetComponent<ComputerStatus>();
-        fillLocations();
+    }
+
+    public void ChangeResources(ItemHandler other)
+    {
+        this.camera = other.camera;
+        this.pickupTime = other.pickupTime;
+        this.pickupImageRoot = other.pickupImageRoot;
+        this.pickupProgressImage = other.pickupProgressImage;
+        this.layerMaskComponent = other.layerMaskComponent;
+        this.layerMaskLocation = other.layerMaskLocation;
+        this.theDestination = other.theDestination;
+        this.pickupCooldown = other.pickupCooldown;
+        this.thePlayer = other.thePlayer;
+        this.itemNameText = other.itemNameText;
     }
 }
