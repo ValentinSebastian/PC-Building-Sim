@@ -42,6 +42,10 @@ public class ItemHandler : MonoBehaviour
 
     private static GPULocation gpuLoc;
     private static MotherboardLocation mbLoc;
+    private static RAMLocation ramLoc1;
+    private static RAMLocation ramLoc2;
+    private static RAMLocation ramLoc3;
+    private static RAMLocation ramLoc4;
 
     private void Awake()
     {
@@ -199,34 +203,36 @@ public class ItemHandler : MonoBehaviour
         ps.isHolding = false;
     }
     private void PlaceComponent()
-    {        
-        GetComponent<Rigidbody>().useGravity = false;
-        this.transform.position = compLocation.transform.position;
-        this.transform.rotation = compLocation.transform.rotation;
-        SetComponentLocation();
-        ModifyPCStatus(true);
+    {
+        if (ModifyPCStatus(true))
+            SetComponentLocation();
+        else
+            return;
         heldItem = null;
         isHoldingItem = false;
         ps.isHolding = false;
     }
 
-    public void ModifyPCStatus(bool status)
+    public bool ModifyPCStatus(bool status)
     {       
-        if(gpuLoc == null || mbLoc == null)
+        if(gpuLoc == null || mbLoc == null || ramLoc1 == null)
         {
             fillLocations();
         }
         switch (lastItemBeingPickedUp.tag)
         {
             case "GPU":
+                if (status && computerStatus.HasGpu)
+                    return false;
                 computerStatus.HasGpu = status;
-                gpuLoc.gameObject.SetActive(!status);
                 if (status)
                     computerStatus.mountedGpu = lastItemBeingPickedUp.GetComponent<GPU_Component>();
                 else
                     computerStatus.mountedGpu = null;
                 break;
             case "CPU":
+                if (status && computerStatus.HasCpu)
+                    return false;
                 computerStatus.HasCpu = status;
                 break;
             case "Motherboard":
@@ -238,18 +244,64 @@ public class ItemHandler : MonoBehaviour
                     computerStatus.mountedMotherboard = null;
                 break;
             case "RAM":
-                computerStatus.HasRam = status;
+                if (compLocation == null)
+                    compLocation = lastItemBeingPickedUp.GetComponent<RAM_Component>().GetMountSlot();
+                if(compLocation.name == "ramSlot1")
+                {
+                    if (status && computerStatus.HasRam1)
+                        return false;
+                    computerStatus.HasRam1 = status;
+                    computerStatus.mountedRam1 = lastItemBeingPickedUp.GetComponent<RAM_Component>();
+                    if (status)
+                        lastItemBeingPickedUp.GetComponent<RAM_Component>().SetMountSlot(compLocation);
+
+                }
+                else if (compLocation.name == "ramSlot2")
+                {
+                    if (status && computerStatus.HasRam2)
+                        return false;
+                    computerStatus.HasRam2 = status;
+                    computerStatus.mountedRam2 = lastItemBeingPickedUp.GetComponent<RAM_Component>();
+                    if (status)
+                        lastItemBeingPickedUp.GetComponent<RAM_Component>().SetMountSlot(compLocation);
+                }
+                else if (compLocation.name == "ramSlot3")
+                {
+                    if (status && computerStatus.HasRam3)
+                        return false;
+                    computerStatus.HasRam3 = status;
+                    computerStatus.mountedRam3 = lastItemBeingPickedUp.GetComponent<RAM_Component>();
+                    if (status)
+                        lastItemBeingPickedUp.GetComponent<RAM_Component>().SetMountSlot(compLocation);
+                }
+                else if (compLocation.name == "ramSlot4")
+                {
+                    if (status && computerStatus.HasRam4)
+                        return false;
+                    computerStatus.HasRam4 = status;
+                    computerStatus.mountedRam4 = lastItemBeingPickedUp.GetComponent<RAM_Component>();
+                    if (status)
+                        lastItemBeingPickedUp.GetComponent<RAM_Component>().SetMountSlot(compLocation);
+                }
                 break;
         }
         if (computerStatus.MotherboardHasComponents())
             computerStatus.mountedMotherboard.gameObject.GetComponent<BoxCollider>().enabled = false;
         else if (computerStatus.mountedMotherboard != null)
             computerStatus.mountedMotherboard.gameObject.GetComponent<BoxCollider>().enabled = true;
-        Debug.Log("Modified status of " + lastItemBeingPickedUp.tag + " to " + status);      
+        if (lastItemBeingPickedUp.tag != "RAM")
+            Debug.Log("Modified status of " + lastItemBeingPickedUp.tag + " to " + status);
+        else
+            Debug.Log("Modified status of " + compLocation.name + " to " + status);
+
+        return true;
     }
 
     public void SetComponentLocation()
     {
+        GetComponent<Rigidbody>().useGravity = false;
+        this.transform.position = compLocation.transform.position;
+        this.transform.rotation = compLocation.transform.rotation;
         switch (lastItemBeingPickedUp.tag)
         {
             case "GPU":
@@ -270,7 +322,7 @@ public class ItemHandler : MonoBehaviour
                 this.transform.parent = compLocation.transform.parent;
                 break;
             case "RAM":
-                this.transform.Rotate(-90f, 0f, -90f);
+                this.transform.Rotate(0f, -90f, -90f);
                 this.transform.localScale = originalTransform.localScale * 2;
                 this.transform.parent = compLocation.transform.parent;
                 break;
@@ -281,6 +333,10 @@ public class ItemHandler : MonoBehaviour
     {
         gpuLoc = GameObject.Find("GPULocation").GetComponent<GPULocation>();
         mbLoc = computerStatus.gameObject.GetComponentInChildren<MotherboardLocation>();
+        ramLoc1 = GameObject.Find("ramSlot1").GetComponent<RAMLocation>();
+        ramLoc2 = GameObject.Find("ramSlot1").GetComponent<RAMLocation>();
+        ramLoc3 = GameObject.Find("ramSlot1").GetComponent<RAMLocation>();
+        ramLoc4 = GameObject.Find("ramSlot1").GetComponent<RAMLocation>();
     }
 
     public void Init()
