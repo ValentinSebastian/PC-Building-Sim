@@ -5,18 +5,19 @@ using UnityEngine.SceneManagement;
 public class ShopUI : MonoBehaviour
 {
     public static PC_Component.ComponentType cType;
-    public List<GameObject> allGpuComponents = new List<GameObject>();
-    public List<GameObject> allCpuComponents = new List<GameObject>();
-    public List<GameObject> allRamComponents = new List<GameObject>();
-    public List<GameObject> allMotherboardComponents = new List<GameObject>();
+    public List<GpuSO> allGpuComponents = new List<GpuSO>();
+    public List<CpuSO> allCpuComponents = new List<CpuSO>();
+    public List<RamSO> allRamComponents = new List<RamSO>();
+    public List<MotherboardSO> allMotherboardComponents = new List<MotherboardSO>();
     public static bool tabChanged;
 
     #region Fill functions
     public void fillGpuList()
     {
-        allGpuComponents = new List<GameObject>();
-        Object[] subListObjects = Resources.LoadAll("Prefabs/Components/GPU", typeof(GameObject));
-        foreach (GameObject temp in subListObjects)
+        Debug.Log("trying to fill with gpu's");
+        allGpuComponents = new List<GpuSO>();
+        Object[] subListObjects = Resources.LoadAll("ScriptableObjects/GPU", typeof(GpuSO));
+        foreach (GpuSO temp in subListObjects)
         {
             Debug.Log("filling with gpus");
             allGpuComponents.Add(temp);
@@ -24,27 +25,27 @@ public class ShopUI : MonoBehaviour
     }
     public void fillCpuList()
     {
-        allCpuComponents = new List<GameObject>();
-        Object[] subListObjects2 = Resources.LoadAll("Prefabs/Components/CPU", typeof(GameObject));
-        foreach (GameObject temp in subListObjects2)
+        allCpuComponents = new List<CpuSO>();
+        Object[] subListObjects2 = Resources.LoadAll("ScriptableObjects/CPU", typeof(CpuSO));
+        foreach (CpuSO temp in subListObjects2)
         {
             allCpuComponents.Add(temp);
         }      
     }
     public void fillRamList()
     {
-        allRamComponents = new List<GameObject>();
-        Object[] subListObjects3 = Resources.LoadAll("Prefabs/Components/RAM", typeof(GameObject));
-        foreach (GameObject temp in subListObjects3)
+        allRamComponents = new List<RamSO>();
+        Object[] subListObjects3 = Resources.LoadAll("ScriptableObjects/RAM", typeof(RamSO));
+        foreach (RamSO temp in subListObjects3)
         {
             allRamComponents.Add(temp);
         }
     }
     public void fillMotherboardList()
     {
-        allMotherboardComponents = new List<GameObject>();
-        Object[] subListObjects4 = Resources.LoadAll("Prefabs/Components/Motherboard", typeof(GameObject));
-        foreach (GameObject temp in subListObjects4)
+        allMotherboardComponents = new List<MotherboardSO>();
+        Object[] subListObjects4 = Resources.LoadAll("ScriptableObjects/Motherboard", typeof(MotherboardSO));
+        foreach (MotherboardSO temp in subListObjects4)
         {
             allMotherboardComponents.Add(temp);
         }

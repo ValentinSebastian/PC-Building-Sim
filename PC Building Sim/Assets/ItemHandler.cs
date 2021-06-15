@@ -117,7 +117,7 @@ public class ItemHandler : MonoBehaviour
                 GetComponent<Outline>().OutlineColor = Color.red;
                 itemBeingPickedUp = hititem;
                 lastItemBeingPickedUp = hititem;
-                itemNameText.text = "Pickup " + itemBeingPickedUp.GetComponentInChildren<PC_Component>().cName;
+                ChangeHintNameTag();
             }
         }
         else
@@ -154,6 +154,24 @@ public class ItemHandler : MonoBehaviour
         currentPickupTimerElapsed += Time.deltaTime;
     }
 
+    private void ChangeHintNameTag()
+    {
+        switch(itemBeingPickedUp.tag)
+        {
+            case "GPU":
+                itemNameText.text = "Pickup " + itemBeingPickedUp.GetComponentInChildren<GPU_Component>().gpuSpecs.cName;
+                break;
+            case "CPU":
+                itemNameText.text = "Pickup " + itemBeingPickedUp.GetComponentInChildren<CPU_Component>().cpuSpecs.cName; ;
+                break;
+            case "Motherboard":
+                itemNameText.text = "Pickup " + itemBeingPickedUp.GetComponentInChildren<Motherboard_Component>().mbSpecs.cName; ;
+                break;
+            case "RAM":
+                itemNameText.text = "Pickup " + itemBeingPickedUp.GetComponentInChildren<RAM_Component>().ramSpecs.cName; ;
+                break;
+        }
+    }
     private void UpdatePickupProgressImage()
     {
         float prog = currentPickupTimerElapsed / pickupTime;

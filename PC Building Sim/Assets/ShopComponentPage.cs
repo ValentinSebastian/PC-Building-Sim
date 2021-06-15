@@ -61,12 +61,11 @@ public class ShopComponentPage : ShopUI
                 var obj = Instantiate(itemTemplate);
                 obj.transform.parent = transform;
                 var shopItem = obj.GetComponentInChildren<ShopItem>();
-                var gpuSpecs = gpu.GetComponentInChildren<GPU_Component>();
-                shopItem.itemName.text = gpuSpecs.cName;
-                shopItem.itemPrice.text = gpuSpecs.cPrice.ToString();
-                shopItem.itemSpec1.text = gpuSpecs.memory.size.ToString() + " GB";
-                shopItem.itemSpec2.text = gpuSpecs.memory.type.ToString();
-                shopItem.itemSpec3.text = gpuSpecs.memory.bandwidth.ToString() + " bit";
+                shopItem.itemName.text = gpu.cName;
+                shopItem.itemPrice.text = gpu.cPrice.ToString();
+                shopItem.itemSpec1.text = gpu.memory.size.ToString() + " GB";
+                shopItem.itemSpec2.text = gpu.memory.type.ToString();
+                shopItem.itemSpec3.text = gpu.memory.bandwidth.ToString() + " bit";
                 shopItem.itemId.text = nrOfComponents.ToString();
                 obj.GetComponentInChildren<Button>().onClick.AddListener(delegate { BuyButton(obj);}) ;
                 nrOfComponents++;
@@ -85,10 +84,9 @@ public class ShopComponentPage : ShopUI
             {
                 var obj = Instantiate(itemTemplate);
                 obj.transform.parent = transform;
-                var shopItem = obj.GetComponentInChildren<ShopItem>();
-                var ramSpecs = ram.GetComponentInChildren<RAM_Component>();
-                shopItem.itemName.text = ramSpecs.cName;
-                shopItem.itemPrice.text = ramSpecs.cPrice.ToString();
+                var shopItem = obj.GetComponentInChildren<ShopItem>();               
+                shopItem.itemName.text = ram.cName;
+                shopItem.itemPrice.text = ram.cPrice.ToString();
                 shopItem.itemSpec1.text = "temp";
                 shopItem.itemSpec2.text = "temp";
                 shopItem.itemSpec3.text = "temp";
@@ -110,9 +108,8 @@ public class ShopComponentPage : ShopUI
                 var obj = Instantiate(itemTemplate);
                 obj.transform.parent = transform;
                 var shopItem = obj.GetComponentInChildren<ShopItem>();
-                var cpuSpecs = cpu.GetComponentInChildren<CPU_Component>();
-                shopItem.itemName.text = cpuSpecs.cName;
-                shopItem.itemPrice.text = cpuSpecs.cPrice.ToString();
+                shopItem.itemName.text = cpu.cName;
+                shopItem.itemPrice.text = cpu.cPrice.ToString();
                 shopItem.itemSpec1.text = "temp";
                 shopItem.itemSpec2.text = "temp";
                 shopItem.itemSpec3.text = "temp";
@@ -133,9 +130,8 @@ public class ShopComponentPage : ShopUI
                 var obj = Instantiate(itemTemplate);
                 obj.transform.parent = transform;
                 var shopItem = obj.GetComponentInChildren<ShopItem>();
-                var mbSpecs = motherboard.GetComponentInChildren<Motherboard_Component>();
-                shopItem.itemName.text = mbSpecs.cName;
-                shopItem.itemPrice.text = mbSpecs.cPrice.ToString();
+                shopItem.itemName.text = motherboard.cName;
+                shopItem.itemPrice.text = motherboard.cPrice.ToString();
                 shopItem.itemSpec1.text = "temp";
                 shopItem.itemSpec2.text = "temp";
                 shopItem.itemSpec3.text = "temp";
@@ -150,7 +146,8 @@ public class ShopComponentPage : ShopUI
     public void BuyButton(GameObject temp)
     {
         Debug.Log(temp.GetComponent<ShopItem>().itemId.text);
-        GameObject objToSpawn = temp, tempObj = temp;
+        GameObject tempObj = temp;
+        GameObject objToSpawn = new GameObject();
         int index = int.Parse(temp.GetComponent<ShopItem>().itemId.text);
         Vector3 position;
         Quaternion rotation;                  
@@ -158,19 +155,23 @@ public class ShopComponentPage : ShopUI
         {
             case PC_Component.ComponentType.GPU:
                 tempObj = gpuSpawn;
-                objToSpawn = allGpuComponents[index];
+                objToSpawn = allGpuComponents[index].gpuModel;
+                objToSpawn.GetComponentInChildren<GPU_Component>().gpuSpecs = allGpuComponents[index];
                 break;
             case PC_Component.ComponentType.CPU:
                 tempObj = cpuSpawn;
-                objToSpawn = allCpuComponents[index];
+                objToSpawn = allCpuComponents[index].cpuModel;
+                objToSpawn.GetComponentInChildren<CPU_Component>().cpuSpecs = allCpuComponents[index];
                 break;
             case PC_Component.ComponentType.Motherboard:
                 tempObj = mbSpawn;
-                objToSpawn = allMotherboardComponents[index];
+                objToSpawn = allMotherboardComponents[index].motherboardModel;
+                objToSpawn.GetComponentInChildren<Motherboard_Component>().mbSpecs = allMotherboardComponents[index];
                 break;
             case PC_Component.ComponentType.RAM:
                 tempObj = ramSpawn1;
-                objToSpawn = allRamComponents[index];
+                objToSpawn = allRamComponents[index].ramModel;
+                objToSpawn.GetComponentInChildren<RAM_Component>().ramSpecs = allRamComponents[index];
                 break;
             default:
                 Debug.Log("tag error");
