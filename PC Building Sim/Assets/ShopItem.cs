@@ -11,6 +11,9 @@ public class ShopItem : MonoBehaviour
     public TMPro.TextMeshProUGUI itemSpec1;
     public TMPro.TextMeshProUGUI itemSpec2;
     public TMPro.TextMeshProUGUI itemSpec3;
+    public TMPro.TextMeshProUGUI itemSpec4;
+    public TMPro.TextMeshProUGUI itemSpec5;
+    public TMPro.TextMeshProUGUI itemSpec6;
 
 
     public ShopItem(string _iName , string _iPrice , string _itemId)

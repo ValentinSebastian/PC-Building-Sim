@@ -6,7 +6,11 @@ using UnityEngine;
 public class GpuSO : ScriptableObject
 {
     public string cName;
+    public string manufacturer;
     public float cPrice;
+    public string pci_eSlot;
+    public int coreClock;
+    public int shaderCount;
     [System.Serializable]
     public struct memorySpecs
     {

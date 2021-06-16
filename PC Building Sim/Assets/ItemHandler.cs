@@ -13,6 +13,8 @@ public class ItemHandler : MonoBehaviour
     [SerializeField]
     private RectTransform pickupImageRoot;
     [SerializeField]
+    private RectTransform placeImageRoot;
+    [SerializeField]
     private Image pickupProgressImage;
     [SerializeField]
     private LayerMask layerMaskComponent;
@@ -59,6 +61,8 @@ public class ItemHandler : MonoBehaviour
         {
             if (HasItemTargeted() && !isHoldingItem)
             {
+                placeImageRoot.gameObject.SetActive(false);
+                placeImageRoot.gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                 pickupImageRoot.gameObject.SetActive(true);
                 //Debug.Log("Item targeted : " + itemBeingPickedUp.gameObject.name);
                 if (pickupImageRoot.gameObject.transform.localScale.x < 1f)
@@ -76,7 +80,7 @@ public class ItemHandler : MonoBehaviour
             else
             {
                 pickupImageRoot.gameObject.SetActive(false);
-                pickupImageRoot.gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                pickupImageRoot.gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);               
                 pickupProgressImage.fillAmount = 0;
                 currentPickupTimerElapsed = 0f;
                 SelectLocationFromRay();
@@ -85,6 +89,9 @@ public class ItemHandler : MonoBehaviour
                     SelectLocationFromRay();
                     if (HasCompLocationTargeted())
                     {
+                        placeImageRoot.gameObject.SetActive(true);
+                        if (placeImageRoot.gameObject.transform.localScale.x < 1f)
+                            placeImageRoot.gameObject.transform.localScale += new Vector3(0.01f, 0.01f, 0.01f);
                         if (Input.GetButton("Fire2"))
                         {
                             if (lastComponentLocation.tag == lastItemBeingPickedUp.tag + "Location")
@@ -95,6 +102,8 @@ public class ItemHandler : MonoBehaviour
                     }
                     else
                     {
+                        placeImageRoot.gameObject.SetActive(false);
+                        placeImageRoot.gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                         if (Input.GetButton("Fire2"))
                         {
                             DropComponent();
@@ -242,6 +251,8 @@ public class ItemHandler : MonoBehaviour
             case "GPU":
                 if (status && computerStatus.HasGpu)
                     return false;
+                if (status && !computerStatus.HasMotherboard)
+                    return false;
                 computerStatus.HasGpu = status;
                 if (status)
                     computerStatus.mountedGpu = lastItemBeingPickedUp.GetComponent<GPU_Component>();
@@ -251,7 +262,13 @@ public class ItemHandler : MonoBehaviour
             case "CPU":
                 if (status && computerStatus.HasCpu)
                     return false;
+                if (status && !computerStatus.HasMotherboard)
+                    return false;
                 computerStatus.HasCpu = status;
+                if (status)
+                    computerStatus.mountedCpu = lastItemBeingPickedUp.GetComponent<CPU_Component>();
+                else
+                    computerStatus.mountedCpu = null;
                 break;
             case "Motherboard":
                 computerStatus.HasMotherboard = status;
@@ -262,6 +279,8 @@ public class ItemHandler : MonoBehaviour
                     computerStatus.mountedMotherboard = null;
                 break;
             case "RAM":
+                if (status && !computerStatus.HasMotherboard)
+                    return false;
                 if (compLocation == null)
                     compLocation = lastItemBeingPickedUp.GetComponent<RAM_Component>().GetMountSlot();
                 if(compLocation.name == "ramSlot1")
@@ -352,16 +371,15 @@ public class ItemHandler : MonoBehaviour
         gpuLoc = GameObject.Find("GPULocation").GetComponent<GPULocation>();
         mbLoc = computerStatus.gameObject.GetComponentInChildren<MotherboardLocation>();
         ramLoc1 = GameObject.Find("ramSlot1").GetComponent<RAMLocation>();
-        ramLoc2 = GameObject.Find("ramSlot1").GetComponent<RAMLocation>();
-        ramLoc3 = GameObject.Find("ramSlot1").GetComponent<RAMLocation>();
-        ramLoc4 = GameObject.Find("ramSlot1").GetComponent<RAMLocation>();
     }
 
     public void Init()
     {
         pickupProgressImage.fillAmount = 0;
         pickupImageRoot.gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        placeImageRoot.gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         pickupImageRoot.gameObject.SetActive(false);
+        placeImageRoot.gameObject.SetActive(false);
         ps = thePlayer.GetComponent<PlayerStatus>();
         originalTransform = this.transform;
         lastItemBeingPickedUp = new PC_Component();
@@ -375,6 +393,7 @@ public class ItemHandler : MonoBehaviour
         this.camera = other.camera;
         this.pickupTime = other.pickupTime;
         this.pickupImageRoot = other.pickupImageRoot;
+        this.placeImageRoot = other.placeImageRoot;
         this.pickupProgressImage = other.pickupProgressImage;
         this.layerMaskComponent = other.layerMaskComponent;
         this.layerMaskLocation = other.layerMaskLocation;

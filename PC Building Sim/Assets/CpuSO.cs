@@ -6,6 +6,7 @@ using UnityEngine;
 public class CpuSO : ScriptableObject
 {
     public string cName;
+    public string manufacturer;
     public float cPrice;
     public int cores;
     public int threads;

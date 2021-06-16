@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: Ryzen 5 3600
   m_EditorClassIdentifier: 
   cName: Ryzen 5 3600
-  cPrice: 6969
+  manufacturer: AMD
+  cPrice: 199
   cores: 6
   threads: 12
-  botClock: 0
-  topClock: 0
+  botClock: 3.6
+  topClock: 4.2
   socket: AM4
-  manProcess: 0
+  manProcess: 7
   l3Cache: 32
   tdp: 65
   cpuModel: {fileID: 6076665247940934171, guid: c5daef5a91f95034291ffae18b3020a8, type: 3}
