@@ -283,6 +283,7 @@ public class ItemHandler : MonoBehaviour
                     return false;
                 if (compLocation == null)
                     compLocation = lastItemBeingPickedUp.GetComponent<RAM_Component>().GetMountSlot();
+                computerStatus.mountedRam = lastItemBeingPickedUp.GetComponent<RAM_Component>();
                 if(compLocation.name == "ramSlot1")
                 {
                     if (status && computerStatus.HasRam1)

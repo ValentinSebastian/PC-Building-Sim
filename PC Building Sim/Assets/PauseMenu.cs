@@ -11,18 +11,21 @@ public class PauseMenu : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if(!GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStatus>().isWatchingShop)
         {
-            isPaused = !isPaused;
-            if (isPaused)
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
-                ActivateMenu();
-            }
-            else
-            {
-                DeactivateMenu();
-            }
-        }       
+                isPaused = !isPaused;
+                if (isPaused)
+                {
+                    ActivateMenu();
+                }
+                else
+                {
+                    DeactivateMenu();
+                }
+            }       
+        }
     }
 
     public void ActivateMenu()

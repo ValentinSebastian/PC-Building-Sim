@@ -23,10 +23,12 @@ ScriptsOnlyBuild:
     - RAMLocation
     - RAM_Component
     - RamSO
+    - ScoreController
     - ShopComponentPage
     - ShopItem
     - ShopOpener
     - ShopUI
+    - StartComputer
     - UnityTemplateProjects.SimpleCameraController
     Unity.CollabProxy.Editor.dll:
     - Unity.Cloud.Collaborate.UserInterface.CollaborateWindow
@@ -238,33 +240,33 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 4666}
     - Class: 114
-      Script: {instanceID: 4910}
+      Script: {instanceID: 4912}
     - Class: 114
-      Script: {instanceID: 5072}
+      Script: {instanceID: 5074}
     - Class: 114
-      Script: {instanceID: 5078}
+      Script: {instanceID: 5080}
     - Class: 114
-      Script: {instanceID: 5108}
+      Script: {instanceID: 5110}
     - Class: 114
-      Script: {instanceID: 5126}
+      Script: {instanceID: 5128}
     - Class: 114
-      Script: {instanceID: 5242}
+      Script: {instanceID: 5244}
     - Class: 114
-      Script: {instanceID: 5248}
+      Script: {instanceID: 5250}
     - Class: 114
-      Script: {instanceID: 5492}
+      Script: {instanceID: 5494}
     - Class: 114
-      Script: {instanceID: 5540}
+      Script: {instanceID: 5542}
     - Class: 114
-      Script: {instanceID: 5600}
+      Script: {instanceID: 5602}
     - Class: 114
-      Script: {instanceID: 5646}
+      Script: {instanceID: 5648}
     - Class: 114
-      Script: {instanceID: 5696}
+      Script: {instanceID: 5698}
     - Class: 114
-      Script: {instanceID: 5770}
+      Script: {instanceID: 5772}
     - Class: 114
-      Script: {instanceID: 5902}
+      Script: {instanceID: 5904}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -335,6 +337,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 2648}
     - Class: 114
+      Script: {instanceID: 2672}
+    - Class: 114
       Script: {instanceID: 2890}
     - Class: 114
       Script: {instanceID: 2932}
@@ -365,29 +369,33 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 4252}
     - Class: 114
-      Script: {instanceID: 4884}
+      Script: {instanceID: 4850}
     - Class: 114
-      Script: {instanceID: 5072}
+      Script: {instanceID: 4886}
     - Class: 114
-      Script: {instanceID: 5248}
+      Script: {instanceID: 5074}
     - Class: 114
-      Script: {instanceID: 5286}
+      Script: {instanceID: 5250}
     - Class: 114
-      Script: {instanceID: 5548}
+      Script: {instanceID: 5288}
     - Class: 114
-      Script: {instanceID: 5696}
+      Script: {instanceID: 5550}
     - Class: 114
-      Script: {instanceID: 5742}
+      Script: {instanceID: 5698}
     - Class: 114
-      Script: {instanceID: 5770}
+      Script: {instanceID: 5744}
     - Class: 114
-      Script: {instanceID: 5806}
+      Script: {instanceID: 5772}
     - Class: 114
-      Script: {instanceID: 5842}
+      Script: {instanceID: 5808}
     - Class: 114
-      Script: {instanceID: 6168}
+      Script: {instanceID: 5844}
     - Class: 114
-      Script: {instanceID: 91344}
+      Script: {instanceID: 6170}
+    - Class: 114
+      Script: {instanceID: 68448}
+    - Class: 114
+      Script: {instanceID: 217168}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -458,9 +466,9 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 3924}
     - Class: 114
-      Script: {instanceID: 5806}
+      Script: {instanceID: 5808}
     - Class: 114
-      Script: {instanceID: 6168}
+      Script: {instanceID: 6170}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -996,7 +1004,7 @@ ScriptsOnlyBuild:
     className: ShopComponentPage
   - hash:
       serializedVersion: 2
-      Hash: 817317dcd726979cf752b38fa2480133
+      Hash: 742d70977d7585444f66a2bc43a2a636
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ComputerStatus
@@ -1038,7 +1046,7 @@ ScriptsOnlyBuild:
     className: FilmGrain
   - hash:
       serializedVersion: 2
-      Hash: ad4af15e69b150a57c9b4cdfb0437be9
+      Hash: f43156e51b82a15d112f690b0cf320b0
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerStatus
@@ -1210,6 +1218,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: SignalTrack
+  - hash:
+      serializedVersion: 2
+      Hash: 3182c9bbd3582e87faed6a059653de1e
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PauseMenu
   - hash:
       serializedVersion: 2
       Hash: bd61762216a93ae9d04ab5ca01dfb653
@@ -1482,10 +1496,16 @@ ScriptsOnlyBuild:
     className: TouchInputModule
   - hash:
       serializedVersion: 2
-      Hash: 3182c9bbd3582e87faed6a059653de1e
+      Hash: 9e0822961aa22829fe37d3594d767ed2
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: PauseMenu
+    className: StartComputer
+  - hash:
+      serializedVersion: 2
+      Hash: c390a716318b41a09aa1a47d5caf7d97
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ScoreController
   platform: 5
   scenePathNames:
   - Assets/Scenes/MainMenuScene.unity

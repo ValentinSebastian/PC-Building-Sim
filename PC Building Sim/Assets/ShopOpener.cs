@@ -16,7 +16,8 @@ public class ShopOpener : MonoBehaviour
             {
                 GameObject.Find("Shop_Canvas").GetComponentInChildren<Canvas>().enabled = true;
                 GameObject.Find("UI_Canvas").GetComponentInChildren<Canvas>().enabled = false;
-
+                Time.timeScale = 0f;
+                GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStatus>().isWatchingShop = true;
                 Cursor.lockState = CursorLockMode.None;
             }          
         }

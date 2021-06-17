@@ -18,6 +18,13 @@ public class GpuSO : ScriptableObject
         public string type;
         public int bandwidth;
         public int clock;
+        public memorySpecs(int _size, string _type, int _bandwidth, int _clock)
+        {
+            size = _size;
+            type = _type;
+            bandwidth = _bandwidth;
+            clock = _clock;
+        }
     }
 
     public memorySpecs memory;

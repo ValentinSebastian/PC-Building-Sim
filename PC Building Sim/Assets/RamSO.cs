@@ -14,4 +14,14 @@ public class RamSO : ScriptableObject
     public float voltage;
     public float frequency;
     public GameObject ramModel;
+
+    public RamSO(float cPrice, string memoryType, int memorySize, float latency, float voltage, float frequency)
+    {
+        this.cPrice = cPrice;
+        this.memoryType = memoryType;
+        this.memorySize = memorySize;
+        this.latency = latency;
+        this.voltage = voltage;
+        this.frequency = frequency;
+    }
 }

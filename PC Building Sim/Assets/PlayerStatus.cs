@@ -6,4 +6,6 @@ public class PlayerStatus : MonoBehaviour
 {
     public bool isHolding;
     public bool isMoving;
+    public bool isPaused;
+    public bool isWatchingShop;
 }
