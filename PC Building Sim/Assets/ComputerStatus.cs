@@ -26,6 +26,7 @@ public class ComputerStatus : MonoBehaviour
     public float cpuPerformance;
     public float ramPerformance;
     public float totalPerformance;
+    private const float averageComponentPerformancePercent = 50f;
 
     public bool HasGpu { get => hasGpu; set => hasGpu = value; }
     public bool HasMotherboard { get => hasMotherboard; set => hasMotherboard = value; }
@@ -39,7 +40,7 @@ public class ComputerStatus : MonoBehaviour
     private void Start()
     {
         averageCpu = new CpuSO(6, 12, 4, 3, "any", 14, 12, 65);
-        averageGpu = new GpuSO("averageGpu", 69, new GpuSO.memorySpecs(6, "GDDR6", 192, 1300), new GameObject());
+        averageGpu = new GpuSO("averageGpu", 69, 1300 , 1500 , new GpuSO.memorySpecs(6, "GDDR6", 192, 1300), new GameObject());
         averageRam = new RamSO(50, "DDR4", 4, 16, 1.35f, 2666);
     }
     public bool TryStart()
@@ -74,26 +75,31 @@ public class ComputerStatus : MonoBehaviour
 
     public void CalculateRamPerformance()
     {
-        //float channelA = mountedRam1.ramSpecs.frequency * mountedRam3.ramSpecs.frequency;
-        //float channelB = mountedRam2.ramSpecs.frequency * mountedRam4.ramSpecs.frequency;
-        //ramPerformance = ((channelA + channelB)*mountedRam.ramSpecs.memorySize) / mountedRam.ramSpecs.latency;
-        ramPerformance = (mountedRam.ramSpecs.frequency - averageRam.frequency)/100;
-        ramPerformance += averageRam.latency -  mountedRam.ramSpecs.latency; 
+        ramPerformance = CalculatePercentWithMagnitude(mountedRam.ramSpecs.frequency, averageRam.frequency, 1);
+        ramPerformance -= CalculatePercentWithMagnitude(mountedRam.ramSpecs.latency, averageRam.latency, 1);
+        ramPerformance = averageComponentPerformancePercent + ramPerformance * averageComponentPerformancePercent;
     }
     public void CalculateCpuPerformance()
     {
-        float ramInfluence = 0;
-        if (mountedRam.ramSpecs.frequency < 3200 && mountedRam.ramSpecs.manufacturer == "AMD")
-            ramInfluence = (3200 - mountedRam.ramSpecs.frequency) / 10;
-        cpuPerformance = mountedCpu.cpuSpecs.cores - averageCpu.cores * 10;
-        cpuPerformance += mountedCpu.cpuSpecs.topClock - averageCpu.topClock;
-        cpuPerformance += ramInfluence + 60;
-
+        cpuPerformance = CalculatePercentWithMagnitude(mountedCpu.cpuSpecs.cores * mountedCpu.cpuSpecs.botClock, averageCpu.cores * averageCpu.botClock , 0.5f);
+        cpuPerformance += CalculatePercentWithMagnitude(mountedCpu.cpuSpecs.cores * mountedCpu.cpuSpecs.topClock, averageCpu.cores * averageCpu.topClock, 0.5f);
+        cpuPerformance += CalculatePercentWithMagnitude(mountedCpu.cpuSpecs.l3Cache , averageCpu.l3Cache, 0.3f);
+        cpuPerformance = averageComponentPerformancePercent + cpuPerformance * averageComponentPerformancePercent;
     }
 
     public void CalculateGpuPerformance()
     {
-        gpuPerformance = (mountedGpu.gpuSpecs.memory.size - averageGpu.memory.size) * 10;
-        gpuPerformance += (mountedGpu.gpuSpecs.coreClock - averageGpu.coreClock) / 100;
+        float memoryDiminishingReturns = 0.5f;
+        if (mountedGpu.gpuSpecs.memory.size > 8)
+            memoryDiminishingReturns = 0.2f;
+        gpuPerformance = CalculatePercentWithMagnitude(mountedGpu.gpuSpecs.memory.size, averageGpu.memory.size, memoryDiminishingReturns);
+        gpuPerformance += CalculatePercentWithMagnitude(mountedGpu.gpuSpecs.shaderCount, averageGpu.shaderCount, 0.3f);
+        gpuPerformance += CalculatePercentWithMagnitude(mountedGpu.gpuSpecs.coreClock, averageGpu.coreClock, 0.3f);
+        gpuPerformance = averageComponentPerformancePercent + gpuPerformance * averageComponentPerformancePercent;
+    }
+
+    public float CalculatePercentWithMagnitude(float val1 , float val2 , float magnitude)
+    {
+        return ((val1 - val2) / val2) * magnitude;
     }
 }

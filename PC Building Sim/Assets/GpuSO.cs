@@ -30,11 +30,13 @@ public class GpuSO : ScriptableObject
     public memorySpecs memory;
     public GameObject gpuModel;
 
-    public GpuSO(string cName, float cPrice, memorySpecs memory, GameObject gpuModel)
+    public GpuSO(string cName, float cPrice, int coreClock , int shaderCount , memorySpecs memory, GameObject gpuModel)
     {
         this.cName = cName;
         this.cPrice = cPrice;
         this.memory = memory;
         this.gpuModel = gpuModel;
+        this.coreClock = coreClock;
+        this.shaderCount = shaderCount;
     }
 }

@@ -246,6 +246,8 @@ public class ItemHandler : MonoBehaviour
         {
             fillLocations();
         }
+        if (!CheckCompatibility())
+            return false;
         switch (lastItemBeingPickedUp.tag)
         {
             case "GPU":
@@ -365,6 +367,26 @@ public class ItemHandler : MonoBehaviour
                 this.transform.parent = compLocation.transform.parent;
                 break;
         }
+    }
+
+    public bool CheckCompatibility()
+    {
+        switch(lastItemBeingPickedUp.tag)
+        {
+            case "GPU":
+                return true;
+            case "CPU":
+                if (lastItemBeingPickedUp.GetComponentInChildren<CPU_Component>().cpuSpecs.socket == lastComponentLocation.gameObject.GetComponentInParent<Motherboard_Component>().mbSpecs.cpuSocket)
+                    return true;
+                    break;
+            case "RAM":
+                if (lastItemBeingPickedUp.GetComponentInChildren<RAM_Component>().ramSpecs.memoryType == lastComponentLocation.gameObject.GetComponentInParent<Motherboard_Component>().mbSpecs.memoryType)
+                    return true;
+                break;
+            case "Motherboard":
+                return true;
+        }
+        return false;
     }
 
     public void fillLocations()
