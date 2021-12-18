@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShopItem : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class ShopItem : MonoBehaviour
     public TMPro.TextMeshProUGUI itemSpec4;
     public TMPro.TextMeshProUGUI itemSpec5;
     public TMPro.TextMeshProUGUI itemSpec6;
+    public Button BuyButton;
+    public Button MoreInfoButton;
 
 
     public ShopItem(string _iName , string _iPrice , string _itemId)

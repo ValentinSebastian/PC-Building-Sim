@@ -77,7 +77,7 @@ public class ShopComponentPage : ShopUI
                 shopItem.itemSpec2.text = gpu.memory.type.ToString();
                 shopItem.itemSpec3.text = gpu.memory.bandwidth.ToString() + " bit";
                 shopItem.itemId.text = nrOfComponents.ToString();
-                obj.GetComponentInChildren<Button>().onClick.AddListener(delegate { BuyButton(obj);}) ;
+                shopItem.BuyButton.onClick.AddListener(delegate { BuyButton(obj);}) ;
                 nrOfComponents++;
                 Debug.Log("instantiated object");
             }
@@ -101,7 +101,7 @@ public class ShopComponentPage : ShopUI
                 shopItem.itemSpec2.text = ram.memoryType;
                 shopItem.itemSpec3.text = "CL " + ram.latency.ToString();
                 shopItem.itemId.text = nrOfComponents.ToString();
-                obj.GetComponentInChildren<Button>().onClick.AddListener(delegate { BuyButton(obj); });
+                shopItem.BuyButton.onClick.AddListener(delegate { BuyButton(obj); });
                 nrOfComponents++;
                 Debug.Log("instantiated object");
             }
@@ -127,7 +127,7 @@ public class ShopComponentPage : ShopUI
                 shopItem.itemSpec5.text = cpu.l3Cache.ToString() + " MB L3";
                 shopItem.itemSpec6.text = cpu.socket;
                 shopItem.itemId.text = nrOfComponents.ToString();
-                obj.GetComponentInChildren<Button>().onClick.AddListener(delegate { BuyButton(obj); });
+                shopItem.BuyButton.onClick.AddListener(delegate { BuyButton(obj); });
                 nrOfComponents++;
                 Debug.Log("instantiated object");
             }
@@ -152,7 +152,7 @@ public class ShopComponentPage : ShopUI
                 shopItem.itemSpec5.text = motherboard.memoryMaxFrequency + " Mhz";
                 shopItem.itemSpec6.text = "Socket: " + motherboard.cpuSocket;
                 shopItem.itemId.text = nrOfComponents.ToString();
-                obj.GetComponentInChildren<Button>().onClick.AddListener(delegate { BuyButton(obj); });
+                shopItem.BuyButton.onClick.AddListener(delegate { BuyButton(obj); });
                 nrOfComponents++;
                 Debug.Log("instantiated object");
             }
