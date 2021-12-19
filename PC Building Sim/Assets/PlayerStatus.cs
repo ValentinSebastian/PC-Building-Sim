@@ -8,4 +8,5 @@ public class PlayerStatus : MonoBehaviour
     public bool isMoving;
     public bool isPaused;
     public bool isWatchingShop;
+
 }

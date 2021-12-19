@@ -51,16 +51,6 @@ public class ShopUI : MonoBehaviour
     }
     #endregion 
     #region Button Functions
-    public void CloseButton()
-    {
-        GameObject.Find("Shop_Canvas").GetComponentInChildren<Canvas>().enabled = false;
-        GameObject.Find("UI_Canvas").GetComponentInChildren<Canvas>().enabled = true;
-        Time.timeScale = 1f;
-        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStatus>().isWatchingShop = false;
-        Cursor.lockState = CursorLockMode.Locked;
-    }
-
-
     public void ChangeTabToGpu()
     {
         cType = PC_Component.ComponentType.GPU;
