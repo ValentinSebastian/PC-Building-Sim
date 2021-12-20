@@ -12,6 +12,7 @@ public class ShopComponentPage : ShopUI
     public GameObject cpuSpawn;
     public GameObject ramSpawn1;
     public GameObject mbSpawn;
+    public GameObject detailsScreen;
     private float cpuPrice;
     private float gpuPrice;
     private float ramPrice;
@@ -78,6 +79,7 @@ public class ShopComponentPage : ShopUI
                 shopItem.itemSpec3.text = gpu.memory.bandwidth.ToString() + " bit";
                 shopItem.itemId.text = nrOfComponents.ToString();
                 shopItem.BuyButton.onClick.AddListener(delegate { BuyButton(obj);}) ;
+                shopItem.MoreInfoButton.onClick.AddListener(delegate { MoreInfoButton(); });
                 nrOfComponents++;
                 Debug.Log("instantiated object");
             }
@@ -102,6 +104,7 @@ public class ShopComponentPage : ShopUI
                 shopItem.itemSpec3.text = "CL " + ram.latency.ToString();
                 shopItem.itemId.text = nrOfComponents.ToString();
                 shopItem.BuyButton.onClick.AddListener(delegate { BuyButton(obj); });
+                shopItem.MoreInfoButton.onClick.AddListener(delegate { MoreInfoButton(); });
                 nrOfComponents++;
                 Debug.Log("instantiated object");
             }
@@ -128,6 +131,7 @@ public class ShopComponentPage : ShopUI
                 shopItem.itemSpec6.text = cpu.socket;
                 shopItem.itemId.text = nrOfComponents.ToString();
                 shopItem.BuyButton.onClick.AddListener(delegate { BuyButton(obj); });
+                shopItem.MoreInfoButton.onClick.AddListener(delegate { MoreInfoButton(); });
                 nrOfComponents++;
                 Debug.Log("instantiated object");
             }
@@ -153,6 +157,7 @@ public class ShopComponentPage : ShopUI
                 shopItem.itemSpec6.text = "Socket: " + motherboard.cpuSocket;
                 shopItem.itemId.text = nrOfComponents.ToString();
                 shopItem.BuyButton.onClick.AddListener(delegate { BuyButton(obj); });
+                shopItem.MoreInfoButton.onClick.AddListener(delegate { MoreInfoButton(); });
                 nrOfComponents++;
                 Debug.Log("instantiated object");
             }
@@ -205,6 +210,10 @@ public class ShopComponentPage : ShopUI
         rotation = tempObj.transform.rotation;
         var spawnedObj = Instantiate(objToSpawn , position , rotation);
         spawnedObj.transform.parent = tempObj.transform.parent;
+    }
+    public void MoreInfoButton()
+    {
+        detailsScreen.transform.LeanScale(Vector2.one, 0.5f).setEaseInQuart();
     }
     public void ClearCurrentTab()
     {
