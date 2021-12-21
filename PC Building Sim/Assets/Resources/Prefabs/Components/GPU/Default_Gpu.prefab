@@ -152,6 +152,7 @@ MonoBehaviour:
   camera: {fileID: 0}
   pickupTime: 1
   pickupImageRoot: {fileID: 0}
+  placeImageRoot: {fileID: 0}
   pickupProgressImage: {fileID: 0}
   layerMaskComponent:
     serializedVersion: 2
@@ -175,13 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e1687a1fae13d346bdd621c2c8eef85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cName: GTX 1660
-  cPrice: 300
-  memory:
-    size: 0
-    type: 
-    bandwidth: 0
-    clock: 0
+  gpuSpecs: {fileID: 0}
 --- !u!1 &5584481546897909044
 GameObject:
   m_ObjectHideFlags: 0
@@ -279,6 +274,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 0
   m_Antialiasing: 0
   m_AntialiasingQuality: 2

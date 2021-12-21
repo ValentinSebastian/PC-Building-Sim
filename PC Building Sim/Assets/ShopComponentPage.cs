@@ -71,6 +71,8 @@ public class ShopComponentPage : ShopUI
             {
                 var obj = Instantiate(itemTemplate);
                 obj.transform.parent = transform;
+                Texture2D thumbnailItemImage = UnityEditor.AssetPreview.GetAssetPreview(gpu.gpuModel);
+                obj.GetComponentInChildren<Image>().sprite = Sprite.Create(thumbnailItemImage, new Rect(0, 0, thumbnailItemImage.width, thumbnailItemImage.height), new Vector2(0.5f, 0.5f)); 
                 var shopItem = obj.GetComponentInChildren<ShopItem>();
                 shopItem.itemName.text = gpu.cName;
                 shopItem.itemPrice.text = gpu.cPrice.ToString() + " $";
@@ -79,7 +81,7 @@ public class ShopComponentPage : ShopUI
                 shopItem.itemSpec3.text = gpu.memory.bandwidth.ToString() + " bit";
                 shopItem.itemId.text = nrOfComponents.ToString();
                 shopItem.BuyButton.onClick.AddListener(delegate { BuyButton(obj);}) ;
-                shopItem.MoreInfoButton.onClick.AddListener(delegate { MoreInfoButton(); });
+                shopItem.MoreInfoButton.onClick.AddListener(delegate { MoreInfoButton(shopItem); });
                 nrOfComponents++;
                 Debug.Log("instantiated object");
             }
@@ -96,6 +98,8 @@ public class ShopComponentPage : ShopUI
             {
                 var obj = Instantiate(itemTemplate);
                 obj.transform.parent = transform;
+                Texture2D thumbnailItemImage = UnityEditor.AssetPreview.GetAssetPreview(ram.ramModel);
+                obj.GetComponentInChildren<Image>().sprite = Sprite.Create(thumbnailItemImage, new Rect(0, 0, thumbnailItemImage.width, thumbnailItemImage.height), new Vector2(0.5f, 0.5f));
                 var shopItem = obj.GetComponentInChildren<ShopItem>();               
                 shopItem.itemName.text = ram.cName;
                 shopItem.itemPrice.text = ram.cPrice.ToString() + " $";
@@ -104,7 +108,7 @@ public class ShopComponentPage : ShopUI
                 shopItem.itemSpec3.text = "CL " + ram.latency.ToString();
                 shopItem.itemId.text = nrOfComponents.ToString();
                 shopItem.BuyButton.onClick.AddListener(delegate { BuyButton(obj); });
-                shopItem.MoreInfoButton.onClick.AddListener(delegate { MoreInfoButton(); });
+                shopItem.MoreInfoButton.onClick.AddListener(delegate { MoreInfoButton(shopItem); });
                 nrOfComponents++;
                 Debug.Log("instantiated object");
             }
@@ -120,6 +124,8 @@ public class ShopComponentPage : ShopUI
             {
                 var obj = Instantiate(itemTemplate);
                 obj.transform.parent = transform;
+                Texture2D thumbnailItemImage = UnityEditor.AssetPreview.GetAssetPreview(cpu.cpuModel);
+                obj.GetComponentInChildren<Image>().sprite = Sprite.Create(thumbnailItemImage, new Rect(0, 0, thumbnailItemImage.width, thumbnailItemImage.height), new Vector2(0.5f, 0.5f));
                 var shopItem = obj.GetComponentInChildren<ShopItem>();
                 shopItem.itemName.text = cpu.cName;
                 shopItem.itemPrice.text = cpu.cPrice.ToString() + " $";
@@ -131,7 +137,7 @@ public class ShopComponentPage : ShopUI
                 shopItem.itemSpec6.text = cpu.socket;
                 shopItem.itemId.text = nrOfComponents.ToString();
                 shopItem.BuyButton.onClick.AddListener(delegate { BuyButton(obj); });
-                shopItem.MoreInfoButton.onClick.AddListener(delegate { MoreInfoButton(); });
+                shopItem.MoreInfoButton.onClick.AddListener(delegate { MoreInfoButton(shopItem); });
                 nrOfComponents++;
                 Debug.Log("instantiated object");
             }
@@ -146,6 +152,8 @@ public class ShopComponentPage : ShopUI
             {
                 var obj = Instantiate(itemTemplate);
                 obj.transform.parent = transform;
+                Texture2D thumbnailItemImage = UnityEditor.AssetPreview.GetAssetPreview(motherboard.motherboardModel);
+                obj.GetComponentInChildren<Image>().sprite = Sprite.Create(thumbnailItemImage, new Rect(0, 0, thumbnailItemImage.width, thumbnailItemImage.height), new Vector2(0.5f, 0.5f));
                 var shopItem = obj.GetComponentInChildren<ShopItem>();
                 shopItem.itemName.text = motherboard.cName;
                 shopItem.itemPrice.text = motherboard.cPrice.ToString() + " $";
@@ -157,7 +165,7 @@ public class ShopComponentPage : ShopUI
                 shopItem.itemSpec6.text = "Socket: " + motherboard.cpuSocket;
                 shopItem.itemId.text = nrOfComponents.ToString();
                 shopItem.BuyButton.onClick.AddListener(delegate { BuyButton(obj); });
-                shopItem.MoreInfoButton.onClick.AddListener(delegate { MoreInfoButton(); });
+                shopItem.MoreInfoButton.onClick.AddListener(delegate { MoreInfoButton(shopItem); });
                 nrOfComponents++;
                 Debug.Log("instantiated object");
             }
@@ -211,8 +219,17 @@ public class ShopComponentPage : ShopUI
         var spawnedObj = Instantiate(objToSpawn , position , rotation);
         spawnedObj.transform.parent = tempObj.transform.parent;
     }
-    public void MoreInfoButton()
+    public void MoreInfoButton(ShopItem shopItem)
     {
+        DetailsScreen screenData = detailsScreen.GetComponent<DetailsScreen>();
+        screenData.itemName.text = shopItem.itemName.text;
+        screenData.itemSpec1.text = shopItem.itemSpec1.text;
+        screenData.itemSpec2.text = shopItem.itemSpec2.text;
+        screenData.itemSpec3.text = shopItem.itemSpec3.text;
+        screenData.itemSpec4.text = shopItem.itemSpec4.text;
+        screenData.itemSpec5.text = shopItem.itemSpec5.text;
+        screenData.itemSpec6.text = shopItem.itemSpec6.text;
+
         detailsScreen.transform.LeanScale(Vector2.one, 0.5f).setEaseInQuart();
     }
     public void ClearCurrentTab()
