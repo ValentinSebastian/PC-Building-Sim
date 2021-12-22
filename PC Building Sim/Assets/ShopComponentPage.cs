@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,11 +23,10 @@ public class ShopComponentPage : ShopUI
 
 
 
-    private void Start()
+    private void Awake()
     {
         totalPrice = 0;
         totalPriceText.text = totalPrice.ToString() + " $";
-        FillGpuShop();
     }
 
     private void Update()
@@ -71,8 +71,14 @@ public class ShopComponentPage : ShopUI
             {
                 var obj = Instantiate(itemTemplate);
                 obj.transform.parent = transform;
-                Texture2D thumbnailItemImage = UnityEditor.AssetPreview.GetAssetPreview(gpu.gpuModel);
-                obj.GetComponentInChildren<Image>().sprite = Sprite.Create(thumbnailItemImage, new Rect(0, 0, thumbnailItemImage.width, thumbnailItemImage.height), new Vector2(0.5f, 0.5f)); 
+#if UNITY_EDITOR
+                Texture2D thumbnailItemImage = UnityEditor.AssetPreview.GetAssetPreview(gpu.gpuModel);                
+                byte[] bytes = thumbnailItemImage.EncodeToPNG();
+                File.WriteAllBytes(Application.dataPath + "/Resources/Thumbnails/" + gpu.gpuModel.name + ".png", bytes);
+#endif
+                Texture2D _texture = Resources.Load<Texture2D>("Thumbnails/" + gpu.gpuModel.name);
+                if (_texture != null)
+                 obj.GetComponentInChildren<Image>().sprite = Sprite.Create(_texture, new Rect(0, 0, _texture.width, _texture.height), new Vector2(0.5f, 0.5f));
                 var shopItem = obj.GetComponentInChildren<ShopItem>();
                 shopItem.itemName.text = gpu.cName;
                 shopItem.itemPrice.text = gpu.cPrice.ToString() + " $";
@@ -98,8 +104,15 @@ public class ShopComponentPage : ShopUI
             {
                 var obj = Instantiate(itemTemplate);
                 obj.transform.parent = transform;
+#if UNITY_EDITOR
                 Texture2D thumbnailItemImage = UnityEditor.AssetPreview.GetAssetPreview(ram.ramModel);
-                obj.GetComponentInChildren<Image>().sprite = Sprite.Create(thumbnailItemImage, new Rect(0, 0, thumbnailItemImage.width, thumbnailItemImage.height), new Vector2(0.5f, 0.5f));
+                byte[] bytes = thumbnailItemImage.EncodeToPNG();
+                File.WriteAllBytes(Application.dataPath + "/Resources/Thumbnails/" + ram.ramModel.name + ".png", bytes);
+#endif
+                Texture2D _texture = Resources.Load<Texture2D>("Thumbnails/" + ram.ramModel.name);
+                if (_texture != null)
+                    obj.GetComponentInChildren<Image>().sprite = Sprite.Create(_texture, new Rect(0, 0, _texture.width, _texture.height), new Vector2(0.5f, 0.5f));
+
                 var shopItem = obj.GetComponentInChildren<ShopItem>();               
                 shopItem.itemName.text = ram.cName;
                 shopItem.itemPrice.text = ram.cPrice.ToString() + " $";
@@ -124,8 +137,15 @@ public class ShopComponentPage : ShopUI
             {
                 var obj = Instantiate(itemTemplate);
                 obj.transform.parent = transform;
+#if UNITY_EDITOR
                 Texture2D thumbnailItemImage = UnityEditor.AssetPreview.GetAssetPreview(cpu.cpuModel);
-                obj.GetComponentInChildren<Image>().sprite = Sprite.Create(thumbnailItemImage, new Rect(0, 0, thumbnailItemImage.width, thumbnailItemImage.height), new Vector2(0.5f, 0.5f));
+                byte[] bytes = thumbnailItemImage.EncodeToPNG();
+                File.WriteAllBytes(Application.dataPath + "/Resources/Thumbnails/" + cpu.cpuModel.name + ".png", bytes);
+#endif
+                Texture2D _texture = Resources.Load<Texture2D>("Thumbnails/" + cpu.cpuModel.name);
+                if (_texture != null)
+                    obj.GetComponentInChildren<Image>().sprite = Sprite.Create(_texture, new Rect(0, 0, _texture.width, _texture.height), new Vector2(0.5f, 0.5f));
+
                 var shopItem = obj.GetComponentInChildren<ShopItem>();
                 shopItem.itemName.text = cpu.cName;
                 shopItem.itemPrice.text = cpu.cPrice.ToString() + " $";
@@ -152,8 +172,15 @@ public class ShopComponentPage : ShopUI
             {
                 var obj = Instantiate(itemTemplate);
                 obj.transform.parent = transform;
+#if UNITY_EDITOR
                 Texture2D thumbnailItemImage = UnityEditor.AssetPreview.GetAssetPreview(motherboard.motherboardModel);
-                obj.GetComponentInChildren<Image>().sprite = Sprite.Create(thumbnailItemImage, new Rect(0, 0, thumbnailItemImage.width, thumbnailItemImage.height), new Vector2(0.5f, 0.5f));
+                byte[] bytes = thumbnailItemImage.EncodeToPNG();
+                File.WriteAllBytes(Application.dataPath + "/Resources/Thumbnails/" + motherboard.motherboardModel.name + ".png", bytes);
+#endif
+                Texture2D _texture = Resources.Load<Texture2D>("Thumbnails/" + motherboard.motherboardModel.name);
+                if (_texture != null)
+                    obj.GetComponentInChildren<Image>().sprite = Sprite.Create(_texture, new Rect(0, 0, _texture.width, _texture.height), new Vector2(0.5f, 0.5f));
+
                 var shopItem = obj.GetComponentInChildren<ShopItem>();
                 shopItem.itemName.text = motherboard.cName;
                 shopItem.itemPrice.text = motherboard.cPrice.ToString() + " $";
@@ -171,7 +198,7 @@ public class ShopComponentPage : ShopUI
             }
         }
     }
-    #endregion
+#endregion
     public void BuyButton(GameObject temp)
     {
         Debug.Log(temp.GetComponent<ShopItem>().itemId.text);
