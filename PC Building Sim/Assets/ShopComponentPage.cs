@@ -201,7 +201,7 @@ public class ShopComponentPage : ShopUI
 #endregion
     public void BuyButton(GameObject temp)
     {
-        Debug.Log(temp.GetComponent<ShopItem>().itemId.text);
+        Debug.Log(temp.GetComponent<ShopItem>().itemName.text);
         GameObject tempObj = temp;
         GameObject objToSpawn = new GameObject();
         int index = int.Parse(temp.GetComponent<ShopItem>().itemId.text);

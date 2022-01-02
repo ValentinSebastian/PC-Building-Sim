@@ -344,11 +344,21 @@ public class ItemHandler : MonoBehaviour
         this.transform.rotation = compLocation.transform.rotation;
         switch (lastItemBeingPickedUp.tag)
         {
-            case "GPU":
-                this.transform.Rotate(90f, 0f, -90f);
-                this.transform.localScale = originalTransform.localScale * 2;
-                this.transform.parent = compLocation.transform.parent;
-                this.transform.localPosition += new Vector3(0f , -0.2f , 0.7f);
+            case "GPU":             
+                if(this.gameObject.name.Contains("2060"))
+                {
+                    this.transform.Rotate(-90f, -90f, -90f);
+                    this.transform.localScale = originalTransform.localScale * 2;
+                    this.transform.parent = compLocation.transform.parent;
+                    this.transform.localPosition += new Vector3(0f, -0.2f, 0.7f);
+                }
+                else
+                {
+                    this.transform.Rotate(90f, 0f, -90f);
+                    this.transform.localScale = originalTransform.localScale * 2;
+                    this.transform.parent = compLocation.transform.parent;
+                    this.transform.localPosition += new Vector3(0f, -0.2f, 0.7f);
+                }
                 break;
             case "CPU":
                 this.transform.Rotate(-90f, 0f, -90f);
