@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ComputerStatus : MonoBehaviour
 {
@@ -27,6 +28,13 @@ public class ComputerStatus : MonoBehaviour
     public float ramPerformance;
     public float totalPerformance;
     private const float averageComponentPerformancePercent = 50f;
+    public Image ComputerStatusDisplay;
+    public bool CSD_Hidden = true;
+    public TMPro.TextMeshProUGUI cpuStatusTextbox;
+    public TMPro.TextMeshProUGUI gpuStatusTextbox;
+    public TMPro.TextMeshProUGUI moboStatusTextbox;
+    public TMPro.TextMeshProUGUI ramStatusTextbox;
+    public TMPro.TextMeshProUGUI fanStatusTextbox;
 
     public bool HasGpu { get => hasGpu; set => hasGpu = value; }
     public bool HasMotherboard { get => hasMotherboard; set => hasMotherboard = value; }
@@ -42,6 +50,65 @@ public class ComputerStatus : MonoBehaviour
         averageCpu = new CpuSO(6, 12, 4, 3, "any", 14, 12, 65);
         averageGpu = new GpuSO("averageGpu", 69, 1300 , 1500 , new GpuSO.memorySpecs(6, "GDDR6", 192, 1300), new GameObject());
         averageRam = new RamSO(50, "DDR4", 4, 16, 1.35f, 2666);
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.H))
+        {
+            if (CSD_Hidden)
+            {
+                ComputerStatusDisplay.transform.LeanMoveX(ComputerStatusDisplay.transform.position.x - ComputerStatusDisplay.rectTransform.rect.width * 2, 0.3f);
+                CSD_Hidden = false;
+                Debug.Log("WTF1");
+            }
+            else
+            {
+                ComputerStatusDisplay.transform.LeanMoveX(ComputerStatusDisplay.transform.position.x + ComputerStatusDisplay.rectTransform.rect.width * 2, 0.3f);
+                CSD_Hidden = true;
+                Debug.Log("WTF2");
+            }
+        }
+        if(HasCpu)
+        {
+            cpuStatusTextbox.text = "Connected";
+            cpuStatusTextbox.color = Color.green;
+        }
+        else
+        {
+            cpuStatusTextbox.text = "NOT CONNECTED";
+            cpuStatusTextbox.color = Color.red;
+        }
+        if (HasGpu)
+        {
+            gpuStatusTextbox.text = "Connected";
+            gpuStatusTextbox.color = Color.green;
+        }
+        else
+        {
+            gpuStatusTextbox.text = "NOT CONNECTED";
+            gpuStatusTextbox.color = Color.red;
+        }
+        if (HasMotherboard)
+        {
+            moboStatusTextbox.text = "Connected";
+            moboStatusTextbox.color = Color.green;
+        }
+        else
+        {
+            moboStatusTextbox.text = "NOT CONNECTED";
+            moboStatusTextbox.color = Color.red;
+        }
+        if (HasRam1 || HasRam2 || HasRam3 || HasRam4)
+        {
+            ramStatusTextbox.text = "Connected";
+            ramStatusTextbox.color = Color.green;
+        }
+        else
+        {
+            ramStatusTextbox.text = "NOT CONNECTED";
+            ramStatusTextbox.color = Color.red;
+        }
     }
     public bool TryStart()
     {

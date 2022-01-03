@@ -135,6 +135,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
+    - Class: 89
+      Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
     - Class: 108
@@ -1408,7 +1410,7 @@ ScriptsOnlyBuild:
     className: ShopComponentPage
   - hash:
       serializedVersion: 2
-      Hash: 742d70977d7585444f66a2bc43a2a636
+      Hash: 0ddd297f642294e0d0eb564780d22dfd
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ComputerStatus
