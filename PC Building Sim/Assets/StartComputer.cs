@@ -9,6 +9,7 @@ public class StartComputer : MonoBehaviour
     public Canvas scoreCanvas;
     public Canvas uiCanvas;
     public GameObject score;
+    public GameObject scoreForSave;
     private void Start()
     {
         computerStatus = GameObject.Find("MotherboardLocation").transform.parent.gameObject.GetComponent<ComputerStatus>();
@@ -22,6 +23,7 @@ public class StartComputer : MonoBehaviour
                 if (computerStatus.TryStart())
                 {
                     score.GetComponent<ScoreController>().UpdateScores();
+                    scoreForSave.GetComponent<ScoreController>().UpdateScores();
                     scoreCanvas.GetComponent<Canvas>().enabled = true;
                     uiCanvas.GetComponent<Canvas>().enabled = false;
                     Time.timeScale = 0f;

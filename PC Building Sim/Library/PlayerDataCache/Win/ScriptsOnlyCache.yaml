@@ -135,8 +135,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
-    - Class: 89
-      Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
     - Class: 108
@@ -330,6 +328,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 1726}
     - Class: 114
       Script: {instanceID: 1958}
+    - Class: 114
+      Script: {instanceID: 2288}
     - Class: 114
       Script: {instanceID: 2402}
     - Class: 114

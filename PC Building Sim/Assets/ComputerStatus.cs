@@ -113,7 +113,7 @@ public class ComputerStatus : MonoBehaviour
     public bool TryStart()
     {
         //temporary , need to add component compatibility check
-        if (hasCpu && hasGpu && hasMotherboard && hasRam1)
+        if (hasCpu && hasGpu && hasMotherboard && (hasRam1 || hasRam2 || hasRam3 || hasRam4))
         {
             CalculatePerformance();
             return true;
