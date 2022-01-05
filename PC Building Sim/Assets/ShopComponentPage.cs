@@ -25,6 +25,8 @@ public class ShopComponentPage : ShopUI
 
     private void Awake()
     {
+        compatibility = new string[4];
+        fitsPC = false;
         totalPrice = 0;
         totalPriceText.text = totalPrice.ToString() + " $";
     }
@@ -102,28 +104,31 @@ public class ShopComponentPage : ShopUI
         {
             foreach (var ram in allRamComponents)
             {
-                var obj = Instantiate(itemTemplate);
-                obj.transform.parent = transform;
+                if(CheckFitsPc(ram.memoryType , 3))
+                {
+                    var obj = Instantiate(itemTemplate);
+                    obj.transform.parent = transform;
 #if UNITY_EDITOR
-                Texture2D thumbnailItemImage = UnityEditor.AssetPreview.GetAssetPreview(ram.ramModel);
-                byte[] bytes = thumbnailItemImage.EncodeToPNG();
-                File.WriteAllBytes(Application.dataPath + "/Resources/Thumbnails/" + ram.ramModel.name + ".png", bytes);
+                    Texture2D thumbnailItemImage = UnityEditor.AssetPreview.GetAssetPreview(ram.ramModel);
+                    byte[] bytes = thumbnailItemImage.EncodeToPNG();
+                    File.WriteAllBytes(Application.dataPath + "/Resources/Thumbnails/" + ram.ramModel.name + ".png", bytes);
 #endif
-                Texture2D _texture = Resources.Load<Texture2D>("Thumbnails/" + ram.ramModel.name);
-                if (_texture != null)
-                    obj.GetComponentInChildren<Image>().sprite = Sprite.Create(_texture, new Rect(0, 0, _texture.width, _texture.height), new Vector2(0.5f, 0.5f));
+                    Texture2D _texture = Resources.Load<Texture2D>("Thumbnails/" + ram.ramModel.name);
+                    if (_texture != null)
+                        obj.GetComponentInChildren<Image>().sprite = Sprite.Create(_texture, new Rect(0, 0, _texture.width, _texture.height), new Vector2(0.5f, 0.5f));
 
-                var shopItem = obj.GetComponentInChildren<ShopItem>();               
-                shopItem.itemName.text = ram.cName;
-                shopItem.itemPrice.text = ram.cPrice.ToString() + " $";
-                shopItem.itemSpec1.text = ram.memorySize.ToString() + " GB";
-                shopItem.itemSpec2.text = ram.memoryType;
-                shopItem.itemSpec3.text = "CL " + ram.latency.ToString();
-                shopItem.itemId.text = nrOfComponents.ToString();
-                shopItem.BuyButton.onClick.AddListener(delegate { BuyButton(obj); });
-                shopItem.MoreInfoButton.onClick.AddListener(delegate { MoreInfoButton(shopItem); });
-                nrOfComponents++;
-                Debug.Log("instantiated object");
+                    var shopItem = obj.GetComponentInChildren<ShopItem>();
+                    shopItem.itemName.text = ram.cName;
+                    shopItem.itemPrice.text = ram.cPrice.ToString() + " $";
+                    shopItem.itemSpec1.text = ram.memorySize.ToString() + " GB";
+                    shopItem.itemSpec2.text = ram.memoryType;
+                    shopItem.itemSpec3.text = "CL " + ram.latency.ToString();
+                    shopItem.itemId.text = nrOfComponents.ToString();
+                    shopItem.BuyButton.onClick.AddListener(delegate { BuyButton(obj); });
+                    shopItem.MoreInfoButton.onClick.AddListener(delegate { MoreInfoButton(shopItem); });
+                    nrOfComponents++;
+                    Debug.Log("instantiated object");
+                }             
             }
         }
         
@@ -135,31 +140,35 @@ public class ShopComponentPage : ShopUI
         {
             foreach (var cpu in allCpuComponents)
             {
-                var obj = Instantiate(itemTemplate);
-                obj.transform.parent = transform;
+                if(CheckFitsPc(cpu.socket , 2))
+                {
+                    var obj = Instantiate(itemTemplate);
+                    obj.transform.parent = transform;
 #if UNITY_EDITOR
-                Texture2D thumbnailItemImage = UnityEditor.AssetPreview.GetAssetPreview(cpu.cpuModel);
-                byte[] bytes = thumbnailItemImage.EncodeToPNG();
-                File.WriteAllBytes(Application.dataPath + "/Resources/Thumbnails/" + cpu.cpuModel.name + ".png", bytes);
+                    Texture2D thumbnailItemImage = UnityEditor.AssetPreview.GetAssetPreview(cpu.cpuModel);
+                    byte[] bytes = thumbnailItemImage.EncodeToPNG();
+                    File.WriteAllBytes(Application.dataPath + "/Resources/Thumbnails/" + cpu.cpuModel.name + ".png", bytes);
 #endif
-                Texture2D _texture = Resources.Load<Texture2D>("Thumbnails/" + cpu.cpuModel.name);
-                if (_texture != null)
-                    obj.GetComponentInChildren<Image>().sprite = Sprite.Create(_texture, new Rect(0, 0, _texture.width, _texture.height), new Vector2(0.5f, 0.5f));
+                    Texture2D _texture = Resources.Load<Texture2D>("Thumbnails/" + cpu.cpuModel.name);
+                    if (_texture != null)
+                        obj.GetComponentInChildren<Image>().sprite = Sprite.Create(_texture, new Rect(0, 0, _texture.width, _texture.height), new Vector2(0.5f, 0.5f));
 
-                var shopItem = obj.GetComponentInChildren<ShopItem>();
-                shopItem.itemName.text = cpu.cName;
-                shopItem.itemPrice.text = cpu.cPrice.ToString() + " $";
-                shopItem.itemSpec1.text = cpu.cores.ToString() + " cores";
-                shopItem.itemSpec2.text = cpu.threads.ToString() + " threads";
-                shopItem.itemSpec3.text = cpu.botClock.ToString() + " - " + cpu.topClock.ToString() + " GHz";
-                shopItem.itemSpec4.text = cpu.tdp.ToString() + " W";
-                shopItem.itemSpec5.text = cpu.l3Cache.ToString() + " MB L3";
-                shopItem.itemSpec6.text = cpu.socket;
-                shopItem.itemId.text = nrOfComponents.ToString();
-                shopItem.BuyButton.onClick.AddListener(delegate { BuyButton(obj); });
-                shopItem.MoreInfoButton.onClick.AddListener(delegate { MoreInfoButton(shopItem); });
-                nrOfComponents++;
-                Debug.Log("instantiated object");
+                    var shopItem = obj.GetComponentInChildren<ShopItem>();
+                    shopItem.itemName.text = cpu.cName;
+                    shopItem.itemPrice.text = cpu.cPrice.ToString() + " $";
+                    shopItem.itemSpec1.text = cpu.cores.ToString() + " cores";
+                    shopItem.itemSpec2.text = cpu.threads.ToString() + " threads";
+                    shopItem.itemSpec3.text = cpu.botClock.ToString() + " - " + cpu.topClock.ToString() + " GHz";
+                    shopItem.itemSpec4.text = cpu.tdp.ToString() + " W";
+                    shopItem.itemSpec5.text = cpu.l3Cache.ToString() + " MB L3";
+                    shopItem.itemSpec6.text = cpu.socket;
+                    shopItem.itemId.text = nrOfComponents.ToString();
+                    shopItem.BuyButton.onClick.AddListener(delegate { BuyButton(obj); });
+                    shopItem.MoreInfoButton.onClick.AddListener(delegate { MoreInfoButton(shopItem); });
+                    nrOfComponents++;
+                    Debug.Log("instantiated object");
+                }
+                
             }
         }
     }
@@ -170,33 +179,50 @@ public class ShopComponentPage : ShopUI
         {
             foreach (var motherboard in allMotherboardComponents)
             {
-                var obj = Instantiate(itemTemplate);
-                obj.transform.parent = transform;
+                if(CheckFitsPc(motherboard.cpuSocket , 0) && CheckFitsPc(motherboard.memoryType , 1))
+                {
+                    var obj = Instantiate(itemTemplate);
+                    obj.transform.parent = transform;
 #if UNITY_EDITOR
-                Texture2D thumbnailItemImage = UnityEditor.AssetPreview.GetAssetPreview(motherboard.motherboardModel);
-                byte[] bytes = thumbnailItemImage.EncodeToPNG();
-                File.WriteAllBytes(Application.dataPath + "/Resources/Thumbnails/" + motherboard.motherboardModel.name + ".png", bytes);
+                    Texture2D thumbnailItemImage = UnityEditor.AssetPreview.GetAssetPreview(motherboard.motherboardModel);
+                    byte[] bytes = thumbnailItemImage.EncodeToPNG();
+                    File.WriteAllBytes(Application.dataPath + "/Resources/Thumbnails/" + motherboard.motherboardModel.name + ".png", bytes);
 #endif
-                Texture2D _texture = Resources.Load<Texture2D>("Thumbnails/" + motherboard.motherboardModel.name);
-                if (_texture != null)
-                    obj.GetComponentInChildren<Image>().sprite = Sprite.Create(_texture, new Rect(0, 0, _texture.width, _texture.height), new Vector2(0.5f, 0.5f));
+                    Texture2D _texture = Resources.Load<Texture2D>("Thumbnails/" + motherboard.motherboardModel.name);
+                    if (_texture != null)
+                        obj.GetComponentInChildren<Image>().sprite = Sprite.Create(_texture, new Rect(0, 0, _texture.width, _texture.height), new Vector2(0.5f, 0.5f));
 
-                var shopItem = obj.GetComponentInChildren<ShopItem>();
-                shopItem.itemName.text = motherboard.cName;
-                shopItem.itemPrice.text = motherboard.cPrice.ToString() + " $";
-                shopItem.itemSpec1.text = motherboard.formFactor;
-                shopItem.itemSpec2.text = motherboard.memorySlots.ToString() + " X " + motherboard.memoryType;
-                shopItem.itemSpec3.text = motherboard.pci_eSlots;
-                shopItem.itemSpec4.text = motherboard.audioChip;
-                shopItem.itemSpec5.text = motherboard.memoryMaxFrequency + " Mhz";
-                shopItem.itemSpec6.text = "Socket: " + motherboard.cpuSocket;
-                shopItem.itemId.text = nrOfComponents.ToString();
-                shopItem.BuyButton.onClick.AddListener(delegate { BuyButton(obj); });
-                shopItem.MoreInfoButton.onClick.AddListener(delegate { MoreInfoButton(shopItem); });
-                nrOfComponents++;
-                Debug.Log("instantiated object");
+                    var shopItem = obj.GetComponentInChildren<ShopItem>();
+                    shopItem.itemName.text = motherboard.cName;
+                    shopItem.itemPrice.text = motherboard.cPrice.ToString() + " $";
+                    shopItem.itemSpec1.text = motherboard.formFactor;
+                    shopItem.itemSpec2.text = motherboard.memorySlots.ToString() + " X " + motherboard.memoryType;
+                    shopItem.itemSpec3.text = motherboard.pci_eSlots;
+                    shopItem.itemSpec4.text = motherboard.audioChip;
+                    shopItem.itemSpec5.text = motherboard.memoryMaxFrequency + " Mhz";
+                    shopItem.itemSpec6.text = "Socket: " + motherboard.cpuSocket;
+                    shopItem.itemId.text = nrOfComponents.ToString();
+                    shopItem.BuyButton.onClick.AddListener(delegate { BuyButton(obj); });
+                    shopItem.MoreInfoButton.onClick.AddListener(delegate { MoreInfoButton(shopItem); });
+                    nrOfComponents++;
+                    Debug.Log("instantiated object");
+                }
+                
             }
         }
+    }
+
+    public bool CheckFitsPc(string toTest , int i)
+    {
+        if(fitsPC)
+        {
+            if (compatibility[i] != null)
+            {
+                if (compatibility[i] != toTest)
+                    return false;
+            }
+        }
+        return true;
     }
 #endregion
     public void BuyButton(GameObject temp)
@@ -220,18 +246,22 @@ public class ShopComponentPage : ShopUI
                 objToSpawn = allCpuComponents[index].cpuModel;
                 objToSpawn.GetComponentInChildren<CPU_Component>().cpuSpecs = allCpuComponents[index];
                 cpuPrice = allCpuComponents[index].cPrice;
+                compatibility[0] = allCpuComponents[index].socket; 
                 break;
             case PC_Component.ComponentType.Motherboard:
                 tempObj = mbSpawn;
                 objToSpawn = allMotherboardComponents[index].motherboardModel;
                 objToSpawn.GetComponentInChildren<Motherboard_Component>().mbSpecs = allMotherboardComponents[index];
                 mbPrice = allMotherboardComponents[index].cPrice;
+                compatibility[2] = allMotherboardComponents[index].cpuSocket;
+                compatibility[3] = allMotherboardComponents[index].memoryType;
                 break;
             case PC_Component.ComponentType.RAM:
                 tempObj = ramSpawn1;
                 objToSpawn = allRamComponents[index].ramModel;
                 objToSpawn.GetComponentInChildren<RAM_Component>().ramSpecs = allRamComponents[index];
                 ramPrice = allRamComponents[index].cPrice;
+                compatibility[1] = allRamComponents[index].memoryType;
                 break;
             default:
                 Debug.Log("tag error");
@@ -269,4 +299,16 @@ public class ShopComponentPage : ShopUI
         }
         nrOfComponents = 0;
     }
+    public void FitsPcToggleChange()
+    {
+        if (fitsPC)
+            fitsPC = false;
+        else
+            fitsPC = true;
+
+        tabChanged = true;
+
+        Debug.Log("fitspc este " + fitsPC);
+    }
+
 }

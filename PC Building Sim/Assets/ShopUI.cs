@@ -10,6 +10,8 @@ public class ShopUI : MonoBehaviour
     public List<RamSO> allRamComponents = new List<RamSO>();
     public List<MotherboardSO> allMotherboardComponents = new List<MotherboardSO>();
     public static bool tabChanged;
+    public static bool fitsPC;
+    public static string[] compatibility;
     #region Fill functions
     public void fillGpuList()
     {
