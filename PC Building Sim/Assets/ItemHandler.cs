@@ -44,6 +44,8 @@ public class ItemHandler : MonoBehaviour
 
     private static GPULocation gpuLoc;
     private static MotherboardLocation mbLoc;
+    private static GameObject cpuLoc;
+    private static GameObject coolerLoc;
     private static RAMLocation ramLoc1;
     private static RAMLocation ramLoc2;
     private static RAMLocation ramLoc3;
@@ -148,7 +150,7 @@ public class ItemHandler : MonoBehaviour
             }
             else if (hititem != null && hititem != compLocation)
             {
-                Debug.Log("FoundLocation");
+                //Debug.Log("FoundLocation");
                 lastComponentLocation = hititem;
                 compLocation = hititem;
             }
@@ -178,6 +180,9 @@ public class ItemHandler : MonoBehaviour
                 break;
             case "RAM":
                 itemNameText.text = "Pickup " + itemBeingPickedUp.GetComponentInChildren<RAM_Component>().ramSpecs.cName; ;
+                break;
+            case "Cooler":
+                itemNameText.text = "Pickup " + itemBeingPickedUp.GetComponentInChildren<Cooler_Component>().name; ;
                 break;
         }
     }
@@ -270,7 +275,11 @@ public class ItemHandler : MonoBehaviour
                 if (status)
                     computerStatus.mountedCpu = lastItemBeingPickedUp.GetComponent<CPU_Component>();
                 else
+                {
+                    cpuLoc.GetComponent<BoxCollider>().enabled = true;
                     computerStatus.mountedCpu = null;
+                }
+
                 break;
             case "Motherboard":
                 computerStatus.HasMotherboard = status;
@@ -280,10 +289,25 @@ public class ItemHandler : MonoBehaviour
                 else
                     computerStatus.mountedMotherboard = null;
                 break;
+            case "Cooler":
+                if (status && !computerStatus.HasCpu)
+                    return false;
+                if (status && !computerStatus.HasMotherboard)
+                    return false;
+                computerStatus.HasCooler = status;
+                if (status)
+                    computerStatus.mountedCooler = lastItemBeingPickedUp.GetComponent<Cooler_Component>();
+                else
+                {
+                    coolerLoc.GetComponent<BoxCollider>().enabled = true;
+                    Debug.Log("Activated collider for cooler location" + coolerLoc.gameObject.name);
+                    computerStatus.mountedCooler = null;
+                }
+                break;
             case "RAM":
                 if (status && !computerStatus.HasMotherboard)
                     return false;
-                if (compLocation == null)
+                if (!status)
                     compLocation = lastItemBeingPickedUp.GetComponent<RAM_Component>().GetMountSlot();
                 computerStatus.mountedRam = lastItemBeingPickedUp.GetComponent<RAM_Component>();
                 if(compLocation.name == "ramSlot1")
@@ -342,6 +366,7 @@ public class ItemHandler : MonoBehaviour
         GetComponent<Rigidbody>().useGravity = false;
         this.transform.position = compLocation.transform.position;
         this.transform.rotation = compLocation.transform.rotation;
+
         switch (lastItemBeingPickedUp.tag)
         {
             case "GPU":             
@@ -364,7 +389,17 @@ public class ItemHandler : MonoBehaviour
                 this.transform.Rotate(-90f, 0f, -90f);
                 this.transform.localScale = originalTransform.localScale * 2;
                 this.transform.parent = compLocation.transform.parent;
-                this.transform.localPosition += new Vector3(-0.32f, -0.01f, -0.5f); ;
+                this.transform.localPosition += new Vector3(-0.32f, -0.01f, -0.5f);
+                cpuLoc = compLocation.gameObject;
+                cpuLoc.GetComponent<BoxCollider>().enabled = false;
+                break;
+            case "Cooler":
+                this.transform.Rotate(0f, 90f, 90f);
+                this.transform.localScale = originalTransform.localScale * 2;
+                this.transform.parent = compLocation.transform.parent;
+                this.transform.localPosition += new Vector3(0.25f, 0f, 0f);
+                coolerLoc = compLocation.gameObject.transform.parent.gameObject;
+                coolerLoc.GetComponent<BoxCollider>().enabled = false;
                 break;
             case "Motherboard":
                 this.transform.Rotate(-90f, 0f, -90f);
@@ -376,7 +411,7 @@ public class ItemHandler : MonoBehaviour
                 this.transform.localScale = originalTransform.localScale * 2;
                 this.transform.parent = compLocation.transform.parent;
                 break;
-        }
+        }       
     }
 
     public bool CheckCompatibility()
@@ -394,6 +429,8 @@ public class ItemHandler : MonoBehaviour
                     return true;
                 break;
             case "Motherboard":
+                return true;
+            case "Cooler":
                 return true;
         }
         return false;

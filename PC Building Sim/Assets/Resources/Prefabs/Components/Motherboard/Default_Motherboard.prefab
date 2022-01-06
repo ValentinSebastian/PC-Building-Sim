@@ -5021,8 +5021,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.7313467, y: 0.92863995, z: 0.86367875}
-  m_Center: {x: 0.000000952998, y: -0.0000009463611, z: 0.43183818}
+  m_Size: {x: 0.7313467, y: 0.92863995, z: 0.59296644}
+  m_Center: {x: 0.0000009579317, y: -0.0000009579318, z: 0.2964821}
 --- !u!114 &2394124587861090719
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15419,6 +15419,7 @@ MonoBehaviour:
   camera: {fileID: 0}
   pickupTime: 1
   pickupImageRoot: {fileID: 0}
+  placeImageRoot: {fileID: 0}
   pickupProgressImage: {fileID: 0}
   layerMaskComponent:
     serializedVersion: 2
@@ -15471,8 +15472,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4957ddb4fc02fde4cbb2b383854edbcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cName: 
-  cPrice: 0
+  mbSpecs: {fileID: 0}
 --- !u!1 &5416509042786099663
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,6 +12,7 @@ public class ComputerStatus : MonoBehaviour
     private bool hasRam3;
     private bool hasRam4;
     private bool hasCpu;
+    private bool hasCooler;
     public Motherboard_Component mountedMotherboard;
     public GPU_Component mountedGpu;
     public RAM_Component mountedRam;
@@ -20,6 +21,7 @@ public class ComputerStatus : MonoBehaviour
     public RAM_Component mountedRam3;
     public RAM_Component mountedRam4;
     public CPU_Component mountedCpu;
+    public Cooler_Component mountedCooler;
     private GpuSO averageGpu;
     private CpuSO averageCpu;
     private RamSO averageRam;
@@ -44,6 +46,8 @@ public class ComputerStatus : MonoBehaviour
     public bool HasRam4 { get => hasRam4; set => hasRam4 = value; }
 
     public bool HasCpu { get => hasCpu; set => hasCpu = value; }
+
+    public bool HasCooler { get => hasCooler; set => hasCooler = value; }
 
     private void Start()
     {
@@ -109,11 +113,21 @@ public class ComputerStatus : MonoBehaviour
             ramStatusTextbox.text = "NOT CONNECTED";
             ramStatusTextbox.color = Color.red;
         }
+        if (HasCooler)
+        {
+            fanStatusTextbox.text = "Connected";
+            fanStatusTextbox.color = Color.green;
+        }
+        else
+        {
+            fanStatusTextbox.text = "NOT CONNECTED";
+            fanStatusTextbox.color = Color.red;
+        }
     }
     public bool TryStart()
     {
         //temporary , need to add component compatibility check
-        if (hasCpu && hasGpu && hasMotherboard && (hasRam1 || hasRam2 || hasRam3 || hasRam4))
+        if (hasCpu && hasGpu && hasMotherboard && HasCooler && (hasRam1 || hasRam2 || hasRam3 || hasRam4))
         {
             CalculatePerformance();
             return true;

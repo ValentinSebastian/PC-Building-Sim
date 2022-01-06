@@ -93,7 +93,7 @@ ModelImporter:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: brushed-metal-dotted-12842083
-    second: {fileID: 2800000, guid: 2a04d21c423bd5c4ca549a46f91455a7, type: 3}
+    second: {fileID: 2800000, guid: eb98d345cbf70124c9986f4d37088fad, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
