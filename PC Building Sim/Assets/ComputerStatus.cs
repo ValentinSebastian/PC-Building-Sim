@@ -32,6 +32,7 @@ public class ComputerStatus : MonoBehaviour
     private const float averageComponentPerformancePercent = 50f;
     public Image ComputerStatusDisplay;
     public bool CSD_Hidden = true;
+    private bool computerRunning = false;
     public TMPro.TextMeshProUGUI cpuStatusTextbox;
     public TMPro.TextMeshProUGUI gpuStatusTextbox;
     public TMPro.TextMeshProUGUI moboStatusTextbox;
@@ -52,13 +53,13 @@ public class ComputerStatus : MonoBehaviour
     private void Start()
     {
         averageCpu = new CpuSO(6, 12, 4, 3, "any", 14, 12, 65);
-        averageGpu = new GpuSO("averageGpu", 69, 1300 , 1500 , new GpuSO.memorySpecs(6, "GDDR6", 192, 1300), new GameObject());
+        averageGpu = new GpuSO("averageGpu", 69, 1300, 1500, new GpuSO.memorySpecs(6, "GDDR6", 192, 1300), new GameObject());
         averageRam = new RamSO(50, "DDR4", 4, 16, 1.35f, 2666);
     }
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.H))
+        if (Input.GetKeyDown(KeyCode.H))
         {
             if (CSD_Hidden)
             {
@@ -73,7 +74,7 @@ public class ComputerStatus : MonoBehaviour
                 Debug.Log("WTF2");
             }
         }
-        if(HasCpu)
+        if (HasCpu)
         {
             cpuStatusTextbox.text = "Connected";
             cpuStatusTextbox.color = Color.green;
@@ -136,6 +137,44 @@ public class ComputerStatus : MonoBehaviour
             return false;
     }
 
+    public void StartComputerAnimations(bool state)
+    {
+        if (computerRunning && state)
+            return;
+        else
+        {
+            Animator[] fans = mountedGpu.GetComponentsInChildren<Animator>();
+            foreach(Animator fan in fans)
+            {
+                fan.SetBool("StartRotation", state);
+            }
+            mountedCooler.GetComponentInChildren<Animator>().SetBool("StartRotation", state);
+            computerRunning = true;
+        }
+    }
+    public void StartComputerSounds(bool state)
+    {
+        if (mountedCooler.GetComponent<AudioSource>().isPlaying && state)
+            return;
+        else
+        {
+            if(state)
+                mountedCooler.GetComponent<AudioSource>().Play(0);
+            else
+                mountedCooler.GetComponent<AudioSource>().Stop();
+        }
+    }
+    public void StopComputer()
+    {
+        StartComputerAnimations(false);
+        StartComputerSounds(false);
+        computerRunning = false;
+    }
+
+    public bool ComputerIsRunning()
+    {
+        return computerRunning;
+    }
     public bool MotherboardHasComponents()
     {
         if (hasCpu || hasGpu || hasRam1 || hasRam2 || hasRam3 || hasRam4)

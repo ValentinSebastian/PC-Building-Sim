@@ -10,6 +10,7 @@ public class StartComputer : MonoBehaviour
     public Canvas uiCanvas;
     public GameObject score;
     public GameObject scoreForSave;
+    public GameObject player;
     private void Start()
     {
         computerStatus = GameObject.Find("MotherboardLocation").transform.parent.gameObject.GetComponent<ComputerStatus>();
@@ -26,9 +27,10 @@ public class StartComputer : MonoBehaviour
                     scoreForSave.GetComponent<ScoreController>().UpdateScores();
                     scoreCanvas.GetComponent<Canvas>().enabled = true;
                     uiCanvas.GetComponent<Canvas>().enabled = false;
-                    Time.timeScale = 0f;
+                    player.GetComponent<PlayerStatus>().isWatchingShop = true;
                     Cursor.lockState = CursorLockMode.None;
-                    
+                    computerStatus.StartComputerAnimations(true);
+                    computerStatus.StartComputerSounds(true);
                 }
                 else
                 {
@@ -50,7 +52,7 @@ public class StartComputer : MonoBehaviour
     {
         scoreCanvas.GetComponent<Canvas>().enabled = false;
         uiCanvas.GetComponent<Canvas>().enabled = true;
-        Time.timeScale = 1f;
+        player.GetComponent<PlayerStatus>().isWatchingShop = false;
         Cursor.lockState = CursorLockMode.Locked;
         
     }

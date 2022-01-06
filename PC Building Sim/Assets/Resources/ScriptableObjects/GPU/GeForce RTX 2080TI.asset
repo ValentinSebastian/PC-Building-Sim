@@ -23,4 +23,4 @@ MonoBehaviour:
     type: GDDR6
     bandwidth: 352
     clock: 1750
-  gpuModel: {fileID: 410249163870839000, guid: 955a00383c881bf45bbf05e554f456d6, type: 3}
+  gpuModel: {fileID: 221820706104973003, guid: 955a00383c881bf45bbf05e554f456d6, type: 3}

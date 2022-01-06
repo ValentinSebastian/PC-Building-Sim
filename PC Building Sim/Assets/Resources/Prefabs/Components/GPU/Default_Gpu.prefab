@@ -875,6 +875,7 @@ GameObject:
   - component: {fileID: 5584481548288016158}
   - component: {fileID: 5584481548288016156}
   - component: {fileID: 5584481548288016157}
+  - component: {fileID: 8460339617722498485}
   m_Layer: 6
   m_Name: Blades
   m_TagString: Untagged
@@ -889,13 +890,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5584481548288016159}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+  m_LocalRotation: {x: -0.478833, y: 0.5203067, z: 0.5203066, w: 0.478833}
   m_LocalPosition: {x: -0, y: 0.3908079, z: -1.5799404}
   m_LocalScale: {x: 112.11579, y: 112.11579, z: 7.0912914}
   m_Children: []
   m_Father: {fileID: 926675296950253867}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 94.754}
 --- !u!33 &5584481548288016156
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -946,6 +947,25 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!95 &8460339617722498485
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5584481548288016159}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 090ecff306908da4290a7c14e688a299, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5584481548472616380
 GameObject:
   m_ObjectHideFlags: 0

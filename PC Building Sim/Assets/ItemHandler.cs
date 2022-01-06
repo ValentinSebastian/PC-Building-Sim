@@ -219,13 +219,13 @@ public class ItemHandler : MonoBehaviour
         GetComponent<Collider>().isTrigger = true;
         this.transform.position = theDestination.position;
         this.transform.localScale = originalTransform.localScale / 2;
-        this.transform.parent = theDestination.transform;
+        this.transform.parent = theDestination.transform;        
         isHoldingItem = true;
         ps.isHolding = true;
     }
 
     private void DropComponent()
-    {    
+    {       
         heldItem.transform.parent = null;
         GetComponent<Rigidbody>().useGravity = true;
         GetComponent<Collider>().isTrigger = false;
@@ -264,7 +264,11 @@ public class ItemHandler : MonoBehaviour
                 if (status)
                     computerStatus.mountedGpu = lastItemBeingPickedUp.GetComponent<GPU_Component>();
                 else
+                {
+                    if(computerStatus.ComputerIsRunning())
+                        computerStatus.StopComputer();
                     computerStatus.mountedGpu = null;
+                }
                 break;
             case "CPU":
                 if (status && computerStatus.HasCpu)
@@ -276,6 +280,8 @@ public class ItemHandler : MonoBehaviour
                     computerStatus.mountedCpu = lastItemBeingPickedUp.GetComponent<CPU_Component>();
                 else
                 {
+                    if (computerStatus.ComputerIsRunning())
+                        computerStatus.StopComputer();
                     cpuLoc.GetComponent<BoxCollider>().enabled = true;
                     computerStatus.mountedCpu = null;
                 }
@@ -301,6 +307,8 @@ public class ItemHandler : MonoBehaviour
                 {
                     coolerLoc.GetComponent<BoxCollider>().enabled = true;
                     Debug.Log("Activated collider for cooler location" + coolerLoc.gameObject.name);
+                    if (computerStatus.ComputerIsRunning())
+                        computerStatus.StopComputer();
                     computerStatus.mountedCooler = null;
                 }
                 break;
@@ -308,7 +316,11 @@ public class ItemHandler : MonoBehaviour
                 if (status && !computerStatus.HasMotherboard)
                     return false;
                 if (!status)
+                {
+                    if (computerStatus.ComputerIsRunning())
+                        computerStatus.StopComputer();
                     compLocation = lastItemBeingPickedUp.GetComponent<RAM_Component>().GetMountSlot();
+                }
                 computerStatus.mountedRam = lastItemBeingPickedUp.GetComponent<RAM_Component>();
                 if(compLocation.name == "ramSlot1")
                 {
@@ -372,10 +384,10 @@ public class ItemHandler : MonoBehaviour
             case "GPU":             
                 if(this.gameObject.name.Contains("2060"))
                 {
-                    this.transform.Rotate(-90f, -90f, -90f);
+                    this.transform.Rotate(0f, 0f, 0f);
                     this.transform.localScale = originalTransform.localScale * 2;
                     this.transform.parent = compLocation.transform.parent;
-                    this.transform.localPosition += new Vector3(0f, -0.2f, 0.7f);
+                    this.transform.localPosition += new Vector3(0.2f, 0.1f, 0.7f);
                 }
                 else
                 {
