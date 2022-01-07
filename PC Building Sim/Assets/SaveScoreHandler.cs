@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -8,9 +9,11 @@ public class SaveScoreHandler : MonoBehaviour
     private Camera scoreScreenshotCamera;
     private static SaveScoreHandler instance;
     private bool takeScreenshot;
+    private int counter;
 
     private void Awake()
     {
+        counter = PlayerPrefs.GetInt("ScoreCounter" , 0);
         instance = this;
         scoreScreenshotCamera = gameObject.GetComponent<Camera>();
     }
@@ -36,14 +39,21 @@ public class SaveScoreHandler : MonoBehaviour
             Rect rect = new Rect(0, 0, rT.width, rT.height);
             renderResult.ReadPixels(rect, 0, 0);
             byte[] byteArray = renderResult.EncodeToPNG();
-            System.IO.File.WriteAllBytes(Application.dataPath + "/Resources/SavedScores/SavedScore" + System.DateTime.Now.ToString("HH_mm_dd_MMMM_yyyy") + ".png", byteArray); 
+            counter++;
+            System.IO.File.WriteAllBytes(Application.dataPath + "/SavedScores/SavedScore" + counter + ".png", byteArray); //+ System.DateTime.Now.ToString("HH_mm_dd_MMMM_yyyy") + ".png"
             Debug.Log("Saved Screenshot");
+            PlayerPrefs.SetInt("ScoreCounter", counter);
+            PlayerPrefs.Save();
             scoreScreenshotCamera.targetTexture = null;
         }
     }
     public void TakeScreenshot()
     {
-        scoreScreenshotCamera.targetTexture = RenderTexture.GetTemporary(1000 , 1000 , 16);
+        if (!Directory.Exists(Application.dataPath + "/SavedScores"))
+        {
+            Directory.CreateDirectory(Application.dataPath + "/SavedScores");
+        }
+        scoreScreenshotCamera.targetTexture = RenderTexture.GetTemporary(1920, 1080 , 16);
         takeScreenshot = true;
     }
 

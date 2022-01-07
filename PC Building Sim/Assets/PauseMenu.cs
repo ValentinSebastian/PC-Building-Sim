@@ -6,8 +6,7 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     [SerializeField] private GameObject pauseMenuObject;
-    private bool isPaused;
-
+    public GameObject player;
 
     void Update()
     {
@@ -15,8 +14,7 @@ public class PauseMenu : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                isPaused = !isPaused;
-                if (isPaused)
+                if (!player.GetComponent<PlayerStatus>().isPaused)
                 {
                     ActivateMenu();
                 }
@@ -32,14 +30,14 @@ public class PauseMenu : MonoBehaviour
     {
         pauseMenuObject.GetComponentInChildren<Canvas>().enabled = true;
         Cursor.lockState = CursorLockMode.None;
-        Time.timeScale = 0f;
+        player.GetComponent<PlayerStatus>().isPaused = true;
     }
 
     public void DeactivateMenu()
     {
         pauseMenuObject.GetComponentInChildren<Canvas>().enabled = false;
         Cursor.lockState = CursorLockMode.Locked;
-        Time.timeScale = 1f;
+        player.GetComponent<PlayerStatus>().isPaused = false;
     }
 
     public void MainMenuButton()

@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!GetComponent<PlayerStatus>().isWatchingShop)
+        if(!GetComponent<PlayerStatus>().isWatchingShop && !GetComponent<PlayerStatus>().isPaused)
         {
             float x = Input.GetAxis("Horizontal");
             float z = Input.GetAxis("Vertical");

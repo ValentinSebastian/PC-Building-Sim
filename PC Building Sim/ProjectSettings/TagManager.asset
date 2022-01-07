@@ -15,6 +15,7 @@ TagManager:
   - ShopItemTemplate
   - Cooler
   - CoolerLocation
+  - ScoreScreenItemTemplate
   layers:
   - Default
   - TransparentFX
