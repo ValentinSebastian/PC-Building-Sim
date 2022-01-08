@@ -15,7 +15,7 @@ public class RamSO : ScriptableObject
     public float frequency;
     public GameObject ramModel;
 
-    public RamSO(float cPrice, string memoryType, int memorySize, float latency, float voltage, float frequency)
+    public void UpdateValues(float cPrice, string memoryType, int memorySize, float latency, float voltage, float frequency)
     {
         this.cPrice = cPrice;
         this.memoryType = memoryType;

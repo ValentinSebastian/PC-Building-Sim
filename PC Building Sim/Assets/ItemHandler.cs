@@ -378,7 +378,6 @@ public class ItemHandler : MonoBehaviour
         GetComponent<Rigidbody>().useGravity = false;
         this.transform.position = compLocation.transform.position;
         this.transform.rotation = compLocation.transform.rotation;
-
         switch (lastItemBeingPickedUp.tag)
         {
             case "GPU":             
@@ -388,6 +387,14 @@ public class ItemHandler : MonoBehaviour
                     this.transform.localScale = originalTransform.localScale * 2;
                     this.transform.parent = compLocation.transform.parent;
                     this.transform.localPosition += new Vector3(0.2f, 0.1f, 0.7f);
+                }
+                else if(gameObject.name.Contains("radeon"))
+                {
+                    this.transform.Rotate(0f, 90f, 0f);
+                    this.transform.localScale = originalTransform.localScale * 2;
+                    this.transform.parent = compLocation.transform.parent;
+                    this.transform.localPosition += new Vector3(0.2f, 0.1f, 0.7f);
+                    Debug.Log("dis a radeon");
                 }
                 else
                 {
@@ -423,6 +430,8 @@ public class ItemHandler : MonoBehaviour
                 this.transform.localScale = originalTransform.localScale * 2;
                 this.transform.parent = compLocation.transform.parent;
                 break;
+
+                
         }       
     }
 
@@ -464,8 +473,8 @@ public class ItemHandler : MonoBehaviour
         placeImageRoot.gameObject.SetActive(false);
         ps = thePlayer.GetComponent<PlayerStatus>();
         originalTransform = this.transform;
-        lastItemBeingPickedUp = new PC_Component();
-        lastComponentLocation = new ComponentLocation();
+        //lastItemBeingPickedUp = new PC_Component();
+        //lastComponentLocation = new ComponentLocation();
         startcolor = GetComponent<Outline>().OutlineColor;     
         computerStatus = GameObject.Find("MotherboardLocation").transform.parent.gameObject.GetComponent<ComputerStatus>();
     }

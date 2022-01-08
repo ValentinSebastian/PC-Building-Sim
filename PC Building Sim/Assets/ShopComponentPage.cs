@@ -72,7 +72,7 @@ public class ShopComponentPage : ShopUI
             foreach (var gpu in allGpuComponents)
             {
                 var obj = Instantiate(itemTemplate);
-                obj.transform.parent = transform;
+                obj.transform.SetParent(transform);
 #if UNITY_EDITOR
                 Texture2D thumbnailItemImage = UnityEditor.AssetPreview.GetAssetPreview(gpu.gpuModel);                
                 byte[] bytes = thumbnailItemImage.EncodeToPNG();
@@ -80,7 +80,7 @@ public class ShopComponentPage : ShopUI
 #endif
                 Texture2D _texture = Resources.Load<Texture2D>("Thumbnails/" + gpu.gpuModel.name);
                 if (_texture != null)
-                 obj.GetComponentInChildren<Image>().sprite = Sprite.Create(_texture, new Rect(0, 0, _texture.width, _texture.height), new Vector2(0.5f, 0.5f));
+                    obj.GetComponentInChildren<Image>().sprite = Sprite.Create(_texture, new Rect(0, 0, _texture.width, _texture.height), new Vector2(0.5f, 0.5f));
                 var shopItem = obj.GetComponentInChildren<ShopItem>();
                 shopItem.itemName.text = gpu.cName;
                 shopItem.itemPrice.text = gpu.cPrice.ToString() + " $";
@@ -107,7 +107,7 @@ public class ShopComponentPage : ShopUI
                 if(CheckFitsPc(ram.memoryType , 3))
                 {
                     var obj = Instantiate(itemTemplate);
-                    obj.transform.parent = transform;
+                    obj.transform.SetParent(transform);
 #if UNITY_EDITOR
                     Texture2D thumbnailItemImage = UnityEditor.AssetPreview.GetAssetPreview(ram.ramModel);
                     byte[] bytes = thumbnailItemImage.EncodeToPNG();
@@ -143,7 +143,7 @@ public class ShopComponentPage : ShopUI
                 if(CheckFitsPc(cpu.socket , 2))
                 {
                     var obj = Instantiate(itemTemplate);
-                    obj.transform.parent = transform;
+                    obj.transform.SetParent(transform);
 #if UNITY_EDITOR
                     Texture2D thumbnailItemImage = UnityEditor.AssetPreview.GetAssetPreview(cpu.cpuModel);
                     byte[] bytes = thumbnailItemImage.EncodeToPNG();
@@ -182,7 +182,7 @@ public class ShopComponentPage : ShopUI
                 if(CheckFitsPc(motherboard.cpuSocket , 0) && CheckFitsPc(motherboard.memoryType , 1))
                 {
                     var obj = Instantiate(itemTemplate);
-                    obj.transform.parent = transform;
+                    obj.transform.SetParent(transform);
 #if UNITY_EDITOR
                     Texture2D thumbnailItemImage = UnityEditor.AssetPreview.GetAssetPreview(motherboard.motherboardModel);
                     byte[] bytes = thumbnailItemImage.EncodeToPNG();

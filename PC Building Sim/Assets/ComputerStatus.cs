@@ -52,9 +52,12 @@ public class ComputerStatus : MonoBehaviour
 
     private void Start()
     {
-        averageCpu = new CpuSO(6, 12, 4, 3, "any", 14, 12, 65);
-        averageGpu = new GpuSO("averageGpu", 69, 1300, 1500, new GpuSO.memorySpecs(6, "GDDR6", 192, 1300), new GameObject());
-        averageRam = new RamSO(50, "DDR4", 4, 16, 1.35f, 2666);
+        averageCpu = ScriptableObject.CreateInstance<CpuSO>();
+        averageGpu = ScriptableObject.CreateInstance<GpuSO>();
+        averageRam = ScriptableObject.CreateInstance<RamSO>();
+        averageCpu.UpdateValues(6, 12, 4, 3, "any", 14, 12, 65);
+        averageGpu.UpdateValues("averageGpu", 69, 1300, 1500, new GpuSO.memorySpecs(6, "GDDR6", 192, 1300), new GameObject());
+        averageRam.UpdateValues(50, "DDR4", 4, 16, 1.35f, 2666);
     }
 
     private void Update()

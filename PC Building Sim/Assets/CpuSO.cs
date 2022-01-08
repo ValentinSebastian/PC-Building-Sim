@@ -18,7 +18,7 @@ public class CpuSO : ScriptableObject
     public float tdp;
     public GameObject cpuModel;
 
-    public CpuSO(int cores, int threads, float topClock, float botClock, string socket, float manProcess, float l3Cache, float tdp)
+    public void  UpdateValues(int cores, int threads, float topClock, float botClock, string socket, float manProcess, float l3Cache, float tdp)
     {
         this.cores = cores;
         this.threads = threads;
