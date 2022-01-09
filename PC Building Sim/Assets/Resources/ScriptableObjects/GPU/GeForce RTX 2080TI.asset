@@ -24,3 +24,4 @@ MonoBehaviour:
     bandwidth: 352
     clock: 1750
   gpuModel: {fileID: 221820706104973003, guid: 955a00383c881bf45bbf05e554f456d6, type: 3}
+  url: https://www.nvidia.com/ro-ro/geforce/graphics-cards/rtx-2080-ti/

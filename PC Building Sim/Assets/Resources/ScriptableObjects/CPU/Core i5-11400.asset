@@ -24,3 +24,4 @@ MonoBehaviour:
   l3Cache: 12
   tdp: 65
   cpuModel: {fileID: 6076665247940934171, guid: c5daef5a91f95034291ffae18b3020a8, type: 3}
+  url: https://ark.intel.com/content/www/us/en/ark/products/212270/intel-core-i511400-processor-12m-cache-up-to-4-40-ghz.html

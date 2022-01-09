@@ -25,3 +25,4 @@ MonoBehaviour:
   m2Slots: 2
   pci_eSlots: PCI Express 3.0 x16
   motherboardModel: {fileID: 1849467163338420249, guid: 094431aca52610b4ba519ae730f3814e, type: 3}
+  url: https://rog.asus.com/motherboards/rog-strix/rog-strix-b460-f-gaming-model/

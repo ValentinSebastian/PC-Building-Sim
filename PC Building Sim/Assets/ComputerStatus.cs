@@ -50,6 +50,8 @@ public class ComputerStatus : MonoBehaviour
 
     public bool HasCooler { get => hasCooler; set => hasCooler = value; }
 
+    public GameObject monitorScreen;
+
     private void Start()
     {
         averageCpu = ScriptableObject.CreateInstance<CpuSO>();
@@ -134,6 +136,7 @@ public class ComputerStatus : MonoBehaviour
         if (hasCpu && hasGpu && hasMotherboard && HasCooler && (hasRam1 || hasRam2 || hasRam3 || hasRam4))
         {
             CalculatePerformance();
+            monitorScreen.GetComponent<MonitorDisplay>().SetStartComputerMaterial();
             return true;
         }
         else
@@ -172,6 +175,7 @@ public class ComputerStatus : MonoBehaviour
         StartComputerAnimations(false);
         StartComputerSounds(false);
         computerRunning = false;
+        monitorScreen.GetComponent<MonitorDisplay>().SetMissingPartsMaterial();
     }
 
     public bool ComputerIsRunning()

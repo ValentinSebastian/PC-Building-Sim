@@ -18,4 +18,5 @@ public class MotherboardSO : ScriptableObject
     public int m2Slots;
     public string pci_eSlots;
     public GameObject motherboardModel;
+    public string url;
 }

@@ -29,6 +29,7 @@ public class GpuSO : ScriptableObject
 
     public memorySpecs memory;
     public GameObject gpuModel;
+    public string url;
 
     public void UpdateValues(string cName, float cPrice, int coreClock , int shaderCount , memorySpecs memory, GameObject gpuModel)
     {

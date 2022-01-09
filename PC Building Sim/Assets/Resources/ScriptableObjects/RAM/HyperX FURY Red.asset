@@ -21,3 +21,4 @@ MonoBehaviour:
   voltage: 1.5
   frequency: 1600
   ramModel: {fileID: 6538967099655520625, guid: bfae06a9bb8efda4abf52ed606eeab33, type: 3}
+  url: https://www.kingston.com/en/memory/gaming?memory%20type=ddr3

@@ -24,3 +24,4 @@ MonoBehaviour:
   l3Cache: 16
   tdp: 125
   cpuModel: {fileID: 6076665247940934171, guid: c5daef5a91f95034291ffae18b3020a8, type: 3}
+  url: https://ark.intel.com/content/www/us/en/ark/products/199335/intel-core-i710700k-processor-16m-cache-up-to-5-10-ghz.html

@@ -14,6 +14,7 @@ public class ShopComponentPage : ShopUI
     public GameObject ramSpawn1;
     public GameObject mbSpawn;
     public GameObject detailsScreen;
+    public Button detailsScreenOpenInBrowserButton;
     private float cpuPrice;
     private float gpuPrice;
     private float ramPrice;
@@ -69,8 +70,9 @@ public class ShopComponentPage : ShopUI
         fillGpuList();
         if (allGpuComponents.Count > 0)
         {
-            foreach (var gpu in allGpuComponents)
+            for (int i = 0 ; i < allGpuComponents.Count; i++)
             {
+                var gpu = allGpuComponents[i];
                 var obj = Instantiate(itemTemplate);
                 obj.transform.SetParent(transform);
 #if UNITY_EDITOR
@@ -87,10 +89,11 @@ public class ShopComponentPage : ShopUI
                 shopItem.itemSpec1.text = gpu.memory.size.ToString() + " GB";
                 shopItem.itemSpec2.text = gpu.memory.type.ToString();
                 shopItem.itemSpec3.text = gpu.memory.bandwidth.ToString() + " bit";
-                shopItem.itemId.text = nrOfComponents.ToString();
+                shopItem.itemId.text = i.ToString();
+                shopItem.url = gpu.url;
                 shopItem.BuyButton.onClick.AddListener(delegate { BuyButton(obj);}) ;
                 shopItem.MoreInfoButton.onClick.AddListener(delegate { MoreInfoButton(shopItem); });
-                nrOfComponents++;
+                nrOfComponents++;               
                 Debug.Log("instantiated object");
             }
         }
@@ -102,9 +105,10 @@ public class ShopComponentPage : ShopUI
         fillRamList();
         if(allRamComponents.Count > 0)
         {
-            foreach (var ram in allRamComponents)
+            for(int i = 0; i <  allRamComponents.Count; i++)
             {
-                if(CheckFitsPc(ram.memoryType , 3))
+                var ram = allRamComponents[i];
+                if (CheckFitsPc(ram.memoryType , 3))
                 {
                     var obj = Instantiate(itemTemplate);
                     obj.transform.SetParent(transform);
@@ -123,12 +127,14 @@ public class ShopComponentPage : ShopUI
                     shopItem.itemSpec1.text = ram.memorySize.ToString() + " GB";
                     shopItem.itemSpec2.text = ram.memoryType;
                     shopItem.itemSpec3.text = "CL " + ram.latency.ToString();
-                    shopItem.itemId.text = nrOfComponents.ToString();
+                    shopItem.itemId.text = i.ToString();
+                    shopItem.url = ram.url;
                     shopItem.BuyButton.onClick.AddListener(delegate { BuyButton(obj); });
                     shopItem.MoreInfoButton.onClick.AddListener(delegate { MoreInfoButton(shopItem); });
                     nrOfComponents++;
                     Debug.Log("instantiated object");
-                }             
+                }
+                
             }
         }
         
@@ -138,8 +144,10 @@ public class ShopComponentPage : ShopUI
         fillCpuList();
         if (allCpuComponents.Count > 0)
         {
-            foreach (var cpu in allCpuComponents)
+            int itemID = 0;
+            for(int i = 0; i < allCpuComponents.Count; i++)
             {
+                var cpu = allCpuComponents[i];
                 if(CheckFitsPc(cpu.socket , 2))
                 {
                     var obj = Instantiate(itemTemplate);
@@ -162,13 +170,16 @@ public class ShopComponentPage : ShopUI
                     shopItem.itemSpec4.text = cpu.tdp.ToString() + " W";
                     shopItem.itemSpec5.text = cpu.l3Cache.ToString() + " MB L3";
                     shopItem.itemSpec6.text = cpu.socket;
-                    shopItem.itemId.text = nrOfComponents.ToString();
+                    shopItem.itemId.text = i.ToString();
+                    shopItem.url = cpu.url;
                     shopItem.BuyButton.onClick.AddListener(delegate { BuyButton(obj); });
                     shopItem.MoreInfoButton.onClick.AddListener(delegate { MoreInfoButton(shopItem); });
-                    nrOfComponents++;
+                    nrOfComponents++;                   
                     Debug.Log("instantiated object");
                 }
-                
+                if(itemID < allCpuComponents.Count - 1)
+                    itemID++;
+
             }
         }
     }
@@ -177,8 +188,9 @@ public class ShopComponentPage : ShopUI
         fillMotherboardList();
         if (allMotherboardComponents.Count > 0)
         {
-            foreach (var motherboard in allMotherboardComponents)
+            for (int i = 0 ; i < allMotherboardComponents.Count; i++ )
             {
+                var motherboard = allMotherboardComponents[i];
                 if(CheckFitsPc(motherboard.cpuSocket , 0) && CheckFitsPc(motherboard.memoryType , 1))
                 {
                     var obj = Instantiate(itemTemplate);
@@ -201,13 +213,13 @@ public class ShopComponentPage : ShopUI
                     shopItem.itemSpec4.text = motherboard.audioChip;
                     shopItem.itemSpec5.text = motherboard.memoryMaxFrequency + " Mhz";
                     shopItem.itemSpec6.text = "Socket: " + motherboard.cpuSocket;
-                    shopItem.itemId.text = nrOfComponents.ToString();
+                    shopItem.itemId.text = i.ToString();
+                    shopItem.url = motherboard.url;
                     shopItem.BuyButton.onClick.AddListener(delegate { BuyButton(obj); });
                     shopItem.MoreInfoButton.onClick.AddListener(delegate { MoreInfoButton(shopItem); });
-                    nrOfComponents++;
+                    nrOfComponents++;                   
                     Debug.Log("instantiated object");
                 }
-                
             }
         }
     }
@@ -226,13 +238,11 @@ public class ShopComponentPage : ShopUI
     }
 #endregion
     public void BuyButton(GameObject temp)
-    {
+    {      
+        int index = int.Parse(temp.GetComponentInChildren<ShopItem>().itemId.text);
         Debug.Log(temp.GetComponent<ShopItem>().itemName.text);
-        GameObject tempObj = temp;
-        GameObject objToSpawn = new GameObject();
-        int index = int.Parse(temp.GetComponent<ShopItem>().itemId.text);
-        Vector3 position;
-        Quaternion rotation;                  
+        GameObject tempObj = new GameObject();
+        GameObject objToSpawn = new GameObject();                 
         switch(cType)
         {
             case PC_Component.ComponentType.GPU:
@@ -243,6 +253,7 @@ public class ShopComponentPage : ShopUI
                 break;
             case PC_Component.ComponentType.CPU:
                 tempObj = cpuSpawn;
+                Debug.Log("index : " + index + " " + allCpuComponents.Count.ToString());
                 objToSpawn = allCpuComponents[index].cpuModel;
                 objToSpawn.GetComponentInChildren<CPU_Component>().cpuSpecs = allCpuComponents[index];
                 cpuPrice = allCpuComponents[index].cPrice;
@@ -250,6 +261,7 @@ public class ShopComponentPage : ShopUI
                 break;
             case PC_Component.ComponentType.Motherboard:
                 tempObj = mbSpawn;
+                Debug.Log("index : " + index + " " + allMotherboardComponents.Count.ToString());
                 objToSpawn = allMotherboardComponents[index].motherboardModel;
                 objToSpawn.GetComponentInChildren<Motherboard_Component>().mbSpecs = allMotherboardComponents[index];
                 mbPrice = allMotherboardComponents[index].cPrice;
@@ -271,8 +283,8 @@ public class ShopComponentPage : ShopUI
         totalPriceText.text = totalPrice.ToString() + " $";
         objToSpawn.GetComponentInChildren<ItemHandler>().ChangeResources(referenceObject.GetComponent<ItemHandler>());
         Debug.Log(tempObj.name);
-        position = tempObj.transform.position;
-        rotation = tempObj.transform.rotation;
+        Vector3 position = tempObj.transform.position;
+        Quaternion rotation = tempObj.transform.rotation;
         var spawnedObj = Instantiate(objToSpawn , position , rotation);
         spawnedObj.transform.parent = tempObj.transform.parent;
     }
@@ -286,8 +298,9 @@ public class ShopComponentPage : ShopUI
         screenData.itemSpec4.text = shopItem.itemSpec4.text;
         screenData.itemSpec5.text = shopItem.itemSpec5.text;
         screenData.itemSpec6.text = shopItem.itemSpec6.text;
-
         detailsScreen.transform.LeanScale(Vector2.one, 0.5f).setEaseInQuart();
+        detailsScreenOpenInBrowserButton.onClick.RemoveAllListeners();
+        detailsScreenOpenInBrowserButton.onClick.AddListener(delegate { OpenMoreInfoUrl(shopItem.url); });
     }
     public void ClearCurrentTab()
     {
@@ -309,6 +322,11 @@ public class ShopComponentPage : ShopUI
         tabChanged = true;
 
         Debug.Log("fitspc este " + fitsPC);
+    }
+
+    public void OpenMoreInfoUrl(string url)
+    {
+        Application.OpenURL(url);
     }
 
 }

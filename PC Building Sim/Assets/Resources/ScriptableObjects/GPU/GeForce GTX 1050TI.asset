@@ -24,3 +24,4 @@ MonoBehaviour:
     bandwidth: 128
     clock: 1752
   gpuModel: {fileID: 5584481548834108398, guid: 4ba57db0b8531b44c8ebf468483fc82c, type: 3}
+  url: https://www.nvidia.com/en-in/geforce/products/10series/geforce-gtx-1050/

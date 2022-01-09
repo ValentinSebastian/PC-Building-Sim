@@ -24,3 +24,4 @@ MonoBehaviour:
     bandwidth: 256
     clock: 2000
   gpuModel: {fileID: 8668367239224385387, guid: 78eb9192394aaca418804b2732ddbc24, type: 3}
+  url: https://www.amd.com/en/products/graphics/amd-radeon-rx-6800-xt

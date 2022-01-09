@@ -18,6 +18,7 @@ public class ShopItem : MonoBehaviour
     public TMPro.TextMeshProUGUI itemSpec6;
     public Button BuyButton;
     public Button MoreInfoButton;
+    public string url;
 
 
     public ShopItem(string _iName , string _iPrice , string _itemId)

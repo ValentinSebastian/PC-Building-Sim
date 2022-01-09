@@ -21,3 +21,4 @@ MonoBehaviour:
   voltage: 1.35
   frequency: 3200
   ramModel: {fileID: 6538967099655520625, guid: bfae06a9bb8efda4abf52ed606eeab33, type: 3}
+  url: https://www.corsair.com/eu/en/Categories/Products/Memory/VENGEANCE-LPX/p/CMK16GX4M2B3200C16

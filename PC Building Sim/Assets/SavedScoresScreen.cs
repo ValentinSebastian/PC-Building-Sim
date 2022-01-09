@@ -12,7 +12,9 @@ public class SavedScoresScreen : MonoBehaviour
     private Vector2 initTransform;
     private Vector2 initTransformSelectedScore;
     private void Start()
-    {  
+    {
+        //PlayerPrefs.SetInt("ScoreCounter", 0);
+        //PlayerPrefs.Save();
         initTransform = gameObject.transform.localScale;
         initTransformSelectedScore = selectedScore.transform.localScale;
         transform.localScale = Vector2.zero;
@@ -20,23 +22,16 @@ public class SavedScoresScreen : MonoBehaviour
     }
     public void fillScoresList()
     {
-        List<Texture2D> subListObjects = new List<Texture2D>();
         savedScores = new List<Texture2D>();
-        
-        for (int i = 1; i <= PlayerPrefs.GetInt("ScoreCounter"); i++)
+        for (int i = 1; i <= PlayerPrefs.GetInt("ScoreCounter" , 0); i++)
         {
             byte[] bytes = System.IO.File.ReadAllBytes(Application.dataPath + "/SavedScores/SavedScore" + i + ".png");
             Texture2D tex = new Texture2D(1440, 900);
             tex.LoadImage(bytes);
-            subListObjects.Add(tex);
+            savedScores.Add(tex);
 
         }
         //Object[] subListObjects = Resources.LoadAll("SavedScores", typeof(Texture2D));
-        foreach (Texture2D temp in subListObjects)
-        {
-            Debug.Log("filling with scores");
-            savedScores.Add(temp);
-        }
     }
 
     public void ShowScoreScreen()
@@ -59,15 +54,12 @@ public class SavedScoresScreen : MonoBehaviour
         fillScoresList();
         if (savedScores.Count > 0)
         {
-            float delay = 0.4f;
             foreach (Texture2D score in savedScores)
             {               
                 GameObject obj = Instantiate(itemTemplate);
-                obj.transform.parent = transform;
+                obj.transform.SetParent(transform);
                 obj.transform.SetAsFirstSibling();
-                obj.transform.LeanScale(Vector2.one, 0.3f).setDelay(delay);
-                delay += 0.1f;
-                obj.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = score.name;
+                obj.transform.LeanScale(Vector2.one, 0.3f);
                 obj.GetComponent<Button>().onClick.AddListener(delegate { ClickedScore(obj); });
                 obj.GetComponentInChildren<Image>().sprite = Sprite.Create(score, new Rect(0, 0, score.width, score.height), new Vector2(0.5f, 0.5f));
             }

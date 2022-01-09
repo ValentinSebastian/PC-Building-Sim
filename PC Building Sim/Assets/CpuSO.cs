@@ -17,6 +17,7 @@ public class CpuSO : ScriptableObject
     public float l3Cache;
     public float tdp;
     public GameObject cpuModel;
+    public string url;
 
     public void  UpdateValues(int cores, int threads, float topClock, float botClock, string socket, float manProcess, float l3Cache, float tdp)
     {

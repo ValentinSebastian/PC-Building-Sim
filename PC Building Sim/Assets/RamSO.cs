@@ -14,6 +14,7 @@ public class RamSO : ScriptableObject
     public float voltage;
     public float frequency;
     public GameObject ramModel;
+    public string url;
 
     public void UpdateValues(float cPrice, string memoryType, int memorySize, float latency, float voltage, float frequency)
     {

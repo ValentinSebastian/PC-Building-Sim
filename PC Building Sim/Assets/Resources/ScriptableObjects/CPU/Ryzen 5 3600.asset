@@ -24,3 +24,4 @@ MonoBehaviour:
   l3Cache: 32
   tdp: 65
   cpuModel: {fileID: 6076665247940934171, guid: c5daef5a91f95034291ffae18b3020a8, type: 3}
+  url: https://www.amd.com/en/products/cpu/amd-ryzen-5-3600
