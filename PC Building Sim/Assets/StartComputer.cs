@@ -23,14 +23,14 @@ public class StartComputer : MonoBehaviour
             {
                 if (computerStatus.TryStart())
                 {
-                    score.GetComponent<ScoreController>().UpdateScores();
-                    scoreForSave.GetComponent<ScoreController>().UpdateScores();
                     scoreCanvas.GetComponent<Canvas>().enabled = true;
                     uiCanvas.GetComponent<Canvas>().enabled = false;
                     player.GetComponent<PlayerStatus>().isWatchingShop = true;
                     Cursor.lockState = CursorLockMode.None;
                     computerStatus.StartComputerAnimations(true);
                     computerStatus.StartComputerSounds(true);
+                    score.GetComponent<ScoreController>().UpdateScores();
+                    //scoreForSave.GetComponent<ScoreController>().UpdateScores();
                 }
                 else
                 {

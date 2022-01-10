@@ -29,10 +29,12 @@ public class ComputerStatus : MonoBehaviour
     public float cpuPerformance;
     public float ramPerformance;
     public float totalPerformance;
+    public float valuePerformance;
     private const float averageComponentPerformancePercent = 50f;
     public Image ComputerStatusDisplay;
     public bool CSD_Hidden = true;
     private bool computerRunning = false;
+    public GameObject totalPriceShopObject;
     public TMPro.TextMeshProUGUI cpuStatusTextbox;
     public TMPro.TextMeshProUGUI gpuStatusTextbox;
     public TMPro.TextMeshProUGUI moboStatusTextbox;
@@ -45,9 +47,7 @@ public class ComputerStatus : MonoBehaviour
     public bool HasRam2 { get => hasRam2; set => hasRam2 = value; }
     public bool HasRam3 { get => hasRam3; set => hasRam3 = value; }
     public bool HasRam4 { get => hasRam4; set => hasRam4 = value; }
-
     public bool HasCpu { get => hasCpu; set => hasCpu = value; }
-
     public bool HasCooler { get => hasCooler; set => hasCooler = value; }
 
     public GameObject monitorScreen;
@@ -190,14 +190,41 @@ public class ComputerStatus : MonoBehaviour
             return false;
     }
 
+    public int GetMountedRamNumber()
+    {
+        int mountedRamNr = 0;
+        if (mountedRam1 != null)
+            mountedRamNr++;
+        if (mountedRam2 != null)
+            mountedRamNr++;
+        if (mountedRam3 != null)
+            mountedRamNr++;
+        if (mountedRam4 != null)
+            mountedRamNr++;
+        return mountedRamNr;
+    }   
+    
+    public float GetMountedRamScoreMultiplier()
+    {
+        int temp = GetMountedRamNumber();
+        if (temp == 1)
+            return 1;
+        if (temp == 2)
+            return 1.75f;
+        if (temp == 3)
+            return 1.85f;
+        if (temp == 4)
+            return 2.2f;
+        return 1;
+    }
+
     public void CalculatePerformance()
     {
         CalculateCpuPerformance();
         CalculateGpuPerformance();
         CalculateRamPerformance();
         totalPerformance = (ramPerformance + cpuPerformance + gpuPerformance);
-        Debug.Log("mountedcpuname:" + mountedCpu.cpuSpecs.cName);
-        Debug.Log("moutedcpuscore:" + cpuPerformance);
+        CalculateValuePerformance();
     }
 
     public void CalculateRamPerformance()
@@ -205,6 +232,7 @@ public class ComputerStatus : MonoBehaviour
         ramPerformance = CalculatePercentWithMagnitude(mountedRam.ramSpecs.frequency, averageRam.frequency, 1);
         ramPerformance -= CalculatePercentWithMagnitude(mountedRam.ramSpecs.latency, averageRam.latency, 1);
         ramPerformance = averageComponentPerformancePercent + ramPerformance * averageComponentPerformancePercent;
+        ramPerformance *= GetMountedRamScoreMultiplier();
     }
     public void CalculateCpuPerformance()
     {
@@ -225,6 +253,11 @@ public class ComputerStatus : MonoBehaviour
         gpuPerformance = averageComponentPerformancePercent + gpuPerformance * averageComponentPerformancePercent;
     }
 
+    public void CalculateValuePerformance()
+    {
+        float totalPrice =  totalPriceShopObject.GetComponent<ShopComponentPage>().totalPrice;
+        valuePerformance = (totalPerformance * (float)100) / totalPrice;
+    }
     public float CalculatePercentWithMagnitude(float val1 , float val2 , float magnitude)
     {
         return ((val1 - val2) / val2) * magnitude;

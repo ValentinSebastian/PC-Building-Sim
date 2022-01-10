@@ -19,7 +19,7 @@ public class ShopComponentPage : ShopUI
     private float gpuPrice;
     private float ramPrice;
     private float mbPrice;
-    private float totalPrice;
+    public float totalPrice;
     public TMPro.TextMeshProUGUI totalPriceText;
 
 

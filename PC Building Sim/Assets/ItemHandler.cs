@@ -330,6 +330,8 @@ public class ItemHandler : MonoBehaviour
                     computerStatus.mountedRam1 = lastItemBeingPickedUp.GetComponent<RAM_Component>();
                     if (status)
                         lastItemBeingPickedUp.GetComponent<RAM_Component>().SetMountSlot(compLocation);
+                    else
+                        computerStatus.mountedRam1 = null;
 
                 }
                 else if (compLocation.name == "ramSlot2")
@@ -340,6 +342,8 @@ public class ItemHandler : MonoBehaviour
                     computerStatus.mountedRam2 = lastItemBeingPickedUp.GetComponent<RAM_Component>();
                     if (status)
                         lastItemBeingPickedUp.GetComponent<RAM_Component>().SetMountSlot(compLocation);
+                    else
+                        computerStatus.mountedRam2 = null;
                 }
                 else if (compLocation.name == "ramSlot3")
                 {
@@ -349,6 +353,8 @@ public class ItemHandler : MonoBehaviour
                     computerStatus.mountedRam3 = lastItemBeingPickedUp.GetComponent<RAM_Component>();
                     if (status)
                         lastItemBeingPickedUp.GetComponent<RAM_Component>().SetMountSlot(compLocation);
+                    else
+                        computerStatus.mountedRam3 = null;
                 }
                 else if (compLocation.name == "ramSlot4")
                 {
@@ -358,6 +364,8 @@ public class ItemHandler : MonoBehaviour
                     computerStatus.mountedRam4 = lastItemBeingPickedUp.GetComponent<RAM_Component>();
                     if (status)
                         lastItemBeingPickedUp.GetComponent<RAM_Component>().SetMountSlot(compLocation);
+                    else
+                        computerStatus.mountedRam4 = null;
                 }
                 break;
         }
