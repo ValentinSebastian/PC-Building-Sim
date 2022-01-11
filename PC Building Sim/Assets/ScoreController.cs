@@ -29,6 +29,21 @@ public class ScoreController : MonoBehaviour
         ramScore = 0;
         startScaling = true;
         totalScoreText.text = "Final Score: ";
+        valueScoreText.text = "";
+    }
+    public void UpdateScoresEfficient()
+    {
+        cs = GameObject.Find("MotherboardLocation").transform.parent.gameObject.GetComponent<ComputerStatus>();
+        gpuScoreText.text = cs.gpuPerformance.ToString("0.00");
+        gpuScoreText.color = ValueTextColor(cs.gpuPerformance, "gpu");
+        cpuScoreText.text = cs.cpuPerformance.ToString("0.00");
+        cpuScoreText.color = ValueTextColor(cs.cpuPerformance, "cpu");
+        ramScoreText.text = cs.ramPerformance.ToString("0.00");
+        ramScoreText.color = ValueTextColor(cs.ramPerformance, "ram");
+        totalScoreText.color = ValueTextColor(cs.totalPerformance, "final");
+        totalScoreText.text = "Final Score: " + cs.totalPerformance.ToString("0.00");
+        valueScoreText.color = ValueTextColor(cs.valuePerformance, "avg");
+        valueScoreText.text = cs.valuePerformance.ToString("0.00");
     }
 
     private void FixedUpdate()
@@ -56,10 +71,10 @@ public class ScoreController : MonoBehaviour
             if (gpuScore >= cs.gpuPerformance && cpuScore >= cs.cpuPerformance && ramScore >= cs.ramPerformance)
             {
                 startScaling = false;
-                totalScoreText.text = "Final Score: " + cs.totalPerformance.ToString("0.00");
                 totalScoreText.color = ValueTextColor(cs.totalPerformance, "final");
-                valueScoreText.text = cs.valuePerformance.ToString("0.00");
+                totalScoreText.text = "Final Score: " + cs.totalPerformance.ToString("0.00");
                 valueScoreText.color = ValueTextColor(cs.valuePerformance, "avg");
+                valueScoreText.text = cs.valuePerformance.ToString("0.00");
             }
         }      
     }

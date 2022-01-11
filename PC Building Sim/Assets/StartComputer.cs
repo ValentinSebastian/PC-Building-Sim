@@ -5,7 +5,7 @@ using UnityEngine;
 public class StartComputer : MonoBehaviour
 {
     private bool needsToCheck;
-    public ComputerStatus computerStatus;
+    private ComputerStatus computerStatus;
     public Canvas scoreCanvas;
     public Canvas uiCanvas;
     public GameObject score;
@@ -30,7 +30,7 @@ public class StartComputer : MonoBehaviour
                     computerStatus.StartComputerAnimations(true);
                     computerStatus.StartComputerSounds(true);
                     score.GetComponent<ScoreController>().UpdateScores();
-                    //scoreForSave.GetComponent<ScoreController>().UpdateScores();
+                    scoreForSave.GetComponent<ScoreController>().UpdateScoresEfficient();
                 }
                 else
                 {

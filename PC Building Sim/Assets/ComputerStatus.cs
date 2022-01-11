@@ -34,7 +34,7 @@ public class ComputerStatus : MonoBehaviour
     public Image ComputerStatusDisplay;
     public bool CSD_Hidden = true;
     private bool computerRunning = false;
-    public GameObject totalPriceShopObject;
+    public float totalPrice = 0;
     public TMPro.TextMeshProUGUI cpuStatusTextbox;
     public TMPro.TextMeshProUGUI gpuStatusTextbox;
     public TMPro.TextMeshProUGUI moboStatusTextbox;
@@ -53,7 +53,7 @@ public class ComputerStatus : MonoBehaviour
     public GameObject monitorScreen;
 
     private void Start()
-    {
+    {       
         averageCpu = ScriptableObject.CreateInstance<CpuSO>();
         averageGpu = ScriptableObject.CreateInstance<GpuSO>();
         averageRam = ScriptableObject.CreateInstance<RamSO>();
@@ -255,8 +255,24 @@ public class ComputerStatus : MonoBehaviour
 
     public void CalculateValuePerformance()
     {
-        float totalPrice =  totalPriceShopObject.GetComponent<ShopComponentPage>().totalPrice;
+        CalculateTotalPrice();
         valuePerformance = (totalPerformance * (float)100) / totalPrice;
+    }
+
+    public void CalculateTotalPrice()
+    {
+        totalPrice = 0;
+        totalPrice += mountedGpu.gpuSpecs.cPrice;
+        totalPrice += mountedCpu.cpuSpecs.cPrice;
+        totalPrice += mountedMotherboard.mbSpecs.cPrice;
+        if (mountedRam1 != null)
+            totalPrice += mountedRam1.ramSpecs.cPrice;
+        if (mountedRam2 != null)
+            totalPrice += mountedRam1.ramSpecs.cPrice;
+        if (mountedRam3 != null)
+            totalPrice += mountedRam1.ramSpecs.cPrice;
+        if (mountedRam4 != null)
+            totalPrice += mountedRam1.ramSpecs.cPrice;
     }
     public float CalculatePercentWithMagnitude(float val1 , float val2 , float magnitude)
     {

@@ -17,4 +17,10 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
     }
 
+    public void ResetAll()
+    {
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.Save();
+    }
+
 }
