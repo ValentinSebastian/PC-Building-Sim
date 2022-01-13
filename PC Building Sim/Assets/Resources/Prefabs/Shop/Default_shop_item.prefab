@@ -596,6 +596,7 @@ MonoBehaviour:
   itemSpec6: {fileID: 6881506356785527203}
   BuyButton: {fileID: 3888567175645556541}
   MoreInfoButton: {fileID: 5448887782278545243}
+  url: 
 --- !u!1 &4988398565080576423
 GameObject:
   m_ObjectHideFlags: 0
@@ -984,7 +985,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -23.8645, y: -11.666675}
+  m_AnchoredPosition: {x: -22.75, y: -11.667}
   m_SizeDelta: {x: 54.5, y: 11.202}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6629953627920925623

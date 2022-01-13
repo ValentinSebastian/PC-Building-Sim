@@ -13,33 +13,41 @@ public class ComputerStatus : MonoBehaviour
     private bool hasRam4;
     private bool hasCpu;
     private bool hasCooler;
-    public Motherboard_Component mountedMotherboard;
-    public GPU_Component mountedGpu;
-    public RAM_Component mountedRam;
-    public RAM_Component mountedRam1;
-    public RAM_Component mountedRam2;
-    public RAM_Component mountedRam3;
-    public RAM_Component mountedRam4;
-    public CPU_Component mountedCpu;
+    [System.NonSerialized] public Motherboard_Component mountedMotherboard;
+    [System.NonSerialized] public GPU_Component mountedGpu;
+    [System.NonSerialized] public RAM_Component mountedRam;
+    [System.NonSerialized] public RAM_Component mountedRam1;
+    [System.NonSerialized] public RAM_Component mountedRam2;
+    [System.NonSerialized] public RAM_Component mountedRam3;
+    [System.NonSerialized] public RAM_Component mountedRam4;
+    [System.NonSerialized] public CPU_Component mountedCpu;
     public Cooler_Component mountedCooler;
     private GpuSO averageGpu;
     private CpuSO averageCpu;
     private RamSO averageRam;
-    public float gpuPerformance;
-    public float cpuPerformance;
-    public float ramPerformance;
-    public float totalPerformance;
-    public float valuePerformance;
+    [System.NonSerialized] public float gpuPerformance;
+    [System.NonSerialized] public float cpuPerformance;
+    [System.NonSerialized] public float ramPerformance;
+    [System.NonSerialized] public float totalPerformance;
+    [System.NonSerialized] public float valuePerformance;
     private const float averageComponentPerformancePercent = 50f;
     public Image ComputerStatusDisplay;
+    public Image BuildingStepsDisplay;
     public bool CSD_Hidden = true;
     private bool computerRunning = false;
     public float totalPrice = 0;
+    private int counter = 0;
     public TMPro.TextMeshProUGUI cpuStatusTextbox;
     public TMPro.TextMeshProUGUI gpuStatusTextbox;
     public TMPro.TextMeshProUGUI moboStatusTextbox;
     public TMPro.TextMeshProUGUI ramStatusTextbox;
     public TMPro.TextMeshProUGUI fanStatusTextbox;
+
+    public TMPro.TextMeshProUGUI buildingStepsCpuTBox;
+    public TMPro.TextMeshProUGUI buildingStepsGpuTBox;
+    public TMPro.TextMeshProUGUI buildingStepsRamTBox;
+    public TMPro.TextMeshProUGUI buildingStepsMoboTBox;
+    public TMPro.TextMeshProUGUI buildingStepsFanTBox;
 
     public bool HasGpu { get => hasGpu; set => hasGpu = value; }
     public bool HasMotherboard { get => hasMotherboard; set => hasMotherboard = value; }
@@ -52,6 +60,7 @@ public class ComputerStatus : MonoBehaviour
 
     public GameObject monitorScreen;
 
+    FontStyle tempFont;
     private void Start()
     {       
         averageCpu = ScriptableObject.CreateInstance<CpuSO>();
@@ -65,69 +74,100 @@ public class ComputerStatus : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.H))
-        {
-            if (CSD_Hidden)
+        {           
+            if(counter == 0)
             {
                 ComputerStatusDisplay.transform.LeanMoveX(ComputerStatusDisplay.transform.position.x - ComputerStatusDisplay.rectTransform.rect.width * 2, 0.3f);
                 CSD_Hidden = false;
-                Debug.Log("WTF1");
             }
-            else
+            else if (counter == 1)
+            {
+                BuildingStepsDisplay.transform.LeanMoveX(BuildingStepsDisplay.transform.position.x + BuildingStepsDisplay.rectTransform.rect.width * 2, 0.3f);
+                CSD_Hidden = false;
+            }
+            else if(counter == 2)
+            {
+                BuildingStepsDisplay.transform.LeanMoveX(BuildingStepsDisplay.transform.position.x - BuildingStepsDisplay.rectTransform.rect.width * 2, 0.3f);
+                CSD_Hidden = true;
+            }
+            else if(counter == 3)
             {
                 ComputerStatusDisplay.transform.LeanMoveX(ComputerStatusDisplay.transform.position.x + ComputerStatusDisplay.rectTransform.rect.width * 2, 0.3f);
-                CSD_Hidden = true;
-                Debug.Log("WTF2");
             }
+            counter++;
+            if (counter > 3)
+                counter = 0;
         }
         if (HasCpu)
         {
             cpuStatusTextbox.text = "Connected";
             cpuStatusTextbox.color = Color.green;
+            buildingStepsCpuTBox.color = Color.grey;
+            buildingStepsCpuTBox.fontStyle = TMPro.FontStyles.Strikethrough;
+
         }
         else
         {
             cpuStatusTextbox.text = "NOT CONNECTED";
             cpuStatusTextbox.color = Color.red;
+            buildingStepsCpuTBox.color = Color.white;
+            buildingStepsCpuTBox.fontStyle = TMPro.FontStyles.Bold;
         }
         if (HasGpu)
         {
             gpuStatusTextbox.text = "Connected";
             gpuStatusTextbox.color = Color.green;
+            buildingStepsGpuTBox.color = Color.grey;
+            buildingStepsGpuTBox.fontStyle = TMPro.FontStyles.Strikethrough;
         }
         else
         {
             gpuStatusTextbox.text = "NOT CONNECTED";
             gpuStatusTextbox.color = Color.red;
+            buildingStepsGpuTBox.color = Color.white;
+            buildingStepsGpuTBox.fontStyle = TMPro.FontStyles.Bold;
         }
         if (HasMotherboard)
         {
             moboStatusTextbox.text = "Connected";
             moboStatusTextbox.color = Color.green;
+            buildingStepsMoboTBox.color = Color.grey;
+            buildingStepsMoboTBox.fontStyle = TMPro.FontStyles.Strikethrough;
         }
         else
         {
             moboStatusTextbox.text = "NOT CONNECTED";
             moboStatusTextbox.color = Color.red;
+            buildingStepsMoboTBox.color = Color.white;
+            buildingStepsMoboTBox.fontStyle = TMPro.FontStyles.Bold;
         }
         if (HasRam1 || HasRam2 || HasRam3 || HasRam4)
         {
             ramStatusTextbox.text = "Connected";
             ramStatusTextbox.color = Color.green;
+            buildingStepsRamTBox.color = Color.grey;
+            buildingStepsRamTBox.fontStyle = TMPro.FontStyles.Strikethrough;
         }
         else
         {
             ramStatusTextbox.text = "NOT CONNECTED";
             ramStatusTextbox.color = Color.red;
+            buildingStepsRamTBox.color = Color.white;
+            buildingStepsRamTBox.fontStyle = TMPro.FontStyles.Bold;
         }
         if (HasCooler)
         {
             fanStatusTextbox.text = "Connected";
             fanStatusTextbox.color = Color.green;
+            buildingStepsFanTBox.color = Color.grey;
+            buildingStepsFanTBox.fontStyle = TMPro.FontStyles.Strikethrough;
         }
         else
         {
             fanStatusTextbox.text = "NOT CONNECTED";
             fanStatusTextbox.color = Color.red;
+            buildingStepsFanTBox.color = Color.white;
+            buildingStepsFanTBox.fontStyle = TMPro.FontStyles.Bold;
         }
     }
     public bool TryStart()
@@ -268,11 +308,11 @@ public class ComputerStatus : MonoBehaviour
         if (mountedRam1 != null)
             totalPrice += mountedRam1.ramSpecs.cPrice;
         if (mountedRam2 != null)
-            totalPrice += mountedRam1.ramSpecs.cPrice;
+            totalPrice += mountedRam2.ramSpecs.cPrice;
         if (mountedRam3 != null)
-            totalPrice += mountedRam1.ramSpecs.cPrice;
+            totalPrice += mountedRam3.ramSpecs.cPrice;
         if (mountedRam4 != null)
-            totalPrice += mountedRam1.ramSpecs.cPrice;
+            totalPrice += mountedRam4.ramSpecs.cPrice;
     }
     public float CalculatePercentWithMagnitude(float val1 , float val2 , float magnitude)
     {

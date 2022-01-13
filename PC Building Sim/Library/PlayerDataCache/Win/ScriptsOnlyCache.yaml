@@ -30,6 +30,7 @@ ScriptsOnlyBuild:
     - SaveScoreHandler
     - SavedScoresScreen
     - ScoreController
+    - ScoreUsedComponents
     - ShopComponentPage
     - ShopItem
     - ShopOpener
@@ -151,8 +152,6 @@ ScriptsOnlyBuild:
     - Class: 82
       Script: {instanceID: 0}
     - Class: 83
-      Script: {instanceID: 0}
-    - Class: 89
       Script: {instanceID: 0}
     - Class: 91
       Script: {instanceID: 0}
@@ -378,6 +377,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 2096}
     - Class: 114
+      Script: {instanceID: 2292}
+    - Class: 114
       Script: {instanceID: 2406}
     - Class: 114
       Script: {instanceID: 2558}
@@ -461,6 +462,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 6608}
     - Class: 114
       Script: {instanceID: 6906}
+    - Class: 114
+      Script: {instanceID: 46894}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -1375,7 +1378,7 @@ ScriptsOnlyBuild:
     className: AspectRatioFitter
   - hash:
       serializedVersion: 2
-      Hash: 3b459d2789eb205422216161948c89c5
+      Hash: 9153ce25f2e42dd7c755ce55d6e6797c
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: StartComputer
@@ -1489,7 +1492,7 @@ ScriptsOnlyBuild:
     className: ShopComponentPage
   - hash:
       serializedVersion: 2
-      Hash: 6d4506ab8ceb48180f212e3ea4acf14f
+      Hash: ced07f3a50e5e84ab2ccface7cab3253
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ComputerStatus
@@ -1757,6 +1760,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Following
+  - hash:
+      serializedVersion: 2
+      Hash: aba0e9d2de69ebf2a9a9dfdaff3af307
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ScoreUsedComponents
   platform: 5
   scenePathNames:
   - Assets/Scenes/MainMenuScene.unity

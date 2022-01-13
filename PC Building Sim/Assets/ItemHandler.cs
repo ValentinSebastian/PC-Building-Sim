@@ -66,7 +66,6 @@ public class ItemHandler : MonoBehaviour
                 placeImageRoot.gameObject.SetActive(false);
                 placeImageRoot.gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                 pickupImageRoot.gameObject.SetActive(true);
-                //Debug.Log("Item targeted : " + itemBeingPickedUp.gameObject.name);
                 if (pickupImageRoot.gameObject.transform.localScale.x < 1f)
                     pickupImageRoot.gameObject.transform.localScale += new Vector3(0.01f, 0.01f, 0.01f);
                 if (Input.GetButton("Fire1"))

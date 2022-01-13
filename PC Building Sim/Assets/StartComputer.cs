@@ -10,6 +10,7 @@ public class StartComputer : MonoBehaviour
     public Canvas uiCanvas;
     public GameObject score;
     public GameObject scoreForSave;
+    public GameObject scorePcComponents;
     public GameObject player;
     private void Start()
     {
@@ -31,6 +32,7 @@ public class StartComputer : MonoBehaviour
                     computerStatus.StartComputerSounds(true);
                     score.GetComponent<ScoreController>().UpdateScores();
                     scoreForSave.GetComponent<ScoreController>().UpdateScoresEfficient();
+                    scorePcComponents.GetComponent<ScoreUsedComponents>().UpdateScoreComponentsText();
                 }
                 else
                 {

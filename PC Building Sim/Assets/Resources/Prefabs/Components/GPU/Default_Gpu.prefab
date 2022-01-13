@@ -9,12 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 926675296950253867}
+  - component: {fileID: 926675296950253866}
+  - component: {fileID: 926675296950253865}
   - component: {fileID: 926675296950253878}
   - component: {fileID: 926675296950253879}
-  - component: {fileID: 926675296950253864}
-  - component: {fileID: 926675296950253865}
-  - component: {fileID: 926675296950253866}
   - component: {fileID: 926675296950253868}
+  - component: {fileID: 926675296950253864}
   m_Layer: 6
   m_Name: gpu_default_model
   m_TagString: GPU
@@ -48,6 +48,51 @@ Transform:
   m_Father: {fileID: 5584481548834108397}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 87.412, z: 0}
+--- !u!114 &926675296950253866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 926675296950253869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0efda1b8dfe9b394fa093a7e35b7598b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camera: {fileID: 0}
+  pickupTime: 1
+  pickupImageRoot: {fileID: 0}
+  placeImageRoot: {fileID: 0}
+  pickupProgressImage: {fileID: 0}
+  layerMaskComponent:
+    serializedVersion: 2
+    m_Bits: 64
+  layerMaskLocation:
+    serializedVersion: 2
+    m_Bits: 128
+  theDestination: {fileID: 0}
+  pickupCooldown: 0
+  thePlayer: {fileID: 0}
+  itemNameText: {fileID: 0}
+--- !u!114 &926675296950253865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 926675296950253869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 3.15
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!54 &926675296950253878
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -77,6 +122,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.2680383, y: 1.1754792, z: 7.206261}
   m_Center: {x: 0.15357676, y: 0.0877392, z: 0.0818858}
+--- !u!114 &926675296950253868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 926675296950253869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e1687a1fae13d346bdd621c2c8eef85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gpuSpecs: {fileID: 0}
 --- !u!23 &926675296950253864
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -119,64 +177,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &926675296950253865
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 926675296950253869}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineMode: 0
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 3.15
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
---- !u!114 &926675296950253866
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 926675296950253869}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0efda1b8dfe9b394fa093a7e35b7598b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  camera: {fileID: 0}
-  pickupTime: 1
-  pickupImageRoot: {fileID: 0}
-  placeImageRoot: {fileID: 0}
-  pickupProgressImage: {fileID: 0}
-  layerMaskComponent:
-    serializedVersion: 2
-    m_Bits: 64
-  layerMaskLocation:
-    serializedVersion: 2
-    m_Bits: 128
-  theDestination: {fileID: 0}
-  pickupCooldown: 0
-  thePlayer: {fileID: 0}
-  itemNameText: {fileID: 0}
---- !u!114 &926675296950253868
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 926675296950253869}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e1687a1fae13d346bdd621c2c8eef85, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gpuSpecs: {fileID: 0}
 --- !u!1 &5584481546897909044
 GameObject:
   m_ObjectHideFlags: 0
