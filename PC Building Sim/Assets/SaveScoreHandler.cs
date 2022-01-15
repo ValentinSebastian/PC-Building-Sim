@@ -7,14 +7,12 @@ using UnityEngine.Rendering;
 public class SaveScoreHandler : MonoBehaviour
 {
     private Camera scoreScreenshotCamera;
-    private static SaveScoreHandler instance;
     private bool takeScreenshot;
     private int counter;
 
     private void Awake()
     {
         counter = PlayerPrefs.GetInt("ScoreCounter" , 0);
-        instance = this;
         scoreScreenshotCamera = gameObject.GetComponent<Camera>();
     }
     void OnEnable()

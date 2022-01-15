@@ -60,7 +60,6 @@ public class ComputerStatus : MonoBehaviour
 
     public GameObject monitorScreen;
 
-    FontStyle tempFont;
     private void Start()
     {       
         averageCpu = ScriptableObject.CreateInstance<CpuSO>();
