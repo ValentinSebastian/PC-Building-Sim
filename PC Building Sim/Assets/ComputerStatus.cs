@@ -13,6 +13,8 @@ public class ComputerStatus : MonoBehaviour
     private bool hasRam4;
     private bool hasCpu;
     private bool hasCooler;
+    public bool somethingChanged;
+    public GameObject hintArrow;
     [System.NonSerialized] public Motherboard_Component mountedMotherboard;
     [System.NonSerialized] public GPU_Component mountedGpu;
     [System.NonSerialized] public RAM_Component mountedRam;
@@ -168,14 +170,32 @@ public class ComputerStatus : MonoBehaviour
             buildingStepsFanTBox.color = Color.white;
             buildingStepsFanTBox.fontStyle = TMPro.FontStyles.Bold;
         }
+        if(somethingChanged)
+        {
+            if (LightTryStart())
+                hintArrow.SetActive(true);
+            else if (hintArrow.activeSelf == true)
+                hintArrow.SetActive(false);
+
+            somethingChanged = false;
+        }
     }
     public bool TryStart()
-    {
-        //temporary , need to add component compatibility check
+    {       
         if (hasCpu && hasGpu && hasMotherboard && HasCooler && (hasRam1 || hasRam2 || hasRam3 || hasRam4))
         {
             CalculatePerformance();
             monitorScreen.GetComponent<MonitorDisplay>().SetStartComputerMaterial();
+            return true;
+        }
+        else
+            return false;
+    }
+
+    public bool LightTryStart()
+    {       
+        if (hasCpu && hasGpu && hasMotherboard && HasCooler && (hasRam1 || hasRam2 || hasRam3 || hasRam4))
+        {
             return true;
         }
         else
@@ -199,6 +219,7 @@ public class ComputerStatus : MonoBehaviour
     }
     public void StartComputerSounds(bool state)
     {
+        mountedCooler.GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat("Volume" , 1.0f);
         if (mountedCooler.GetComponent<AudioSource>().isPlaying && state)
             return;
         else
@@ -247,14 +268,24 @@ public class ComputerStatus : MonoBehaviour
     {
         int temp = GetMountedRamNumber();
         if (temp == 1)
-            return 1;
+            return 0.2f;
         if (temp == 2)
-            return 1.75f;
+            return 0.4f;
         if (temp == 3)
-            return 1.85f;
+            return 0.6f;
         if (temp == 4)
-            return 2.2f;
+            return 0.8f;
         return 1;
+    }
+
+    public bool CheckRamDualChannel()
+    {
+        if (mountedRam1 != null && mountedRam3 != null)
+            return true;
+        if (mountedRam2 != null && mountedRam4 != null)
+            return true;
+
+        return false;
     }
 
     public void CalculatePerformance()
@@ -268,27 +299,49 @@ public class ComputerStatus : MonoBehaviour
 
     public void CalculateRamPerformance()
     {
-        ramPerformance = CalculatePercentWithMagnitude(mountedRam.ramSpecs.frequency, averageRam.frequency, 1);
-        ramPerformance -= CalculatePercentWithMagnitude(mountedRam.ramSpecs.latency, averageRam.latency, 1);
-        ramPerformance = averageComponentPerformancePercent + ramPerformance * averageComponentPerformancePercent;
-        ramPerformance *= GetMountedRamScoreMultiplier();
+        float variableMemory = mountedRam.ramSpecs.frequency;
+        int memoryMaxFrequency = int.Parse(mountedMotherboard.mbSpecs.memoryMaxFrequency);
+        if (mountedRam.ramSpecs.frequency > memoryMaxFrequency)
+            variableMemory = memoryMaxFrequency;
+
+        ramPerformance = CalculateScoreWithMagnitude(variableMemory, averageRam.frequency, 1);
+        ramPerformance -= CalculateScoreWithMagnitude(mountedRam.ramSpecs.latency,averageRam.latency, 0.2f);
+        ramPerformance = averageComponentPerformancePercent/1.3f + ramPerformance * averageComponentPerformancePercent;
+        ramPerformance += Mathf.Abs(ramPerformance) * GetMountedRamScoreMultiplier();
+        if (CheckRamDualChannel())
+            ramPerformance += Mathf.Abs(ramPerformance) * 0.4f;          
+        Debug.LogWarning(ramPerformance);
+        
     }
     public void CalculateCpuPerformance()
     {
-        cpuPerformance = CalculatePercentWithMagnitude(mountedCpu.cpuSpecs.cores * mountedCpu.cpuSpecs.botClock, averageCpu.cores * averageCpu.botClock , 0.5f);
-        cpuPerformance += CalculatePercentWithMagnitude(mountedCpu.cpuSpecs.cores * mountedCpu.cpuSpecs.topClock, averageCpu.cores * averageCpu.topClock, 0.5f);
-        cpuPerformance += CalculatePercentWithMagnitude(mountedCpu.cpuSpecs.l3Cache , averageCpu.l3Cache, 0.3f);
+        float ramInfluence = 1;
+        if(!CheckRamDualChannel())
+        {
+            if (mountedCpu.cpuSpecs.manufacturer == "AMD")
+                ramInfluence = 0.7f;
+            else
+                ramInfluence = 0.9f;
+        }
+        cpuPerformance = CalculateScoreWithMagnitude(mountedCpu.cpuSpecs.cores * mountedCpu.cpuSpecs.botClock, averageCpu.cores * averageCpu.botClock , 0.4f);
+        cpuPerformance += CalculateScoreWithMagnitude(mountedCpu.cpuSpecs.cores * mountedCpu.cpuSpecs.topClock, averageCpu.cores * averageCpu.topClock, 0.5f);
+        cpuPerformance += CalculateScoreWithMagnitude(mountedCpu.cpuSpecs.l3Cache , averageCpu.l3Cache, 0.3f);
         cpuPerformance = averageComponentPerformancePercent + cpuPerformance * averageComponentPerformancePercent;
+        cpuPerformance *= ramInfluence;
     }
 
     public void CalculateGpuPerformance()
     {
         float memoryDiminishingReturns = 0.5f;
-        if (mountedGpu.gpuSpecs.memory.size > 8)
+        if (mountedGpu.gpuSpecs.memory.size <= 3)
+            memoryDiminishingReturns = 0.7f;
+        if (mountedGpu.gpuSpecs.memory.size >= 6)
+            memoryDiminishingReturns = 0.3f;
+        if (mountedGpu.gpuSpecs.memory.size >= 8)
             memoryDiminishingReturns = 0.2f;
-        gpuPerformance = CalculatePercentWithMagnitude(mountedGpu.gpuSpecs.memory.size, averageGpu.memory.size, memoryDiminishingReturns);
-        gpuPerformance += CalculatePercentWithMagnitude(mountedGpu.gpuSpecs.shaderCount, averageGpu.shaderCount, 0.3f);
-        gpuPerformance += CalculatePercentWithMagnitude(mountedGpu.gpuSpecs.coreClock, averageGpu.coreClock, 0.3f);
+        gpuPerformance = CalculateScoreWithMagnitude(mountedGpu.gpuSpecs.memory.size, averageGpu.memory.size, memoryDiminishingReturns);
+        gpuPerformance += CalculateScoreWithMagnitude(mountedGpu.gpuSpecs.shaderCount, averageGpu.shaderCount, 0.4f);
+        gpuPerformance += CalculateScoreWithMagnitude(mountedGpu.gpuSpecs.coreClock, averageGpu.coreClock, 0.3f);
         gpuPerformance = averageComponentPerformancePercent + gpuPerformance * averageComponentPerformancePercent;
     }
 
@@ -313,7 +366,7 @@ public class ComputerStatus : MonoBehaviour
         if (mountedRam4 != null)
             totalPrice += mountedRam4.ramSpecs.cPrice;
     }
-    public float CalculatePercentWithMagnitude(float val1 , float val2 , float magnitude)
+    public float CalculateScoreWithMagnitude(float val1 , float val2 , float magnitude)
     {
         return ((val1 - val2) / val2) * magnitude;
     }

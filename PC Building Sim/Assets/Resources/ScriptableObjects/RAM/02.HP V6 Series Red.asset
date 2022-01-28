@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57296c02c88aaf24e8f737b176025dea, type: 3}
+  m_Name: 02.HP V6 Series Red
+  m_EditorClassIdentifier: 
+  cName: HP V6 Series Red
+  manufacturer: HP
+  cPrice: 25
+  memoryType: DDR4
+  memorySize: 8
+  latency: 18
+  voltage: 1.2
+  frequency: 2666
+  ramModel: {fileID: 6538967099655520625, guid: bfae06a9bb8efda4abf52ed606eeab33, type: 3}
+  url: https://ssdhp.com/2019/11/26/hp-v6-ddr4-u-dimm/

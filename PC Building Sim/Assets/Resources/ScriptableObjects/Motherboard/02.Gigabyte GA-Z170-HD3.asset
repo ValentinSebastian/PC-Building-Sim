@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a71bc7b320ecb3f458479e0994829566, type: 3}
+  m_Name: 02.Gigabyte GA-Z170-HD3
+  m_EditorClassIdentifier: 
+  cName: Gigabyte GA-Z170-HD3
+  manufacturer: Gigabyte
+  cPrice: 115
+  cpuSocket: 1151
+  formFactor: 'ATX '
+  memorySlots: 4
+  memoryType: DDR3
+  memoryMaxFrequency: 3200
+  memoryMax: 64
+  audioChip: "Realtek\xAE ALC887 codec"
+  m2Slots: 1
+  pci_eSlots: '1 x PCI Express x16 '
+  motherboardModel: {fileID: 1849467163338420249, guid: 094431aca52610b4ba519ae730f3814e, type: 3}
+  url: https://www.gigabyte.com/Motherboard/GA-Z170-HD3-DDR3-rev-10/sp#sp

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 832184aeedad0d742a924bc9a926ac8b, type: 3}
+  m_Name: 07.Radeon RX 6800 XT
+  m_EditorClassIdentifier: 
+  cName: Radeon RX 6800XT
+  manufacturer: AMD
+  cPrice: 650
+  pci_eSlot: PCIe 4.0 x16
+  coreClock: 1825
+  shaderCount: 4608
+  memory:
+    size: 16
+    type: GDDR6
+    bandwidth: 256
+    clock: 2000
+  gpuModel: {fileID: 8668367239224385387, guid: 78eb9192394aaca418804b2732ddbc24, type: 3}
+  url: https://www.amd.com/en/products/graphics/amd-radeon-rx-6800-xt

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 713181a0f63e8b54cbf26f60b850c9ce, type: 3}
+  m_Name: 07.Core i7-10700K
+  m_EditorClassIdentifier: 
+  cName: Core i7-10700k
+  manufacturer: Intel
+  cPrice: 480
+  cores: 8
+  threads: 16
+  botClock: 3.8
+  topClock: 5.1
+  socket: 1200
+  manProcess: 14
+  l3Cache: 16
+  tdp: 125
+  cpuModel: {fileID: 6076665247940934171, guid: c5daef5a91f95034291ffae18b3020a8, type: 3}
+  url: https://ark.intel.com/content/www/us/en/ark/products/199335/intel-core-i710700k-processor-16m-cache-up-to-5-10-ghz.html

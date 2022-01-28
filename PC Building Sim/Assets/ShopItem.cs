@@ -26,5 +26,5 @@ public class ShopItem : MonoBehaviour
         itemName.text = _iName;
         itemPrice.text = _iPrice;
         itemId.text = _itemId;
-    }
+    }   
 }

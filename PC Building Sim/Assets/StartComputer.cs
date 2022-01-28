@@ -12,6 +12,7 @@ public class StartComputer : MonoBehaviour
     public GameObject scoreForSave;
     public GameObject scorePcComponents;
     public GameObject player;
+    public GameObject arrowHint;
     private void Start()
     {
         computerStatus = GameObject.Find("MotherboardLocation").transform.parent.gameObject.GetComponent<ComputerStatus>();
@@ -33,6 +34,7 @@ public class StartComputer : MonoBehaviour
                     score.GetComponent<ScoreController>().UpdateScores();
                     scoreForSave.GetComponent<ScoreController>().UpdateScoresEfficient();
                     scorePcComponents.GetComponent<ScoreUsedComponents>().UpdateScoreComponentsText();
+                    arrowHint.SetActive(false);
                 }
                 else
                 {

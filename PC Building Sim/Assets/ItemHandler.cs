@@ -328,7 +328,11 @@ public class ItemHandler : MonoBehaviour
                     computerStatus.HasRam1 = status;
                     computerStatus.mountedRam1 = lastItemBeingPickedUp.GetComponent<RAM_Component>();
                     if (status)
+                    {
                         lastItemBeingPickedUp.GetComponent<RAM_Component>().SetMountSlot(compLocation);
+                        if (computerStatus.ComputerIsRunning())
+                            computerStatus.StopComputer();
+                    }
                     else
                         computerStatus.mountedRam1 = null;
 
@@ -340,7 +344,11 @@ public class ItemHandler : MonoBehaviour
                     computerStatus.HasRam2 = status;
                     computerStatus.mountedRam2 = lastItemBeingPickedUp.GetComponent<RAM_Component>();
                     if (status)
+                    {
                         lastItemBeingPickedUp.GetComponent<RAM_Component>().SetMountSlot(compLocation);
+                        if (computerStatus.ComputerIsRunning())
+                            computerStatus.StopComputer();
+                    }
                     else
                         computerStatus.mountedRam2 = null;
                 }
@@ -351,7 +359,11 @@ public class ItemHandler : MonoBehaviour
                     computerStatus.HasRam3 = status;
                     computerStatus.mountedRam3 = lastItemBeingPickedUp.GetComponent<RAM_Component>();
                     if (status)
+                    {
                         lastItemBeingPickedUp.GetComponent<RAM_Component>().SetMountSlot(compLocation);
+                        if (computerStatus.ComputerIsRunning())
+                            computerStatus.StopComputer();
+                    }
                     else
                         computerStatus.mountedRam3 = null;
                 }
@@ -362,7 +374,11 @@ public class ItemHandler : MonoBehaviour
                     computerStatus.HasRam4 = status;
                     computerStatus.mountedRam4 = lastItemBeingPickedUp.GetComponent<RAM_Component>();
                     if (status)
+                    {
                         lastItemBeingPickedUp.GetComponent<RAM_Component>().SetMountSlot(compLocation);
+                        if (computerStatus.ComputerIsRunning())
+                            computerStatus.StopComputer();
+                    }
                     else
                         computerStatus.mountedRam4 = null;
                 }
@@ -377,6 +393,7 @@ public class ItemHandler : MonoBehaviour
         else
             Debug.Log("Modified status of " + compLocation.name + " to " + status);
 
+        computerStatus.somethingChanged = true;
         return true;
     }
 

@@ -29,5 +29,6 @@ public class CpuSO : ScriptableObject
         this.manProcess = manProcess;
         this.l3Cache = l3Cache;
         this.tdp = tdp;
+        //(6, 12, 4, 3, "any", 14, 12, 65);
     }
 }

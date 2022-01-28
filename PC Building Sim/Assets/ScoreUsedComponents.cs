@@ -15,10 +15,10 @@ public class ScoreUsedComponents : MonoBehaviour
     public void UpdateScoreComponentsText()
     {
         ComputerStatus cs = computer.GetComponent<ComputerStatus>();
-        usedCpuTBox.text = cs.mountedCpu.cpuSpecs.name;
-        usedGpuTBox.text = cs.mountedGpu.gpuSpecs.name;
-        usedRamTBox.text = cs.mountedRam.ramSpecs.name + " x" + cs.GetMountedRamNumber().ToString();
-        usedMoboTBox.text = cs.mountedMotherboard.mbSpecs.name;
-        totalPrice.text += "  " + cs.totalPrice.ToString() + "$";
+        usedCpuTBox.text = cs.mountedCpu.cpuSpecs.cName;
+        usedGpuTBox.text = cs.mountedGpu.gpuSpecs.cName;
+        usedRamTBox.text = cs.mountedRam.ramSpecs.cName + " x" + cs.GetMountedRamNumber().ToString();
+        usedMoboTBox.text = cs.mountedMotherboard.mbSpecs.cName;
+        totalPrice.text = "Total Price: " + cs.totalPrice.ToString() + "$";
     }
 }

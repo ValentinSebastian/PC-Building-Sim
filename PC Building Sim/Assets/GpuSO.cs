@@ -24,7 +24,7 @@ public class GpuSO : ScriptableObject
             type = _type;
             bandwidth = _bandwidth;
             clock = _clock;
-        }
+        }//memorySpecs(6, "GDDR6", 192, 1300)
     }
 
     public memorySpecs memory;

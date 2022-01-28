@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 832184aeedad0d742a924bc9a926ac8b, type: 3}
+  m_Name: 08.GeForce RTX 3080
+  m_EditorClassIdentifier: 
+  cName: GeForce RTX 3080
+  manufacturer: Nvidia
+  cPrice: 699
+  pci_eSlot: PCIe 4.0 x16
+  coreClock: 1440
+  shaderCount: 8704
+  memory:
+    size: 12
+    type: GDDR6X
+    bandwidth: 384
+    clock: 1900
+  gpuModel: {fileID: 221820706104973003, guid: 955a00383c881bf45bbf05e554f456d6, type: 3}
+  url: https://www.nvidia.com/ro-ro/geforce/graphics-cards/30-series/rtx-3080-3080ti/

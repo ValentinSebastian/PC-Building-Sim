@@ -82,10 +82,9 @@ public class ScoreController : MonoBehaviour
 
     public Color ValueTextColor(float value, string type)
     {
-        //80 50 80
-        float avCpu = 65;
-        float avGpu = 50;
-        float avRam = 80;
+        float avCpu = 55;
+        float avGpu = 45;
+        float avRam = 60;
         float avPrice = 8f; // 800 dar impartit la 100
         if (type == "cpu")
         {

@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a71bc7b320ecb3f458479e0994829566, type: 3}
+  m_Name: 03.MSI B450 GAMING PLUS MAX
+  m_EditorClassIdentifier: 
+  cName: MSI B450 GAMING PLUS MAX
+  manufacturer: MSI
+  cPrice: 120
+  cpuSocket: AM4
+  formFactor: ATX
+  memorySlots: 4
+  memoryType: DDR4
+  memoryMaxFrequency: 4133
+  memoryMax: 64
+  audioChip: Realtek ALC892 Codec
+  m2Slots: 1
+  pci_eSlots: 1 x PCI-E 3.0 x16
+  motherboardModel: {fileID: 1411055371312090723, guid: 2f1598cefb91a8d43a2b3bba23101b24, type: 3}
+  url: https://www.msi.com/Motherboard/B450-GAMING-PLUS-MAX
